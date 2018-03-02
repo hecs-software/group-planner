@@ -29,7 +29,7 @@ The following **stretch** user stories are implemented:
 
 The following **additional** user stories are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality! (+1-3pts)
+- [ ] List anything else that you can get done to improve the app functionality
 
 
 ## Demo-centric Planning
