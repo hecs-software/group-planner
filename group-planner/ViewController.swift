@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AlamofireImage
+import ParseUI
 
 class ViewController: UIViewController {
 
