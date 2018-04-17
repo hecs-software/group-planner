@@ -20,5 +20,7 @@ target 'group-planner' do
 	pod 'AlamofireImage'
 	pod 'Parse'
 	pod 'ParseUI'
+        pod 'GoogleAPIClientForREST/Calendar', '~> 1.2.1'
+        pod 'GoogleSignIn', '~> 4.1.1'
 
 end

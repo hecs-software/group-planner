@@ -16,6 +16,7 @@
 		9D1965FF2049187B00A8BEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D1965FD2049187B00A8BEB6 /* LaunchScreen.storyboard */; };
 		9D19660A2049187B00A8BEB6 /* group_plannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1966092049187B00A8BEB6 /* group_plannerTests.swift */; };
 		9D1966152049187B00A8BEB6 /* group_plannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1966142049187B00A8BEB6 /* group_plannerUITests.swift */; };
+		9D9F59A2208581E900909D09 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F59A1208581E900909D09 /* LoginViewController.swift */; };
 		B2D56824677F7C7717AA55F4 /* Pods_group_plannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1BB677E617D5E7E30A939E /* Pods_group_plannerTests.framework */; };
 		C7DC17F36F54D306578558FD /* Pods_group_planner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908C5AFDA979F23F2D3ACDBE /* Pods_group_planner.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		9D1966102049187B00A8BEB6 /* group-plannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "group-plannerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1966142049187B00A8BEB6 /* group_plannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = group_plannerUITests.swift; sourceTree = "<group>"; };
 		9D1966162049187B00A8BEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D9F59A1208581E900909D09 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC5E1B2FFD8DB24E8A3EB2F2 /* Pods-group-plannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerTests/Pods-group-plannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E84CB903DD2E7C955EBD43ED /* Pods_group_plannerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_plannerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98347500922F12B056EA488 /* Pods-group-plannerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerUITests/Pods-group-plannerUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				9D1965FD2049187B00A8BEB6 /* LaunchScreen.storyboard */,
 				9D1966002049187B00A8BEB6 /* Info.plist */,
 				47E5A1D62063CB8D0054546D /* Extensions.swift */,
+				9D9F59A1208581E900909D09 /* LoginViewController.swift */,
 			);
 			path = "group-planner";
 			sourceTree = "<group>";
@@ -343,9 +346,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-group-planner/Pods-group-planner-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -428,6 +434,10 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/ParseUI/ParseUI.framework",
 			);
@@ -436,6 +446,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseUI.framework",
 			);
@@ -469,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D9F59A2208581E900909D09 /* LoginViewController.swift in Sources */,
 				9D1965F72049187B00A8BEB6 /* ViewController.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
 				9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */,
