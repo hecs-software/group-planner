@@ -20,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // Initialize Google sign-in.
         GIDSignIn.sharedInstance().clientID = "993043262209-vmlhvgst7ai43t14j4h9ft3a7h59n8kv.apps.googleusercontent.com"
+        
+        Parse.initialize(with: ParseClientConfiguration(block: { (configuration) in
+            configuration.applicationId = "GroupPlanner"
+            configuration.clientKey = "qrewouyfsdlajhlfdzmbkmdfzpotykj4ep9ut602ujtopasjgir"
+            configuration.server = "http://group-planner.herokuapp.com/parse"
+        }))
+
         return true
     }
     

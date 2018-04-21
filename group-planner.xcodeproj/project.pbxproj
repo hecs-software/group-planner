@@ -93,6 +93,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47A01944208AD17300324491 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		47A01945208AD17E00324491 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		47A01946208AD18B00324491 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		47A01947208AD91900324491 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		9D1965E82049187B00A8BEB6 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +146,10 @@
 		9D1965F32049187B00A8BEB6 /* group-planner */ = {
 			isa = PBXGroup;
 			children = (
+				47A01947208AD91900324491 /* Views */,
+				47A01946208AD18B00324491 /* NetworkLayer */,
+				47A01945208AD17E00324491 /* ViewControllers */,
+				47A01944208AD17300324491 /* Models */,
 				9D1965F42049187B00A8BEB6 /* AppDelegate.swift */,
 				9D1965F62049187B00A8BEB6 /* ViewController.swift */,
 				9D1965F82049187B00A8BEB6 /* Main.storyboard */,
@@ -351,7 +383,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
