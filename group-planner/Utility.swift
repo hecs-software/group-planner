@@ -30,4 +30,24 @@ class NetworkUtility {
             }
         }
     }
+    
+    static func request(url: URL, completion: @escaping ([String:Any]?, Error?) -> Void) {
+        Alamofire.request(url)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .failure(let error):
+                    completion(nil, error)
+                    break;
+                case .success:
+                    guard let userDictionary = response.result.value as? [String: Any] else {
+                        print("Can't parse json")
+                        completion(nil, nil)
+                        return
+                    }
+                    
+                    completion(userDictionary, nil)
+                }
+        }
+    }
 }
