@@ -21,11 +21,11 @@ class Group: PFObject, PFSubclassing {
         let newGroup = Group()
         newGroup.groupMembers = []
         
-        let currentUser = PFUser.current() as! User
+        let currentUser = PFUser.current() as? User
         guard currentUser != nil else {return}
         
-        newGroup.creator = currentUser
-        newGroup.groupMembers.append(currentUser)
+        newGroup.creator = currentUser!
+        newGroup.groupMembers.append(currentUser!)
         
         newGroup.saveInBackground(block: completion)
     }

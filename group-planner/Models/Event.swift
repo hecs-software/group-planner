@@ -22,11 +22,11 @@ class Event: PFObject, PFSubclassing {
         let newEvent = Event()
         newEvent.usersGoing = []
         
-        let currentUser = PFUser.current() as! User
+        let currentUser = PFUser.current() as? User
         guard currentUser != nil else {return}
         
-        newEvent.creator = currentUser
-        newEvent.usersGoing.append(currentUser)
+        newEvent.creator = currentUser!
+        newEvent.usersGoing.append(currentUser!)
         
         newEvent.saveInBackground(block: completion)
     }
