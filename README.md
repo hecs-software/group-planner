@@ -10,15 +10,8 @@ Time spent: **X** hours spent in total
 
 The following **required** user stories are complete:
 
-- [ ] Users can create account, log in, and set preferences
-- [ ] Users can create Hangouts and invite friends 
-- [ ] Users can choose 2 actions for Hangouts: place to eat or movie to watch 
-- [ ] Users can choose to use default profile preferences or set new preferences
-  for specific hangout
-- [ ] Hangout will display list of options that matches the most preferences
-  within the Hangout
-- [ ] Food Hangout: Able to display a map with all of the suggested restaurants
-
+- [ ] Users can log in using Google Sign-In in the Login Page
+- [ ] Login Page has AutoLayout that adjusts with rotation
 
 The following **stretch** user stories are implemented:
 
