@@ -28,7 +28,7 @@ class EventInvitation: PFObject, PFSubclassing {
     }
     
     static func inviteUsers(requestees: [User], event: Event, completion: UsersInvitedResultBlock? = nil) {
-        let currentUser = PFUser.current() as! User
+        let currentUser = User.current()!
         var usersInvited = [User]()
         let dispatchGroup = DispatchGroup()
         var errors = [Error]()
@@ -58,5 +58,29 @@ class EventInvitation: PFObject, PFSubclassing {
                 completion?(usersInvited, errors)
             }
         }
+    }
+    
+    static func fetchEventInvitations(completion: @escaping EventInvitationsResultBlock) {
+        let currentUser = User.current()!
+        let query = EventInvitation.query()
+        query?.whereKey("requestee", equalTo: currentUser)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            else if let invitations = objects as? [EventInvitation] {
+                completion(invitations, nil)
+            }
+        })
+    }
+    
+    func acceptInvitation(completion: PFBooleanResultBlock? = nil) {
+        let currentUser = User.current()!
+        
+        // Add current user to the list of going people
+        self.event.usersGoing.append(currentUser)
+        self.event.saveInBackground(block: completion)
+        
+        self.deleteInBackground()
     }
 }
