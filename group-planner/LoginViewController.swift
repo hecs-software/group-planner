@@ -17,15 +17,18 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     private let scopes = [kGTLRAuthScopeCalendarReadonly]
     
     private let service = GTLRCalendarService()
-    let signInButton = GIDSignInButton()
-    let output = UITextView()
+    //let signInButton = GIDSignInButton()
 
+
+    @IBOutlet weak var signInText: UILabel!
+    @IBOutlet weak var signInButtonView: GIDSignInButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        GIDSignIn.sharedInstance().signOut()
+        signInText.isHidden = true 
+
         // Configure Google Sign-in.
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -33,16 +36,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         GIDSignIn.sharedInstance().signInSilently()
         
         // Add the sign-in button.
-        view.addSubview(signInButton)
-        
-        // Add a UITextView to display output.
-        output.frame = view.bounds
-        output.isEditable = false
-        output.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        output.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        output.isHidden = true
-        view.addSubview(output);
-
+        signInButtonView = GIDSignInButton()
     }
 
     
@@ -52,8 +46,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             showAlert(title: "Authentication Error", message: error.localizedDescription)
             self.service.authorizer = nil
         } else {
-            self.signInButton.isHidden = true
-            self.output.isHidden = false
+            //self.signInButton.isHidden = true
             self.service.authorizer = user.authentication.fetcherAuthorizer()
             fetchEvents()
         }
@@ -96,7 +89,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         } else {
             outputText = "No upcoming events found."
         }
-        output.text = outputText
+        print(outputText)
     }
     
     

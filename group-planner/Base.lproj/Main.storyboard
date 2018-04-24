@@ -18,27 +18,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="CS1-qZ-Mxn">
-                                <rect key="frame" x="92" y="83" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="CS1-qZ-Mxn">
+                                <rect key="frame" x="87" y="66" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="TAs-EK-vUK"/>
+                                    <constraint firstAttribute="width" constant="200" id="vTX-Qp-eAj"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Group Planner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwx-ZA-rn1">
-                                <rect key="frame" x="66" y="291" width="251" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Planner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwx-ZA-rn1">
+                                <rect key="frame" x="63" y="283" width="249" height="43"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="36"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXP-WT-YVR">
-                                <rect key="frame" x="100" y="347" width="175" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Sign in with Google"/>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sdg-HJ-s1C" customClass="GIDSignInButton">
+                                <rect key="frame" x="100" y="333" width="175" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in to Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BED-fg-QHl">
+                                        <rect key="frame" x="22" y="5" width="131" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BED-fg-QHl" firstAttribute="leading" secondItem="sdg-HJ-s1C" secondAttribute="leading" constant="22" id="9QM-cJ-Gwe"/>
+                                    <constraint firstAttribute="trailing" secondItem="BED-fg-QHl" secondAttribute="trailing" constant="22" id="jae-AF-I2i"/>
+                                    <constraint firstItem="BED-fg-QHl" firstAttribute="top" secondItem="sdg-HJ-s1C" secondAttribute="top" constant="5" id="lm8-Bg-osf"/>
+                                    <constraint firstAttribute="bottom" secondItem="BED-fg-QHl" secondAttribute="bottom" constant="4" id="zME-do-zk1"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sdg-HJ-s1C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3KR-h6-abI"/>
+                            <constraint firstItem="BED-fg-QHl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Pk-i1-ify"/>
+                            <constraint firstItem="sdg-HJ-s1C" firstAttribute="top" secondItem="Uwx-ZA-rn1" secondAttribute="bottom" constant="7" id="Lka-0O-uNf"/>
+                            <constraint firstItem="Uwx-ZA-rn1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N6j-fn-vOs"/>
+                            <constraint firstItem="Uwx-ZA-rn1" firstAttribute="top" secondItem="CS1-qZ-Mxn" secondAttribute="bottom" constant="17" id="Uea-6S-Rs7"/>
+                            <constraint firstItem="CS1-qZ-Mxn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="fsZ-r1-VQm"/>
+                            <constraint firstItem="CS1-qZ-Mxn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qh5-RI-PG8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="signInButtonView" destination="sdg-HJ-s1C" id="bq9-YI-6XT"/>
+                        <outlet property="signInText" destination="BED-fg-QHl" id="dfc-yb-vD7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
