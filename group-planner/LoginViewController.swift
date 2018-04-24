@@ -49,7 +49,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             //self.signInButton.isHidden = true
             self.service.authorizer = user.authentication.fetcherAuthorizer()
             fetchEvents()
+            parseLogin(user: user)
         }
+    }
+    
+    func parseLogin(user: GIDGoogleUser) {
+        User.oauthLogin(gidUser: user)
     }
     
     // Construct a query and get a list of upcoming events from the user calendar

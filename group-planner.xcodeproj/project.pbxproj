@@ -12,6 +12,9 @@
 		47827D5A208F120E005DDE85 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D59208F120E005DDE85 /* Event.swift */; };
 		47827D5C208F1218005DDE85 /* GroupInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D5B208F1218005DDE85 /* GroupInvitation.swift */; };
 		47827D5E208F1220005DDE85 /* EventInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D5D208F1220005DDE85 /* EventInvitation.swift */; };
+		47827D60208F19CA005DDE85 /* CompletionBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */; };
+		47827D62208F1F18005DDE85 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D61208F1F18005DDE85 /* Utility.swift */; };
+		47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D63208F232F005DDE85 /* AuthDelegate.swift */; };
 		47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5A1D62063CB8D0054546D /* Extensions.swift */; };
 		96311E1FFD31537036D14469 /* Pods_group_plannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CB903DD2E7C955EBD43ED /* Pods_group_plannerUITests.framework */; };
 		9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1965F42049187B00A8BEB6 /* AppDelegate.swift */; };
@@ -52,6 +55,9 @@
 		47827D59208F120E005DDE85 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		47827D5B208F1218005DDE85 /* GroupInvitation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInvitation.swift; sourceTree = "<group>"; };
 		47827D5D208F1220005DDE85 /* EventInvitation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInvitation.swift; sourceTree = "<group>"; };
+		47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBlocks.swift; sourceTree = "<group>"; };
+		47827D61208F1F18005DDE85 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		47827D63208F232F005DDE85 /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		47E5A1D62063CB8D0054546D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8CDD5A57314C656DDC1B5764 /* Pods-group-plannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerUITests/Pods-group-plannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		908C5AFDA979F23F2D3ACDBE /* Pods_group_planner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_planner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,7 @@
 				47827D59208F120E005DDE85 /* Event.swift */,
 				47827D5B208F1218005DDE85 /* GroupInvitation.swift */,
 				47827D5D208F1220005DDE85 /* EventInvitation.swift */,
+				47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -125,6 +132,7 @@
 		47A01946208AD18B00324491 /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
+				47827D63208F232F005DDE85 /* AuthDelegate.swift */,
 			);
 			path = NetworkLayer;
 			sourceTree = "<group>";
@@ -173,6 +181,7 @@
 				9D1966002049187B00A8BEB6 /* Info.plist */,
 				47E5A1D62063CB8D0054546D /* Extensions.swift */,
 				9D9F59A1208581E900909D09 /* LoginViewController.swift */,
+				47827D61208F1F18005DDE85 /* Utility.swift */,
 			);
 			path = "group-planner";
 			sourceTree = "<group>";
@@ -532,11 +541,14 @@
 			files = (
 				9D9F59A2208581E900909D09 /* LoginViewController.swift in Sources */,
 				9D1965F72049187B00A8BEB6 /* ViewController.swift in Sources */,
+				47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */,
 				47827D5C208F1218005DDE85 /* GroupInvitation.swift in Sources */,
+				47827D62208F1F18005DDE85 /* Utility.swift in Sources */,
 				47827D5E208F1220005DDE85 /* EventInvitation.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
 				47827D58208F1208005DDE85 /* Group.swift in Sources */,
 				47827D56208F1200005DDE85 /* User.swift in Sources */,
+				47827D60208F19CA005DDE85 /* CompletionBlocks.swift in Sources */,
 				47827D5A208F120E005DDE85 /* Event.swift in Sources */,
 				9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */,
 			);
