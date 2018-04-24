@@ -1,7 +1,8 @@
 # Final Project - Group Planner
 
-Group Planner is a collaborative group planning app so that you and your friends can finally
-pick a place to eat or to go.
+Group Planner is a meeting planning tool that pulls data from the attendee's
+Google Calendar and displays available and conflicting times to quickly find
+meet up times.
 
 Time spent: **X** hours spent in total
 
