@@ -34,7 +34,8 @@ class User: PFUser {
     
     // Format
     // ["id": "user id", "access_token":"google access token"]
-    static func oauthLogin(gidUser: GIDGoogleUser) {
+    static func oauthLogin(gidUser: GIDGoogleUser, completion: Callback? = nil,
+                           uploadCompletion: PFBooleanResultBlock? = nil) {
         let authData: [String:String] = [
             "id": gidUser.userID,
             "access_token": gidUser.authentication.accessToken
@@ -53,12 +54,17 @@ class User: PFUser {
                             let pffile = ParseUtility.getPFFileFromImage(image)
                             user.profilePicture = pffile
                         }
-                        user.saveInBackground()
+                        user.saveInBackground(block: { (success, error) in
+                            uploadCompletion?(success, error)
+                        })
                     })
                 }
                 else {
-                    user.saveInBackground()
+                    user.saveInBackground(block: { (success, error) in
+                        uploadCompletion?(success, error)
+                    })
                 }
+                completion?()
             }
             return nil
         }
@@ -81,5 +87,10 @@ class User: PFUser {
                 completion(user, nil)
             }
         })
+    }
+    
+    
+    static func deletePFFile(file: PFFile) {
+        
     }
 }

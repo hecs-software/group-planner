@@ -48,13 +48,18 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         } else {
             //self.signInButton.isHidden = true
             self.service.authorizer = user.authentication.fetcherAuthorizer()
-            fetchEvents()
             parseLogin(user: user)
         }
     }
     
     func parseLogin(user: GIDGoogleUser) {
-        User.oauthLogin(gidUser: user)
+        shadeView(shaded: true)
+        User.oauthLogin(gidUser: user, completion: {
+            self.shadeView(shaded: false)
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+        }, uploadCompletion: { (_, _) in
+            NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
+        })
     }
     
     // Construct a query and get a list of upcoming events from the user calendar

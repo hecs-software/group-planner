@@ -66,15 +66,17 @@ extension UIViewController {
     
     
     func shadeView(shaded: Bool) {
-        if shaded {
-            let mask = UIView(frame: self.view.frame)
-            mask.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-            self.view.mask = mask
-            self.view.isUserInteractionEnabled = false
-        }
-        else {
-            self.view.mask = nil
-            self.view.isUserInteractionEnabled = true
+        DispatchQueue.main.async {
+            if shaded {
+                let mask = UIView(frame: self.view.frame)
+                mask.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                self.view.mask = mask
+                self.view.isUserInteractionEnabled = false
+            }
+            else {
+                self.view.mask = nil
+                self.view.isUserInteractionEnabled = true
+            }
         }
     }
 }

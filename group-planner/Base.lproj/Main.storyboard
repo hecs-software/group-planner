@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="b7t-aT-u7T">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -66,13 +66,14 @@
                     <connections>
                         <outlet property="signInButtonView" destination="sdg-HJ-s1C" id="bq9-YI-6XT"/>
                         <outlet property="signInText" destination="BED-fg-QHl" id="dfc-yb-vD7"/>
+                        <segue destination="G7g-ZZ-6kw" kind="presentation" identifier="loginSegue" id="bZe-iy-f54"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>
-        <!--My Profile View Controller-->
+        <!--My Profile-->
         <scene sceneID="mvp-zM-Ga8">
             <objects>
                 <viewController id="b7t-aT-u7T" customClass="MyProfileViewController" customModule="group_planner" customModuleProvider="target" sceneMemberID="viewController">
@@ -161,7 +162,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="72q-6n-L5x"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Esx-xD-ctW"/>
+                    <navigationItem key="navigationItem" title="My Profile" id="Esx-xD-ctW">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="UWR-Yc-MJC">
+                            <connections>
+                                <action selector="didLogout:" destination="b7t-aT-u7T" id="QQ6-RG-S3o"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendarView" destination="Y1r-YV-2Nv" id="UpZ-cA-6io"/>
                         <outlet property="dateLabel" destination="8qR-D3-KfL" id="bhW-Vw-qB2"/>
@@ -194,7 +201,7 @@
             </objects>
             <point key="canvasLocation" x="233" y="995"/>
         </scene>
-        <!--View Controller-->
+        <!--Groups-->
         <scene sceneID="Nq0-Qv-Aud">
             <objects>
                 <viewController id="sqe-C5-Mxl" sceneMemberID="viewController">
@@ -204,7 +211,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="53Z-1z-AcH"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Ugu-KH-B7M"/>
+                    <navigationItem key="navigationItem" title="Groups" id="Ugu-KH-B7M"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6J2-kf-tsS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -213,7 +220,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Qym-fl-KrA">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="G7g-ZZ-6kw" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeController" automaticallyAdjustsScrollViewInsets="NO" id="G7g-ZZ-6kw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="b9D-iT-UFk">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -250,7 +257,7 @@
             </objects>
             <point key="canvasLocation" x="1137" y="997"/>
         </scene>
-        <!--View Controller-->
+        <!--Events-->
         <scene sceneID="KcM-Cs-MbE">
             <objects>
                 <viewController id="bui-AE-NDl" sceneMemberID="viewController">
@@ -260,13 +267,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="WF1-uJ-b5Q"/>
                     </view>
-                    <navigationItem key="navigationItem" id="d03-Nn-1c9"/>
+                    <navigationItem key="navigationItem" title="Events" id="d03-Nn-1c9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Nt-pS-KJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1982" y="1758"/>
         </scene>
-        <!--View Controller-->
+        <!--Notifications-->
         <scene sceneID="bbu-20-BI0">
             <objects>
                 <viewController id="9S2-Cn-V25" sceneMemberID="viewController">
@@ -276,7 +283,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="gzY-df-erf"/>
                     </view>
-                    <navigationItem key="navigationItem" id="lKC-25-7Gi"/>
+                    <navigationItem key="navigationItem" title="Notifications" id="lKC-25-7Gi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5Z-QZ-XBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
