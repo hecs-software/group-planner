@@ -88,7 +88,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gmail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdP-Ye-Dq3">
-                                <rect key="frame" x="133.5" y="129.5" width="225.5" height="33.5"/>
+                                <rect key="frame" x="133.5" y="123.5" width="225.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -158,7 +158,7 @@
                             <constraint firstItem="wx9-TZ-q1X" firstAttribute="top" secondItem="72q-6n-L5x" secondAttribute="top" constant="16" id="v04-nH-ITe"/>
                             <constraint firstItem="Td4-D3-fcu" firstAttribute="top" secondItem="72q-6n-L5x" secondAttribute="top" constant="24" id="vSt-q1-Cgs"/>
                             <constraint firstItem="Y1r-YV-2Nv" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" id="xUr-bA-spS"/>
-                            <constraint firstItem="ZdP-Ye-Dq3" firstAttribute="top" secondItem="Td4-D3-fcu" secondAttribute="bottom" constant="8" id="zMf-ot-oq0"/>
+                            <constraint firstItem="ZdP-Ye-Dq3" firstAttribute="top" secondItem="Td4-D3-fcu" secondAttribute="bottom" constant="2" id="zMf-ot-oq0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="72q-6n-L5x"/>
                     </view>

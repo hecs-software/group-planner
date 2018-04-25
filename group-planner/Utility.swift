@@ -17,6 +17,17 @@ class Utility {
         12: "December"
     ]
     
+    static var currentWeekDay: Int {
+        get {
+            let date = Date()
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.weekday], from: date)
+            
+            let weekday = components.weekday!
+            return weekday
+        }
+    }
+    
     static func maxdateMap(date: Date) -> [Int:Int] {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year], from: date)
@@ -82,6 +93,52 @@ class Utility {
         else {
             return day - n
         }
+    }
+    
+    static func convertDateToLocal(date: Date) -> Date {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        let dateToConvert = dateFormatter.string(from: date)
+        let convertedDate = dateFormatter.date(from: dateToConvert)
+        
+        let timezoneString = TimeZone.current.localizedName(for: .shortDaylightSaving,
+                                                            locale: .current)!
+        dateFormatter.timeZone = TimeZone(abbreviation: timezoneString)
+        let localDateString = dateFormatter.string(from: convertedDate!)
+        let localDate = dateFormatter.date(from: localDateString)!
+        return localDate
+    }
+    
+    
+    static func withinDateRange(currDate: Int, currMonth: Int, begDate: Int,
+                                begMonth: Int, endDate: Int, endMonth: Int) -> Bool {
+        if begMonth == endMonth {
+            if currMonth != begMonth {
+                return false
+            }
+            else if currDate < begDate || currDate > endDate {
+                return false
+            }
+        }
+        else {
+            if currMonth != begMonth || currMonth != endMonth {
+                return false
+            }
+            else if currMonth == begMonth {
+                if currDate < begDate {
+                    return false
+                }
+            }
+            else {
+                if currDate > endDate {
+                    return false
+                }
+            }
+        }
+        
+        return true
     }
 }
 
@@ -183,3 +240,16 @@ class NetworkUtility {
         }
     }
 }
+
+
+class UIUtility {
+    static func hideViewWithAnimation(view: UIView, duration: Double, hidden: Bool = true,
+                                      completion: ((Bool) -> Void)? = nil) {
+        UIView.transition(with: view, duration: duration, options: .transitionCrossDissolve,
+                          animations:
+            {
+                view.isHidden = hidden
+        }, completion: completion)
+    }
+}
+

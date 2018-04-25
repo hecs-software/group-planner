@@ -13,6 +13,9 @@ class DaySCContainer: UIView {
     @IBOutlet weak var daySC: DaySegmentedControl!
 
     var buttonBar: UIButton!
+    weak var delegate: DaySCDelegate?
+    
+    var laidoutSubviews: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,12 +25,10 @@ class DaySCContainer: UIView {
     }
     
     func restoreToCurrentDate() {
-        let date = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.month, .day, .weekday], from: date)
-        
-        let weekday = components.weekday!
+        let weekday = Utility.currentWeekDay
         daySC.selectedSegmentIndex = weekday - 1
+        
+        segmentedControlChanged(daySC)
     }
     
     
@@ -42,9 +43,11 @@ class DaySCContainer: UIView {
         buttonBar.backgroundColor = .orange
         addSubview(buttonBar)
         
+        let segmentWidth = daySC.frame.width / CGFloat(daySC.numberOfSegments)
+        let x = segmentWidth * CGFloat(Utility.currentWeekDay - 1)
         buttonBar.topAnchor.constraint(equalTo: daySC.bottomAnchor).isActive = true
         buttonBar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        buttonBar.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        buttonBar.leftAnchor.constraint(equalTo: self.leftAnchor, constant: x).isActive = true
         buttonBar.widthAnchor.constraint(equalTo: daySC.widthAnchor,
                                          multiplier: 1.0/CGFloat(daySC.numberOfSegments)).isActive = true
     }
@@ -54,10 +57,20 @@ class DaySCContainer: UIView {
         UIView.animate(withDuration: 0.3) {
             self.buttonBar.frame.origin.x = CGFloat(sender.selectedSegmentIndex) * segmentWidth
         }
+        delegate?.pickedDay(_sender: daySC, day: daySC.selectedSegmentIndex + 1)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if !laidoutSubviews {
+            restoreToCurrentDate()
+            laidoutSubviews = true
+        }
     }
 }
 
 class DaySegmentedControl: UISegmentedControl {
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .clear
@@ -75,4 +88,8 @@ class DaySegmentedControl: UISegmentedControl {
     }
     
     
+}
+
+protocol DaySCDelegate: class {
+    func pickedDay(_sender: DaySegmentedControl, day: Int)
 }

@@ -11,7 +11,7 @@ import ParseUI
 import GoogleAPIClientForREST
 import GoogleSignIn
 
-class MyProfileViewController: UIViewController {
+class MyProfileViewController: UIViewController, DaySCDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -22,6 +22,7 @@ class MyProfileViewController: UIViewController {
     
     private let service = GTLRCalendarService()
     
+    var rc: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +39,20 @@ class MyProfileViewController: UIViewController {
         setupDateLabel()
         setupProfileImageView()
         setupGoogleService()
+        setupRefreshControl()
+        fetchEvents()
+    }
+    
+    
+    func setupRefreshControl() {
+        rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(fetchEvents), for: .valueChanged)
+        calendarView.insertSubview(rc, at: 0)
     }
     
     
     func setupDaySC() {
-        daySCContainer.restoreToCurrentDate()
+        daySCContainer.delegate = self
     }
     
     
@@ -74,6 +84,9 @@ class MyProfileViewController: UIViewController {
             dateLabel.text = dateString
         }
         dateLabel.sizeToFit()
+        
+        updateCalendarViewDate(begMonth: begMonth, endMonth: endMonth,
+                               begDay: begDate, endDay: endDate)
     }
     
     
@@ -119,11 +132,9 @@ class MyProfileViewController: UIViewController {
     
     
     // Construct a query and get a list of upcoming events from the user calendar
-    func fetchEvents() {
+    @objc func fetchEvents() {
         let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
         
-        query.maxResults = 10
-        query.timeMin = GTLRDateTime(date: Date())
         query.singleEvents = true
         query.orderBy = kGTLRCalendarOrderByStartTime
         service.executeQuery(
@@ -142,20 +153,21 @@ class MyProfileViewController: UIViewController {
             displayAlert(title: "Error", message: error.localizedDescription)
             return
         }
-        
-        var outputText = ""
         if let events = response.items, !events.isEmpty {
-            for event in events {
-                let start = event.start!.dateTime ?? event.start!.date!
-                let startString = DateFormatter.localizedString(
-                    from: start.date,
-                    dateStyle: .short,
-                    timeStyle: .short)
-                outputText += "\(startString) - \(event.summary!)\n"
-            }
-        } else {
-            outputText = "No upcoming events found."
+            calendarView.renderEvents(events: events)
+            rc.endRefreshing()
         }
-        print(outputText)
+    }
+    
+    func pickedDay(_sender: DaySegmentedControl, day: Int) {
+        calendarView.switchToDay(weekday: day)
+    }
+    
+    func updateCalendarViewDate(begMonth: Int, endMonth: Int, begDay: Int,
+                                endDay: Int) {
+        calendarView.begMonth = begMonth
+        calendarView.endMonth = endMonth
+        calendarView.begDay = begDay
+        calendarView.endDay = endDay
     }
 }

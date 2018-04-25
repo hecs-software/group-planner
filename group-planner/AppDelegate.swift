@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }))
                 
                 let googleClientID = dict.object(forKey: "GOOGLE_CLIENT_ID") as! String
+                print(googleClientID)
                 GIDSignIn.sharedInstance().clientID = googleClientID
             }
         }

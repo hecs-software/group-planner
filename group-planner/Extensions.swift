@@ -23,14 +23,6 @@ extension UIColor {
 
 
 extension UIViewController {
-    func hideViewWithAnimation(view: UIView, duration: Double, hidden: Bool = true) {
-        UIView.transition(with: view, duration: duration, options: .transitionCrossDissolve,
-                          animations:
-            {
-                view.isHidden = hidden
-        }, completion: nil)
-    }
-    
     func displayAlert(title: String, message: String) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
