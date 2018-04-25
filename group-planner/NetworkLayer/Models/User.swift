@@ -51,6 +51,13 @@ class User: PFUser {
                 if let url = profileUrl {
                     NetworkUtility.downloadImage(url: url, completion: { (image, error) in
                         if let image = image {
+                            if let profile = user.profilePicture {
+                                ParseUtility.deletePFFile(file: profile, completion: { (error) in
+                                    if let error = error {
+                                        print("ERROR: \(error)")
+                                    }
+                                })
+                            }
                             let pffile = ParseUtility.getPFFileFromImage(image)
                             user.profilePicture = pffile
                         }
@@ -89,8 +96,4 @@ class User: PFUser {
         })
     }
     
-    
-    static func deletePFFile(file: PFFile) {
-        
-    }
 }

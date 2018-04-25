@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DaySCContainer: UIView {
     @IBOutlet weak var daySC: DaySegmentedControl!
@@ -20,9 +21,20 @@ class DaySCContainer: UIView {
         setupButtonBar()
     }
     
+    func restoreToCurrentDate() {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.month, .day, .weekday], from: date)
+        
+        let weekday = components.weekday!
+        daySC.selectedSegmentIndex = weekday - 1
+    }
+    
+    
     func setupListeners() {
         daySC.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
+    
     
     func setupButtonBar() {
         buttonBar = UIButton()

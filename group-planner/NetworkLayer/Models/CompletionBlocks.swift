@@ -13,3 +13,6 @@ typealias UsersInvitedResultBlock = ([User]?, [Error]?) -> Void
 typealias EventInvitationsResultBlock = ([EventInvitation]?, Error?) -> Void
 typealias GroupInvitationsResultBlock = ([GroupInvitation]?, Error?) -> Void
 typealias Callback = () -> Void
+
+typealias JSONResultBlock = ([String:Any]?, Error?) -> Void
+typealias ErrorBlock = (Error?) -> Void

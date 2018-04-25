@@ -8,6 +8,8 @@
 
 import UIKit
 import ParseUI
+import GoogleAPIClientForREST
+import GoogleSignIn
 
 class MyProfileViewController: UIViewController {
     
@@ -17,6 +19,9 @@ class MyProfileViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var daySCContainer: DaySCContainer!
     @IBOutlet weak var calendarView: CalendarView!
+    
+    private let service = GTLRCalendarService()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +34,46 @@ class MyProfileViewController: UIViewController {
             self.setUserInfo()
         }
         
+        setupDaySC()
+        setupDateLabel()
         setupProfileImageView()
+        setupGoogleService()
+    }
+    
+    
+    func setupDaySC() {
+        daySCContainer.restoreToCurrentDate()
+    }
+    
+    
+    func setupDateLabel() {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.month, .day, .weekday], from: date)
+        
+        let month = components.month!
+        let day = components.day!
+        let weekday = components.weekday!
+        
+        let range = Utility.weekDateRange(weekday: weekday, day: day, month: month)
+        let begDate = range.0.0
+        let endDate = range.0.1
+        let begMonth = range.1.0
+        let endMonth = range.1.1
+        
+        
+        if begMonth == endMonth {
+            let monthName = Utility.MONTH_MAP[begMonth]!
+            let dateString = "\(monthName) \(begDate) - \(endDate)"
+            dateLabel.text = dateString
+        }
+        else {
+            let month1 = Utility.MONTH_MAP[begMonth]!
+            let month2 = Utility.MONTH_MAP[endMonth]!
+            let dateString = "\(month1) \(begDate) - \(month2) \(endDate)"
+            dateLabel.text = dateString
+        }
+        dateLabel.sizeToFit()
     }
     
     
@@ -67,7 +111,51 @@ class MyProfileViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    
+    func setupGoogleService() {
+        let user = GIDSignIn.sharedInstance().currentUser
+        service.authorizer = user?.authentication.fetcherAuthorizer()
+    }
+    
+    
+    // Construct a query and get a list of upcoming events from the user calendar
+    func fetchEvents() {
+        let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
+        
+        query.maxResults = 10
+        query.timeMin = GTLRDateTime(date: Date())
+        query.singleEvents = true
+        query.orderBy = kGTLRCalendarOrderByStartTime
+        service.executeQuery(
+            query,
+            delegate: self,
+            didFinish: #selector(displayResultWithTicket(ticket:finishedWithObject:error:)))
+    }
+    
+    // Display the start dates and event summaries in the UITextView
+    @objc func displayResultWithTicket(
+        ticket: GTLRServiceTicket,
+        finishedWithObject response : GTLRCalendar_Events,
+        error : NSError?) {
+        
+        if let error = error {
+            displayAlert(title: "Error", message: error.localizedDescription)
+            return
+        }
+        
+        var outputText = ""
+        if let events = response.items, !events.isEmpty {
+            for event in events {
+                let start = event.start!.dateTime ?? event.start!.date!
+                let startString = DateFormatter.localizedString(
+                    from: start.date,
+                    dateStyle: .short,
+                    timeStyle: .short)
+                outputText += "\(startString) - \(event.summary!)\n"
+            }
+        } else {
+            outputText = "No upcoming events found."
+        }
+        print(outputText)
     }
 }

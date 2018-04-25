@@ -59,5 +59,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>PARSE_SERVER</key>
+	<string>http://group-planner.herokuapp.com/parse</string>
+	<key>PARSE_MASTER_KEY</key>
+	<string>qrewouyfsdlajhlfdzmbkmdfzpotykj4ep9ut602ujtopasjgir</string>
+	<key>PARSE_APP_ID</key>
+	<string>GroupPlanner</string>
+	<key>GOOGLE_CLIENT_ID</key>
+	<string>993043262209-vmlhvgst7ai43t14j4h9ft3a7h59n8kv.apps.googleusercontent.com</string>
 </dict>
 </plist>

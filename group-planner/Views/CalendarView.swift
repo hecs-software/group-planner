@@ -18,10 +18,19 @@ class CalendarView: UIScrollView {
     
     var laidOutSubviews: Bool = false
     
+    // Size of an hour gap
+    var hourGap: CGFloat = 0.0
+    
     static let TIMEMARKS: [String] = [
         "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM",
         "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM",
         "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"
+    ]
+    
+    var timemarkViews: [TimeMarkView] = [TimeMarkView]()
+    var eventViewsMap: [Int:[EventView]] = [
+        1: [EventView](), 2: [EventView](), 3: [EventView](), 4: [EventView](),
+        5: [EventView](), 6: [EventView](), 7: [EventView]()
     ]
     
     override func awakeFromNib() {
@@ -29,7 +38,8 @@ class CalendarView: UIScrollView {
     }
     
     // Render the events of that day
-    func renderEvents(events: [GTLRCalendar_Events]) {
+    func renderEvents(events: [GTLRCalendar_Event]) {
+        discardAllEventViews()
         
     }
     
@@ -47,6 +57,7 @@ class CalendarView: UIScrollView {
             let frame = CGRect(x: 0, y: y, width: width, height: height)
             let timeMark = TimeMarkView(frame: frame, time: time)
             addSubview(timeMark)
+            timemarkViews.append(timeMark)
             
             i += 1
             
@@ -55,6 +66,19 @@ class CalendarView: UIScrollView {
             }
         }
         self.contentSize.height += CalendarView.TOP_OFFSET + height
+        self.hourGap = gap
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+    }
+    
+    func discardAllEventViews() {
+        for (_, eventViews) in eventViewsMap {
+            var eventViews = eventViews
+            for eventView in eventViews {
+                eventView.removeFromSuperview()
+            }
+            eventViews.removeAll()
+        }
     }
     
     override func layoutSubviews() {
@@ -124,5 +148,43 @@ class TimeMarkView: UIView {
 }
 
 class EventView: UIView {
+    var titleLabel: UILabel?
+    var locationLabel: UILabel?
+    var descriptionLabel: UILabel?
+    var googleEvent: GTLRCalendar_Event!
     
+    init(frame: CGRect, event: GTLRCalendar_Event) {
+        super.init(frame: frame)
+        
+        self.googleEvent = event
+        
+        if let text = event.summary {
+            setupTitleLabel()
+        }
+        if let text = event.location {
+            setupLocationLabel()
+        }
+        if let text = event.descriptionProperty {
+            setupDescriptionLabel()
+        }
+    }
+    
+    func setupTitleLabel(_ text: String) {
+        let label = UILabel()
+        
+        
+        self.titleLabel = label
+    }
+    
+    func setupLocationLabel(_ text: String) {
+        
+    }
+    
+    func setupDescriptionLabel(_ text: String) {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

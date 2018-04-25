@@ -96,7 +96,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wx9-TZ-q1X" customClass="PFImageView">
                                 <rect key="frame" x="16" y="80" width="101.5" height="101.5"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="April 22 - 29" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qR-D3-KfL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="April 22 - 28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qR-D3-KfL">
                                 <rect key="frame" x="27" y="189.5" width="123" height="26.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
@@ -145,7 +145,7 @@
                             <constraint firstItem="Td4-D3-fcu" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.05" id="YGn-PM-zIn"/>
                             <constraint firstItem="ZdP-Ye-Dq3" firstAttribute="leading" secondItem="Td4-D3-fcu" secondAttribute="leading" id="Yey-n8-mS0"/>
                             <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" secondItem="Td4-D3-fcu" secondAttribute="trailing" constant="16" id="Yez-sx-sm1"/>
-                            <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" secondItem="8qR-D3-KfL" secondAttribute="trailing" constant="225" id="YkT-BN-up7"/>
+                            <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8qR-D3-KfL" secondAttribute="trailing" constant="27" id="YkT-BN-up7"/>
                             <constraint firstItem="8qR-D3-KfL" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.04" id="aBs-nZ-YqT"/>
                             <constraint firstItem="8qR-D3-KfL" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" constant="27" id="d57-KF-NIn"/>
                             <constraint firstItem="Y1r-YV-2Nv" firstAttribute="top" secondItem="hUx-hM-2kH" secondAttribute="bottom" id="gaY-De-QOB"/>
