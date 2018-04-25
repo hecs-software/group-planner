@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             configuration.clientKey = "qrewouyfsdlajhlfdzmbkmdfzpotykj4ep9ut602ujtopasjgir"
             configuration.server = "http://group-planner.herokuapp.com/parse"
         }))
+        
+        User.register(AuthDelegate(), forAuthType: "google")
 
         return true
     }
