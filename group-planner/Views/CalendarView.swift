@@ -17,10 +17,37 @@ class CalendarView: UIScrollView {
     static let PERC_TIMEMARK_HEIGHT: CGFloat = 0.03
     static let PERC_TIMEMARK_GAP: CGFloat = 0.15
     
-    var begMonth: Int!
-    var endMonth: Int!
-    var begDay: Int!
-    var endDay: Int!
+    var dateRange: (Date, Date) =
+        (Date.today().previous(.sunday), Date.today().next(.saturday))
+    
+    var begMonth: Int {
+        get {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.month], from: dateRange.0)
+            return components.month!
+        }
+    }
+    var endMonth: Int {
+        get {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.month], from: dateRange.1)
+            return components.month!
+        }
+    }
+    var begDay: Int {
+        get {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.day], from: dateRange.0)
+            return components.day!
+        }
+    }
+    var endDay: Int {
+        get {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.day], from: dateRange.1)
+            return components.day!
+        }
+    }
     
     var laidOutSubviews: Bool = false
     
@@ -215,8 +242,10 @@ class TimeMarkView: UIView {
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        line.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: TimeMarkView.LABEL_LINE_OFFSET).isActive = true
-        timeLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: TimeMarkView.PERC_WIDTH_DATE).isActive = true
+        line.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor,
+                                      constant: TimeMarkView.LABEL_LINE_OFFSET).isActive = true
+        timeLabel.widthAnchor.constraint(equalTo: self.widthAnchor,
+                                         multiplier: TimeMarkView.PERC_WIDTH_DATE).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         timeLabel.sizeToFit()
@@ -351,7 +380,8 @@ class EventView: UIView {
             topA = self.topAnchor
         }
         label.topAnchor.constraint(equalTo: topA, constant: EventView.TOP_OFFSET).isActive = true
-        self.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: EventView.BOTTOM_OFFSET).isActive = true
+        self.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor,
+                                     constant: EventView.BOTTOM_OFFSET).isActive = true
         
         self.descriptionLabel = label
     }

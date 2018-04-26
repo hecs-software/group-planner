@@ -20,8 +20,6 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
     @IBOutlet weak var daySCContainer: DaySCContainer!
     @IBOutlet weak var calendarView: CalendarView!
     
-    private let service = GTLRCalendarService()
-    
     var rc: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -38,7 +36,6 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
         setupDaySC()
         setupDateLabel()
         setupProfileImageView()
-        setupGoogleService()
         setupRefreshControl()
         fetchEvents()
     }
@@ -57,19 +54,17 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
     
     
     func setupDateLabel() {
-        let date = Date()
+        let sunday = Date.today().previous(.sunday)
+        let saturday = Date.today().next(.saturday)
+        
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.month, .day, .weekday], from: date)
+        let begComponents = calendar.dateComponents([.month, .day, .weekday], from: sunday)
+        let endComponents = calendar.dateComponents([.month, .day, .weekday], from: saturday)
         
-        let month = components.month!
-        let day = components.day!
-        let weekday = components.weekday!
-        
-        let range = Utility.weekDateRange(weekday: weekday, day: day, month: month)
-        let begDate = range.0.0
-        let endDate = range.0.1
-        let begMonth = range.1.0
-        let endMonth = range.1.1
+        let begDate = begComponents.day!
+        let endDate = endComponents.day!
+        let begMonth = begComponents.month!
+        let endMonth = endComponents.month!
         
         
         if begMonth == endMonth {
@@ -85,8 +80,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
         }
         dateLabel.sizeToFit()
         
-        updateCalendarViewDate(begMonth: begMonth, endMonth: endMonth,
-                               begDay: begDate, endDay: endDate)
+        updateCalendarViewDate(begDate: sunday, endDate: saturday)
     }
     
     
@@ -125,49 +119,30 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
     }
     
     
-    func setupGoogleService() {
-        let user = GIDSignIn.sharedInstance().currentUser
-        service.authorizer = user?.authentication.fetcherAuthorizer()
-    }
-    
-    
     // Construct a query and get a list of upcoming events from the user calendar
     @objc func fetchEvents() {
-        let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
+        let sunday = Date.today().previous(.sunday)
+        let saturday = Date.today().next(.saturday)
         
-        query.singleEvents = true
-        query.orderBy = kGTLRCalendarOrderByStartTime
-        service.executeQuery(
-            query,
-            delegate: self,
-            didFinish: #selector(displayResultWithTicket(ticket:finishedWithObject:error:)))
+        GGLAPIClient.shared.fetchEvents(minDate: sunday, maxDate: saturday)
+        { (_, events, error) in
+            if let error = error {
+                self.displayAlert(title: "Error", message: error.localizedDescription)
+            }
+            else if let events = events {
+                self.calendarView.renderEvents(events: events)
+                self.rc.endRefreshing()
+            }
+        }
     }
     
-    // Display the start dates and event summaries in the UITextView
-    @objc func displayResultWithTicket(
-        ticket: GTLRServiceTicket,
-        finishedWithObject response : GTLRCalendar_Events,
-        error : NSError?) {
-        
-        if let error = error {
-            displayAlert(title: "Error", message: error.localizedDescription)
-            return
-        }
-        if let events = response.items, !events.isEmpty {
-            calendarView.renderEvents(events: events)
-            rc.endRefreshing()
-        }
-    }
     
     func pickedDay(_sender: DaySegmentedControl, day: Int) {
         calendarView.switchToDay(weekday: day)
     }
     
-    func updateCalendarViewDate(begMonth: Int, endMonth: Int, begDay: Int,
-                                endDay: Int) {
-        calendarView.begMonth = begMonth
-        calendarView.endMonth = endMonth
-        calendarView.begDay = begDay
-        calendarView.endDay = endDay
+    func updateCalendarViewDate(begDate: Date, endDate: Date) {
+        calendarView.dateRange.0 = begDate
+        calendarView.dateRange.1 = endDate
     }
 }
