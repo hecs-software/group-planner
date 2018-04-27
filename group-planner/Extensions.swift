@@ -87,6 +87,20 @@ extension Date {
     }
     
     
+    func lastWeek() -> Date {
+        var components = DateComponents()
+        components.day = -7
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    
+    func nextWeek() -> Date {
+        var components = DateComponents()
+        components.day = 7
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    
     static func today() -> Date {
         return Date()
     }

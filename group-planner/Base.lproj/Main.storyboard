@@ -96,65 +96,46 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wx9-TZ-q1X" customClass="PFImageView">
                                 <rect key="frame" x="16" y="80" width="101.5" height="101.5"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="April 22 - 28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qR-D3-KfL">
-                                <rect key="frame" x="27" y="189.5" width="123" height="26.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUx-hM-2kH" userLabel="DaySCContainer" customClass="DaySCContainer" customModule="group_planner" customModuleProvider="target">
-                                <rect key="frame" x="16" y="224" width="343" height="33.5"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y1r-YV-2Nv" customClass="CalendarView" customModule="group_planner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="261.5" width="375" height="356.5"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s4u-aq-hvx" customClass="CalendarDateView" customModule="group_planner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="181.5" width="375" height="80"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fhz-Eo-naf" customClass="DaySegmentedControl" customModule="group_planner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="31"/>
-                                        <segments>
-                                            <segment title="Sun"/>
-                                            <segment title="Mon"/>
-                                            <segment title="Tues"/>
-                                            <segment title="Wed"/>
-                                            <segment title="Thurs"/>
-                                            <segment title="Fri"/>
-                                            <segment title="Sat"/>
-                                        </segments>
-                                    </segmentedControl>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CR-Ho-WlR">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="fhz-Eo-naf" firstAttribute="top" secondItem="hUx-hM-2kH" secondAttribute="top" id="GY0-Yi-xb5"/>
-                                    <constraint firstItem="fhz-Eo-naf" firstAttribute="height" secondItem="hUx-hM-2kH" secondAttribute="height" multiplier="0.9" id="LUO-fq-fVm"/>
-                                    <constraint firstItem="fhz-Eo-naf" firstAttribute="leading" secondItem="hUx-hM-2kH" secondAttribute="leading" id="e2P-GL-s5d"/>
-                                    <constraint firstAttribute="trailing" secondItem="fhz-Eo-naf" secondAttribute="trailing" id="mPX-Fs-aF4"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerX" secondItem="s4u-aq-hvx" secondAttribute="centerX" id="K5o-oc-i2w"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerY" secondItem="s4u-aq-hvx" secondAttribute="centerY" id="MKI-bg-tWf"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="height" secondItem="s4u-aq-hvx" secondAttribute="height" id="Vj6-oD-7Lf"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="width" secondItem="s4u-aq-hvx" secondAttribute="width" id="Yu4-wt-Njp"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="daySC" destination="fhz-Eo-naf" id="IK7-Zy-NPD"/>
+                                    <outlet property="contentView" destination="6CR-Ho-WlR" id="Pz0-yn-Jt4"/>
                                 </connections>
-                            </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y1r-YV-2Nv" customClass="CalendarView" customModule="group_planner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="257.5" width="375" height="360.5"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" secondItem="hUx-hM-2kH" secondAttribute="trailing" constant="16" id="5qs-JB-LAY"/>
-                            <constraint firstItem="hUx-hM-2kH" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.05" id="BR7-k1-3x9"/>
+                            <constraint firstItem="Y1r-YV-2Nv" firstAttribute="top" secondItem="s4u-aq-hvx" secondAttribute="bottom" id="3sL-Oh-Yl4"/>
                             <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" secondItem="Y1r-YV-2Nv" secondAttribute="trailing" id="CKW-mL-AUh"/>
+                            <constraint firstItem="s4u-aq-hvx" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.12" id="HKX-uN-2ol"/>
                             <constraint firstItem="Td4-D3-fcu" firstAttribute="leading" secondItem="wx9-TZ-q1X" secondAttribute="trailing" constant="16" id="Oc1-L7-X2e"/>
-                            <constraint firstItem="8qR-D3-KfL" firstAttribute="top" secondItem="wx9-TZ-q1X" secondAttribute="bottom" constant="8" id="PT4-5a-ewQ"/>
+                            <constraint firstItem="s4u-aq-hvx" firstAttribute="top" secondItem="wx9-TZ-q1X" secondAttribute="bottom" id="Vsa-nx-sGW"/>
                             <constraint firstItem="wx9-TZ-q1X" firstAttribute="width" secondItem="NTy-Au-WMF" secondAttribute="width" multiplier="0.27" id="XJi-0b-W4R"/>
                             <constraint firstItem="72q-6n-L5x" firstAttribute="bottom" secondItem="Y1r-YV-2Nv" secondAttribute="bottom" id="XXP-rc-fWG"/>
                             <constraint firstItem="Td4-D3-fcu" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.05" id="YGn-PM-zIn"/>
                             <constraint firstItem="ZdP-Ye-Dq3" firstAttribute="leading" secondItem="Td4-D3-fcu" secondAttribute="leading" id="Yey-n8-mS0"/>
                             <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" secondItem="Td4-D3-fcu" secondAttribute="trailing" constant="16" id="Yez-sx-sm1"/>
-                            <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8qR-D3-KfL" secondAttribute="trailing" constant="27" id="YkT-BN-up7"/>
-                            <constraint firstItem="8qR-D3-KfL" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.04" id="aBs-nZ-YqT"/>
-                            <constraint firstItem="8qR-D3-KfL" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" constant="27" id="d57-KF-NIn"/>
-                            <constraint firstItem="Y1r-YV-2Nv" firstAttribute="top" secondItem="hUx-hM-2kH" secondAttribute="bottom" id="gaY-De-QOB"/>
+                            <constraint firstItem="s4u-aq-hvx" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" id="ZO4-sj-kn9"/>
+                            <constraint firstItem="s4u-aq-hvx" firstAttribute="trailing" secondItem="72q-6n-L5x" secondAttribute="trailing" id="ge1-Fs-Sku"/>
                             <constraint firstItem="wx9-TZ-q1X" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" constant="16" id="giP-Na-0d9"/>
                             <constraint firstItem="wx9-TZ-q1X" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="width" multiplier="0.27" id="lnJ-Br-49d"/>
-                            <constraint firstItem="hUx-hM-2kH" firstAttribute="top" secondItem="8qR-D3-KfL" secondAttribute="bottom" constant="8" id="mfS-Wz-HOQ"/>
                             <constraint firstItem="72q-6n-L5x" firstAttribute="trailing" secondItem="ZdP-Ye-Dq3" secondAttribute="trailing" constant="16" id="pye-7b-ddv"/>
                             <constraint firstItem="ZdP-Ye-Dq3" firstAttribute="height" secondItem="NTy-Au-WMF" secondAttribute="height" multiplier="0.05" id="s8b-Kn-IkB"/>
-                            <constraint firstItem="hUx-hM-2kH" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" constant="16" id="tXL-Pf-wYP"/>
                             <constraint firstItem="wx9-TZ-q1X" firstAttribute="top" secondItem="72q-6n-L5x" secondAttribute="top" constant="16" id="v04-nH-ITe"/>
                             <constraint firstItem="Td4-D3-fcu" firstAttribute="top" secondItem="72q-6n-L5x" secondAttribute="top" constant="24" id="vSt-q1-Cgs"/>
                             <constraint firstItem="Y1r-YV-2Nv" firstAttribute="leading" secondItem="72q-6n-L5x" secondAttribute="leading" id="xUr-bA-spS"/>
@@ -170,9 +151,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="calendarDateView" destination="s4u-aq-hvx" id="J5c-4X-7j6"/>
                         <outlet property="calendarView" destination="Y1r-YV-2Nv" id="UpZ-cA-6io"/>
-                        <outlet property="dateLabel" destination="8qR-D3-KfL" id="bhW-Vw-qB2"/>
-                        <outlet property="daySCContainer" destination="hUx-hM-2kH" id="7dR-ct-ptY"/>
                         <outlet property="emailLabel" destination="ZdP-Ye-Dq3" id="vSi-MS-zDh"/>
                         <outlet property="nameLabel" destination="Td4-D3-fcu" id="98B-B2-m4S"/>
                         <outlet property="profileImageView" destination="wx9-TZ-q1X" id="hCP-81-Psq"/>

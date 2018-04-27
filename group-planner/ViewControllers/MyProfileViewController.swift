@@ -16,8 +16,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var profileImageView: PFImageView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var daySCContainer: DaySCContainer!
+    @IBOutlet weak var calendarDateView: CalendarDateView!
     @IBOutlet weak var calendarView: CalendarView!
     
     var rc: UIRefreshControl!
@@ -33,8 +32,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
             self.setUserInfo()
         }
         
-        setupDaySC()
-        setupDateLabel()
+        setupCalendarDateView()
         setupProfileImageView()
         setupRefreshControl()
         fetchEvents()
@@ -48,38 +46,12 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
     }
     
     
-    func setupDaySC() {
-        daySCContainer.delegate = self
-    }
-    
-    
-    func setupDateLabel() {
+    func setupCalendarDateView() {
+        calendarDateView.setupCurrentWeek(delegate: self)
+        calendarDateView.addLaterWeeks(delegate: self)
+        
         let sunday = Date.today().previous(.sunday)
         let saturday = Date.today().next(.saturday)
-        
-        let calendar = Calendar.current
-        let begComponents = calendar.dateComponents([.month, .day, .weekday], from: sunday)
-        let endComponents = calendar.dateComponents([.month, .day, .weekday], from: saturday)
-        
-        let begDate = begComponents.day!
-        let endDate = endComponents.day!
-        let begMonth = begComponents.month!
-        let endMonth = endComponents.month!
-        
-        
-        if begMonth == endMonth {
-            let monthName = Utility.MONTH_MAP[begMonth]!
-            let dateString = "\(monthName) \(begDate) - \(endDate)"
-            dateLabel.text = dateString
-        }
-        else {
-            let month1 = Utility.MONTH_MAP[begMonth]!
-            let month2 = Utility.MONTH_MAP[endMonth]!
-            let dateString = "\(month1) \(begDate) - \(month2) \(endDate)"
-            dateLabel.text = dateString
-        }
-        dateLabel.sizeToFit()
-        
         updateCalendarViewDate(begDate: sunday, endDate: saturday)
     }
     
@@ -145,4 +117,5 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
         calendarView.dateRange.0 = begDate
         calendarView.dateRange.1 = endDate
     }
+    
 }

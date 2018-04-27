@@ -10,19 +10,26 @@ import UIKit
 import Foundation
 
 class DaySCContainer: UIView {
-    @IBOutlet weak var daySC: DaySegmentedControl!
-
-    var buttonBar: UIButton!
-    weak var delegate: DaySCDelegate?
+    static let HEIGHT_MULTIPLIER: CGFloat = 0.90
     
     var laidoutSubviews: Bool = false
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    var daySC: DaySegmentedControl!
+    var buttonBar: UIButton!
+    
+    weak var delegate: DaySCDelegate?
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        setupListeners()
-        setupButtonBar()
+        setupDaySC()
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     
     func restoreToCurrentDate() {
         let weekday = Utility.currentWeekDay
@@ -32,8 +39,20 @@ class DaySCContainer: UIView {
     }
     
     
-    func setupListeners() {
+    func setupDaySC() {
+        daySC = DaySegmentedControl(frame: .zero)
+        addSubview(daySC)
+        
+        daySC.translatesAutoresizingMaskIntoConstraints = false
+        daySC.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: daySC.trailingAnchor).isActive = true
+        daySC.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        daySC.heightAnchor.constraint(equalTo: self.heightAnchor,
+                                      multiplier: DaySCContainer.HEIGHT_MULTIPLIER).isActive = true
+        
         daySC.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+        
+        daySC.selectedSegmentIndex = Utility.currentWeekDay - 1
     }
     
     
@@ -44,7 +63,9 @@ class DaySCContainer: UIView {
         addSubview(buttonBar)
         
         let segmentWidth = daySC.frame.width / CGFloat(daySC.numberOfSegments)
-        let x = segmentWidth * CGFloat(Utility.currentWeekDay - 1)
+        let leftOffset = daySC.frame.origin.x
+        let x = leftOffset + segmentWidth * CGFloat(Utility.currentWeekDay - 1)
+        
         buttonBar.topAnchor.constraint(equalTo: daySC.bottomAnchor).isActive = true
         buttonBar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         buttonBar.leftAnchor.constraint(equalTo: self.leftAnchor, constant: x).isActive = true
@@ -54,8 +75,9 @@ class DaySCContainer: UIView {
     
     @objc func segmentedControlChanged(_ sender: DaySegmentedControl) {
         let segmentWidth = sender.frame.width / CGFloat(sender.numberOfSegments)
+        let leftOffset = sender.frame.origin.x
         UIView.animate(withDuration: 0.3) {
-            self.buttonBar.frame.origin.x = CGFloat(sender.selectedSegmentIndex) * segmentWidth
+            self.buttonBar.frame.origin.x = leftOffset + CGFloat(sender.selectedSegmentIndex) * segmentWidth
         }
         delegate?.pickedDay(_sender: daySC, day: daySC.selectedSegmentIndex + 1)
     }
@@ -63,7 +85,7 @@ class DaySCContainer: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         if !laidoutSubviews {
-            restoreToCurrentDate()
+            setupButtonBar()
             laidoutSubviews = true
         }
     }
@@ -71,15 +93,24 @@ class DaySCContainer: UIView {
 
 class DaySegmentedControl: UISegmentedControl {
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    static let DAYS = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        var i = 0
+        for day in DaySegmentedControl.DAYS {
+            self.insertSegment(withTitle: day, at: i, animated: true)
+            i += 1
+        }
+        
         self.backgroundColor = .clear
         self.tintColor = .clear
         
         self.setTitleTextAttributes([
             NSAttributedStringKey.font: UIFont(name: "DINCondensed-Bold", size: 18.0),
             NSAttributedStringKey.foregroundColor: UIColor.lightGray
-        ], for: .normal)
+            ], for: .normal)
         
         self.setTitleTextAttributes([
             NSAttributedStringKey.font: UIFont(name: "DINCondensed-Bold", size: 18.0),
@@ -87,7 +118,9 @@ class DaySegmentedControl: UISegmentedControl {
             ], for: .selected)
     }
     
-    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
 protocol DaySCDelegate: class {
