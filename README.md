@@ -10,8 +10,8 @@ Time spent: **X** hours spent in total
 
 The following **required** user stories are complete:
 
-- [ ] Users can log in using Google Sign-In in the Login Page
-- [ ] Login Page has AutoLayout that adjusts with rotation
+- [x] Users can log in using Google Sign-In in the Login Page
+- [x] Login Page has AutoLayout that adjusts with rotation
 - [ ] Profile page displays events in Google Calendar
 - [ ] Group List Page that displays all of your current groups in a TableView
 - [ ] Create Group Page that allows you to give a group a name and invite
