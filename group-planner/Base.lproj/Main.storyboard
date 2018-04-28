@@ -99,22 +99,15 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y1r-YV-2Nv" customClass="CalendarView" customModule="group_planner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="262" width="375" height="356"/>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4u-aq-hvx" customClass="CalendarDateView" customModule="group_planner" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s4u-aq-hvx" customClass="CalendarDateView" customModule="group_planner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="182" width="375" height="80"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CR-Ho-WlR">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6CR-Ho-WlR">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="6CR-Ho-WlR" secondAttribute="bottom" id="0yZ-xO-qAV"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerY" secondItem="s4u-aq-hvx" secondAttribute="centerY" id="6Wc-Mp-zqc"/>
-                                    <constraint firstAttribute="trailing" secondItem="6CR-Ho-WlR" secondAttribute="trailing" id="FYN-0D-NOs"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerX" secondItem="s4u-aq-hvx" secondAttribute="centerX" id="O8B-hR-AjC"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="top" secondItem="s4u-aq-hvx" secondAttribute="top" id="Wvi-k1-d36"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="leading" secondItem="s4u-aq-hvx" secondAttribute="leading" id="aFS-dW-Tvz"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="contentView" destination="6CR-Ho-WlR" id="Pz0-yn-Jt4"/>
                                 </connections>

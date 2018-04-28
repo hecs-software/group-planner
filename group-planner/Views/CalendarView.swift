@@ -17,37 +17,7 @@ class CalendarView: UIScrollView {
     static let PERC_TIMEMARK_HEIGHT: CGFloat = 0.03
     static let PERC_TIMEMARK_GAP: CGFloat = 0.15
     
-    var dateRange: (Date, Date) =
-        (Date.today().previous(.sunday), Date.today().next(.saturday))
-    
-    var begMonth: Int {
-        get {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.month], from: dateRange.0)
-            return components.month!
-        }
-    }
-    var endMonth: Int {
-        get {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.month], from: dateRange.1)
-            return components.month!
-        }
-    }
-    var begDay: Int {
-        get {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.day], from: dateRange.0)
-            return components.day!
-        }
-    }
-    var endDay: Int {
-        get {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.day], from: dateRange.1)
-            return components.day!
-        }
-    }
+    var currentShownWeek: Week = Week(date: Date())
     
     var laidOutSubviews: Bool = false
     
@@ -78,7 +48,20 @@ class CalendarView: UIScrollView {
         super.awakeFromNib()
     }
     
-    // Render the events of that day
+    
+    func loadEvents(inWeek week: Week, completion: GTLRCalendarEventsResult? = nil) {
+        GGLAPIClient.shared.fetchEvents(minDate: week.sunday, maxDate: week.saturday)
+        { (ticket, events, error) in
+            if let events = events {
+                self.renderEvents(events: events)
+            }
+            
+            completion?(ticket, events, error)
+        }
+    }
+    
+    
+    // Render the events of that week
     func renderEvents(events: [GTLRCalendar_Event]) {
         discardAllEventViews()
         let timeMark = timemarkViews[0]
@@ -92,12 +75,8 @@ class CalendarView: UIScrollView {
             var components = calendar.dateComponents([.month, .day, .weekday, .hour, .minute],
                                                      from: localStartDate)
             
-            let month = components.month!
-            let day = components.day!
-            
-            if !Utility.withinDateRange(currDate: day, currMonth: month,
-                                        begDate: begDay, begMonth: begMonth,
-                                        endDate: endDay, endMonth: endMonth) {
+            if !startDate.date.withinDates(minDate: currentShownWeek.sunday,
+                                           maxDate: currentShownWeek.saturday) {
                 continue
             }
             
@@ -132,6 +111,7 @@ class CalendarView: UIScrollView {
                 eventViewsMap[weekday]!.append(eventView)
             }
         }
+        
         switchToDay(weekday: currentRenderedDay)
     }
     
@@ -184,15 +164,23 @@ class CalendarView: UIScrollView {
     func discardAllEventViews() {
         for (_, eventViews) in eventViewsMap {
             var eventViews = eventViews
+            let group = DispatchGroup()
             for eventView in eventViews {
+                group.enter()
                 UIUtility.hideViewWithAnimation(view: eventView,
                                                 duration: CalendarView.HIDE_ANIMATION_DURATION,
                                                 hidden: true)
                     { (success) in
-                    eventView.removeFromSuperview()
+                    group.leave()
                 }
             }
-            eventViews.removeAll()
+            group.notify(queue: .main) {
+                for eventView in eventViews {
+                    eventView.removeFromSuperview()
+                }
+                eventViews.removeAll()
+            }
+            
         }
     }
     

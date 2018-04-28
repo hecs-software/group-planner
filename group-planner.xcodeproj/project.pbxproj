@@ -20,6 +20,7 @@
 		47B717AE20901831004A7948 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AD20901831004A7948 /* CalendarView.swift */; };
 		47B717B02091AC44004A7948 /* GGLAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AF2091AC44004A7948 /* GGLAPIClient.swift */; };
 		47B717B2209325DE004A7948 /* CalendarDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717B1209325DE004A7948 /* CalendarDateView.swift */; };
+		47B717B4209447F0004A7948 /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717B3209447F0004A7948 /* Week.swift */; };
 		47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5A1D62063CB8D0054546D /* Extensions.swift */; };
 		96311E1FFD31537036D14469 /* Pods_group_plannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84CB903DD2E7C955EBD43ED /* Pods_group_plannerUITests.framework */; };
 		9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1965F42049187B00A8BEB6 /* AppDelegate.swift */; };
@@ -67,6 +68,7 @@
 		47B717AD20901831004A7948 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		47B717AF2091AC44004A7948 /* GGLAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGLAPIClient.swift; sourceTree = "<group>"; };
 		47B717B1209325DE004A7948 /* CalendarDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateView.swift; sourceTree = "<group>"; };
+		47B717B3209447F0004A7948 /* Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
 		47E5A1D62063CB8D0054546D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8CDD5A57314C656DDC1B5764 /* Pods-group-plannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerUITests/Pods-group-plannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		908C5AFDA979F23F2D3ACDBE /* Pods_group_planner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_planner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				47827D5B208F1218005DDE85 /* GroupInvitation.swift */,
 				47827D5D208F1220005DDE85 /* EventInvitation.swift */,
 				47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */,
+				47B717B3209447F0004A7948 /* Week.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				47B717B02091AC44004A7948 /* GGLAPIClient.swift in Sources */,
 				47827D56208F1200005DDE85 /* User.swift in Sources */,
 				47827D60208F19CA005DDE85 /* CompletionBlocks.swift in Sources */,
+				47B717B4209447F0004A7948 /* Week.swift in Sources */,
 				47827D5A208F120E005DDE85 /* Event.swift in Sources */,
 				47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */,
 				9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */,

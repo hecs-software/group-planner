@@ -74,6 +74,11 @@ extension UIViewController {
 }
 
 extension Date {
+    func withinDates(minDate: Date, maxDate: Date) -> Bool {
+        return minDate.compare(self).rawValue * self.compare(maxDate).rawValue >= 0
+    }
+    
+    
     func startOfDay() -> Date {
         return Calendar.current.startOfDay(for: self)
     }
