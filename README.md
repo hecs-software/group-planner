@@ -12,13 +12,19 @@ The following **required** user stories are complete:
 
 - [ ] Users can log in using Google Sign-In in the Login Page
 - [ ] Login Page has AutoLayout that adjusts with rotation
+- [ ] Profile page displays events in Google Calendar
+- [ ] Group List Page that displays all of your current groups in a TableView
+- [ ] Create Group Page that allows you to give a group a name and invite
+  members via their Google accounts
+- [ ] Group page that overlays the events of everybody in the group 
+- [ ] Notifications page to accept group invitations
 
 The following **stretch** user stories are implemented:
 
-- [ ] Users can choose Party as a Hangout
-- [ ] Users in Hangout can each choose a song for the Party Playlist
-- [ ] Hangout will generate a playlist based on related songs to each of the
-  Users' choice
+- [ ] Be able to create a new event in mutually open slots that is created in
+  each individual group members' calendars
+- [ ] Get notifications when an event has been created
+- [ ] Get notifications when a person has accepted your group invitation
 
 
 The following **additional** user stories are implemented:
