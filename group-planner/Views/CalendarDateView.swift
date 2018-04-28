@@ -45,8 +45,6 @@ class CalendarDateView: UIScrollView {
         oldestDate = Date.today().previous(.sunday)
         latestDate = Date.today().next(.saturday)
         dateVCMap[0] = container
-        self.contentSize.width = self.frame.width
-        self.contentSize.height = self.frame.height
     }
     
     
@@ -104,12 +102,16 @@ class CalendarDateView: UIScrollView {
         contentView.addSubview(newContainer)
         newContainer.leadingAnchor.constraint(equalTo: latestContainer.trailingAnchor).isActive = true
         newContainer.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        newContainer.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        newContainer.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: newContainer.bottomAnchor).isActive = true
         
         latestWeek += 1
         dateVCMap[latestWeek] = newContainer
-        self.contentSize.width += self.frame.width
+        
+        let frame = contentView.frame
+        let newFrame = CGRect(x: frame.origin.x, y: frame.origin.y,
+                              width: frame.width + self.frame.width, height: frame.height)
+        contentView.frame = newFrame
     }
     
     
@@ -130,7 +132,10 @@ class CalendarDateView: UIScrollView {
         oldestWeek -= 1
         dateVCMap[oldestWeek] = newContainer
         
-        self.contentSize.width += self.frame.width
+        let frame = contentView.frame
+        let newFrame = CGRect(x: frame.origin.x - self.frame.width, y: frame.origin.y,
+                              width: frame.width + self.frame.width, height: frame.height)
+        contentView.frame = newFrame
     }
     
     
@@ -139,6 +144,12 @@ class CalendarDateView: UIScrollView {
     func createDateViewContainer() -> DateViewContainer {
         let container = DateViewContainer(frame: .zero)
         return container
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentSize = self.contentView.frame.size
     }
 }
 
@@ -188,19 +199,6 @@ class DateViewContainer: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if !laidoutSubviews {
-            let width = self.frame.width * DateViewContainer.DAYSC_WIDTH_MUL
-            let height = self.frame.height * DateViewContainer.DAYSC_HEIGHT_MUL
-            let y = self.frame.maxY - height
-            let x = (self.frame.width - width) / 2
-            let frame = CGRect(x: x, y: y, width: width, height: height)
-            daySC.frame = frame
-            laidoutSubviews = true
-        }
     }
 }
 

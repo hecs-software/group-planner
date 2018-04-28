@@ -74,6 +74,7 @@ class DaySCContainer: UIView {
     }
     
     @objc func segmentedControlChanged(_ sender: DaySegmentedControl) {
+        print("hello")
         let segmentWidth = sender.frame.width / CGFloat(sender.numberOfSegments)
         let leftOffset = sender.frame.origin.x
         UIView.animate(withDuration: 0.3) {

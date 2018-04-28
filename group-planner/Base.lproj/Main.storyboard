@@ -82,25 +82,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Td4-D3-fcu">
-                                <rect key="frame" x="133.5" y="88" width="225.5" height="33.5"/>
+                                <rect key="frame" x="134" y="88" width="225" height="34"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="johndoe@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdP-Ye-Dq3">
-                                <rect key="frame" x="133.5" y="123.5" width="225.5" height="33.5"/>
+                                <rect key="frame" x="134" y="124" width="225" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wx9-TZ-q1X" customClass="PFImageView">
-                                <rect key="frame" x="16" y="80" width="101.5" height="101.5"/>
+                                <rect key="frame" x="16" y="80" width="102" height="102"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y1r-YV-2Nv" customClass="CalendarView" customModule="group_planner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="261.5" width="375" height="356.5"/>
+                                <rect key="frame" x="0.0" y="262" width="375" height="356"/>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s4u-aq-hvx" customClass="CalendarDateView" customModule="group_planner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="181.5" width="375" height="80"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4u-aq-hvx" customClass="CalendarDateView" customModule="group_planner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="182" width="375" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CR-Ho-WlR">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -108,10 +108,12 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerX" secondItem="s4u-aq-hvx" secondAttribute="centerX" id="K5o-oc-i2w"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerY" secondItem="s4u-aq-hvx" secondAttribute="centerY" id="MKI-bg-tWf"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="height" secondItem="s4u-aq-hvx" secondAttribute="height" id="Vj6-oD-7Lf"/>
-                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="width" secondItem="s4u-aq-hvx" secondAttribute="width" id="Yu4-wt-Njp"/>
+                                    <constraint firstAttribute="bottom" secondItem="6CR-Ho-WlR" secondAttribute="bottom" id="0yZ-xO-qAV"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerY" secondItem="s4u-aq-hvx" secondAttribute="centerY" id="6Wc-Mp-zqc"/>
+                                    <constraint firstAttribute="trailing" secondItem="6CR-Ho-WlR" secondAttribute="trailing" id="FYN-0D-NOs"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="centerX" secondItem="s4u-aq-hvx" secondAttribute="centerX" id="O8B-hR-AjC"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="top" secondItem="s4u-aq-hvx" secondAttribute="top" id="Wvi-k1-d36"/>
+                                    <constraint firstItem="6CR-Ho-WlR" firstAttribute="leading" secondItem="s4u-aq-hvx" secondAttribute="leading" id="aFS-dW-Tvz"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="contentView" destination="6CR-Ho-WlR" id="Pz0-yn-Jt4"/>

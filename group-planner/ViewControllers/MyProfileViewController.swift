@@ -11,7 +11,7 @@ import ParseUI
 import GoogleAPIClientForREST
 import GoogleSignIn
 
-class MyProfileViewController: UIViewController, DaySCDelegate {
+class MyProfileViewController: UIViewController, DaySCDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -47,6 +47,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
     
     
     func setupCalendarDateView() {
+        calendarDateView.delegate = self
         calendarDateView.setupCurrentWeek(delegate: self)
         calendarDateView.addLaterWeeks(delegate: self)
         
@@ -113,9 +114,15 @@ class MyProfileViewController: UIViewController, DaySCDelegate {
         calendarView.switchToDay(weekday: day)
     }
     
+    
     func updateCalendarViewDate(begDate: Date, endDate: Date) {
         calendarView.dateRange.0 = begDate
         calendarView.dateRange.1 = endDate
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
 }
