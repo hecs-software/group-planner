@@ -17,11 +17,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     private let scopes = [kGTLRAuthScopeCalendarReadonly]
     
     private let service = GTLRCalendarService()
-    //let signInButton = GIDSignInButton()
-
-
+    
     @IBOutlet weak var signInText: UILabel!
     @IBOutlet weak var signInButtonView: GIDSignInButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +45,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             showAlert(title: "Authentication Error", message: error.localizedDescription)
             self.service.authorizer = nil
         } else {
-            //self.signInButton.isHidden = true
             self.service.authorizer = user.authentication.fetcherAuthorizer()
             fetchEvents()
         }
