@@ -28,6 +28,8 @@
 		9D1965FF2049187B00A8BEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D1965FD2049187B00A8BEB6 /* LaunchScreen.storyboard */; };
 		9D19660A2049187B00A8BEB6 /* group_plannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1966092049187B00A8BEB6 /* group_plannerTests.swift */; };
 		9D1966152049187B00A8BEB6 /* group_plannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1966142049187B00A8BEB6 /* group_plannerUITests.swift */; };
+		9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C89BE2096820E009576C4 /* GroupListViewController.swift */; };
+		9D2C89C1209682A5009576C4 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C89C0209682A5009576C4 /* GroupCell.swift */; };
 		9D9F59A2208581E900909D09 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F59A1208581E900909D09 /* LoginViewController.swift */; };
 		B2D56824677F7C7717AA55F4 /* Pods_group_plannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1BB677E617D5E7E30A939E /* Pods_group_plannerTests.framework */; };
 		C7DC17F36F54D306578558FD /* Pods_group_planner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908C5AFDA979F23F2D3ACDBE /* Pods_group_planner.framework */; };
@@ -83,6 +85,8 @@
 		9D1966102049187B00A8BEB6 /* group-plannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "group-plannerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1966142049187B00A8BEB6 /* group_plannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = group_plannerUITests.swift; sourceTree = "<group>"; };
 		9D1966162049187B00A8BEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D2C89BE2096820E009576C4 /* GroupListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListViewController.swift; sourceTree = "<group>"; };
+		9D2C89C0209682A5009576C4 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		9D9F59A1208581E900909D09 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC5E1B2FFD8DB24E8A3EB2F2 /* Pods-group-plannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerTests/Pods-group-plannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E84CB903DD2E7C955EBD43ED /* Pods_group_plannerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_plannerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,8 @@
 			children = (
 				9D9F59A1208581E900909D09 /* LoginViewController.swift */,
 				47B717A920900BF0004A7948 /* MyProfileViewController.swift */,
+				9D2C89BE2096820E009576C4 /* GroupListViewController.swift */,
+				9D2C89C0209682A5009576C4 /* GroupCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -557,8 +563,10 @@
 				47827D62208F1F18005DDE85 /* Utility.swift in Sources */,
 				47B717B2209325DE004A7948 /* CalendarDateView.swift in Sources */,
 				47827D5E208F1220005DDE85 /* EventInvitation.swift in Sources */,
+				9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
 				47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */,
+				9D2C89C1209682A5009576C4 /* GroupCell.swift in Sources */,
 				47827D58208F1208005DDE85 /* Group.swift in Sources */,
 				47B717AE20901831004A7948 /* CalendarView.swift in Sources */,
 				47B717B02091AC44004A7948 /* GGLAPIClient.swift in Sources */,
