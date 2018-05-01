@@ -16,11 +16,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // resetting the iOS simulator or uninstall the app.
     private let scopes = [kGTLRAuthScopeCalendarReadonly]
     
-    //let signInButton = GIDSignInButton()
-
-
     @IBOutlet weak var signInText: UILabel!
     @IBOutlet weak var signInButtonView: GIDSignInButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
