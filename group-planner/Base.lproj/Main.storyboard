@@ -229,7 +229,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Groups" id="Ugu-KH-B7M">
                         <barButtonItem key="leftBarButtonItem" title="Edit" id="pTY-Ir-xNY"/>
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="Q5b-de-Sfs"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="Q5b-de-Sfs">
+                            <connections>
+                                <segue destination="cVl-4k-NTX" kind="presentation" id="n8Y-ey-2q4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="groupsTableView" destination="obh-t6-pl6" id="0Xm-yG-nmr"/>
@@ -239,20 +243,64 @@
             </objects>
             <point key="canvasLocation" x="1136.8" y="1757.2713643178413"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Group View Controller-->
         <scene sceneID="xyV-vt-hlS">
             <objects>
-                <viewController id="cVl-4k-NTX" sceneMemberID="viewController">
+                <viewController id="cVl-4k-NTX" customClass="CreateGroupViewController" customModule="group_planner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5f5-Se-f3A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-7F-8M0">
+                                <rect key="frame" x="16" y="206" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a New Group!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuV-pi-M2U">
+                                <rect key="frame" x="59" y="85" width="256" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HYC-GE-ANC">
+                                <rect key="frame" x="16" y="298" width="240" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQ1-F4-TsA">
+                                <rect key="frame" x="303" y="298" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="didSearch:" destination="cVl-4k-NTX" eventType="touchUpInside" id="JAR-3z-LNz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQW-87-PO0">
+                                <rect key="frame" x="146" y="374" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Create!"/>
+                                <connections>
+                                    <action selector="didCreate:" destination="cVl-4k-NTX" eventType="touchUpInside" id="qyN-pZ-12y"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tKf-Oh-Ymf"/>
                     </view>
+                    <connections>
+                        <outlet property="groupNameTextField" destination="Efj-7F-8M0" id="4pp-f7-Tkm"/>
+                        <outlet property="searchTextField" destination="HYC-GE-ANC" id="jPt-d6-gat"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75x-ku-KQy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1137" y="2575"/>
+            <point key="canvasLocation" x="1136.8" y="2574.96251874063"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Qym-fl-KrA">

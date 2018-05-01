@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class GroupListViewController: UIViewController, UITableViewDataSource {
 
@@ -15,6 +16,11 @@ class GroupListViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let user = User.current()
+        if let groupList = user?.groups {
+            self.groups = groupList
+        }
     }
 
     override func didReceiveMemoryWarning() {

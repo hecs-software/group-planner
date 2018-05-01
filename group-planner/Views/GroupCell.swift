@@ -10,8 +10,15 @@ import UIKit
 
 class GroupCell: UITableViewCell {
     
-    var group: Group!
+    
     @IBOutlet weak var groupNameLabel: UILabel!
+    
+    var group: Group! {
+        didSet {
+            groupNameLabel.text = group.name
+        }
+        
+    }
     
 
     override func awakeFromNib() {
