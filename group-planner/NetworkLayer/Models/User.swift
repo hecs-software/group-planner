@@ -16,6 +16,7 @@ class User: PFUser {
     @NSManaged var lastName: String?
     @NSManaged var profilePicture: PFFile?
     
+    
     static func createNewUser(email: String, firstName: String,
                               lastName: String? = nil, profilePicture: UIImage? = nil,
                               completion: PFBooleanResultBlock? = nil) {
