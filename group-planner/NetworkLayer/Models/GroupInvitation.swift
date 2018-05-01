@@ -6,6 +6,7 @@
 //  Copyright © 2018 Christopher Guan. All rights reserved.
 //
 
+import ParseUI
 import Parse
 
 class GroupInvitation: PFObject, PFSubclassing {
@@ -79,6 +80,9 @@ class GroupInvitation: PFObject, PFSubclassing {
         
         // Add current user to the group
         self.group.groupMembers.append(currentUser)
+        currentUser.groups!.append(self.group)
+        
+        currentUser.saveInBackground()
         self.group.saveInBackground(block: completion)
         
         self.deleteInBackground()

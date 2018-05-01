@@ -15,6 +15,18 @@ class User: PFUser {
     @NSManaged var firstName: String
     @NSManaged var lastName: String?
     @NSManaged var profilePicture: PFFile?
+    @NSManaged var groups: [Group]?
+    
+    var name: String {
+        get {
+            if let lastName = lastName {
+                return "\(firstName) \(lastName)"
+            }
+            else {
+                return firstName
+            }
+        }
+    }
     
     static func createNewUser(email: String, firstName: String,
                               lastName: String? = nil, profilePicture: UIImage? = nil,
@@ -34,7 +46,8 @@ class User: PFUser {
     
     // Format
     // ["id": "user id", "access_token":"google access token"]
-    static func oauthLogin(gidUser: GIDGoogleUser) {
+    static func oauthLogin(gidUser: GIDGoogleUser, completion: Callback? = nil,
+                           uploadCompletion: PFBooleanResultBlock? = nil) {
         let authData: [String:String] = [
             "id": gidUser.userID,
             "access_token": gidUser.authentication.accessToken
@@ -46,19 +59,36 @@ class User: PFUser {
                 user.email = gidUser.profile.email
                 user.firstName = gidUser.profile.givenName
                 user.lastName = gidUser.profile.familyName
+                
+                if user.groups == nil {
+                    user.groups = [Group]()
+                }
+                
                 let profileUrl = gidUser.profile.imageURL(withDimension: 300)
                 if let url = profileUrl {
                     NetworkUtility.downloadImage(url: url, completion: { (image, error) in
                         if let image = image {
+                            if let profile = user.profilePicture {
+                                ParseUtility.deletePFFile(file: profile, completion: { (error) in
+                                    if let error = error {
+                                        print("ERROR: \(error)")
+                                    }
+                                })
+                            }
                             let pffile = ParseUtility.getPFFileFromImage(image)
                             user.profilePicture = pffile
                         }
-                        user.saveInBackground()
+                        user.saveInBackground(block: { (success, error) in
+                            uploadCompletion?(success, error)
+                        })
                     })
                 }
                 else {
-                    user.saveInBackground()
+                    user.saveInBackground(block: { (success, error) in
+                        uploadCompletion?(success, error)
+                    })
                 }
+                completion?()
             }
             return nil
         }
@@ -82,4 +112,5 @@ class User: PFUser {
             }
         })
     }
+    
 }

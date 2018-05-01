@@ -16,8 +16,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     // resetting the iOS simulator or uninstall the app.
     private let scopes = [kGTLRAuthScopeCalendarReadonly]
     
-    private let service = GTLRCalendarService()
-    
     @IBOutlet weak var signInText: UILabel!
     @IBOutlet weak var signInButtonView: GIDSignInButton!
 
@@ -42,74 +40,20 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
         if let error = error {
-            showAlert(title: "Authentication Error", message: error.localizedDescription)
-            self.service.authorizer = nil
+            print(error.localizedDescription)
         } else {
-            self.service.authorizer = user.authentication.fetcherAuthorizer()
-            fetchEvents()
             parseLogin(user: user)
         }
     }
     
     func parseLogin(user: GIDGoogleUser) {
-        User.oauthLogin(gidUser: user)
-    }
-    
-    // Construct a query and get a list of upcoming events from the user calendar
-    func fetchEvents() {
-        let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
-        query.maxResults = 10
-        query.timeMin = GTLRDateTime(date: Date())
-        query.singleEvents = true
-        query.orderBy = kGTLRCalendarOrderByStartTime
-        service.executeQuery(
-            query,
-            delegate: self,
-            didFinish: #selector(displayResultWithTicket(ticket:finishedWithObject:error:)))
-    }
-    
-    // Display the start dates and event summaries in the UITextView
-    @objc func displayResultWithTicket(
-        ticket: GTLRServiceTicket,
-        finishedWithObject response : GTLRCalendar_Events,
-        error : NSError?) {
-        
-        if let error = error {
-            showAlert(title: "Error", message: error.localizedDescription)
-            return
-        }
-        
-        var outputText = ""
-        if let events = response.items, !events.isEmpty {
-            for event in events {
-                let start = event.start!.dateTime ?? event.start!.date!
-                let startString = DateFormatter.localizedString(
-                    from: start.date,
-                    dateStyle: .short,
-                    timeStyle: .short)
-                outputText += "\(startString) - \(event.summary!)\n"
-            }
-        } else {
-            outputText = "No upcoming events found."
-        }
-        print(outputText)
-    }
-    
-    
-    // Helper for showing an alert
-    func showAlert(title : String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: UIAlertControllerStyle.alert
-        )
-        let ok = UIAlertAction(
-            title: "OK",
-            style: UIAlertActionStyle.default,
-            handler: nil
-        )
-        alert.addAction(ok)
-        present(alert, animated: true, completion: nil)
+        shadeView(shaded: true)
+        User.oauthLogin(gidUser: user, completion: {
+            self.shadeView(shaded: false)
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+        }, uploadCompletion: { (_, _) in
+            NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
+        })
     }
     
     
@@ -117,16 +61,5 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
