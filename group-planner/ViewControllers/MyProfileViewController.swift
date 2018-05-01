@@ -11,7 +11,8 @@ import ParseUI
 import GoogleAPIClientForREST
 import GoogleSignIn
 
-class MyProfileViewController: UIViewController, DaySCDelegate, UIScrollViewDelegate {
+class MyProfileViewController: UIViewController, DaySCDelegate,
+                                UIScrollViewDelegate, CalendarDateViewDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -48,12 +49,11 @@ class MyProfileViewController: UIViewController, DaySCDelegate, UIScrollViewDele
     
     func setupCalendarDateView() {
         calendarDateView.delegate = self
+        calendarDateView.cdvDelegate = self
+        calendarDateView.setupContainer()
         calendarDateView.setupCurrentWeek(delegate: self)
         calendarDateView.addLaterWeeks(delegate: self)
-        
-        let sunday = Date.today().previous(.sunday)
-        let saturday = Date.today().next(.saturday)
-        updateCalendarViewDate(begDate: sunday, endDate: saturday)
+        calendarDateView.addOlderWeeks(delegate: self)
     }
     
     
@@ -94,18 +94,16 @@ class MyProfileViewController: UIViewController, DaySCDelegate, UIScrollViewDele
     
     // Construct a query and get a list of upcoming events from the user calendar
     @objc func fetchEvents() {
-        let sunday = Date.today().previous(.sunday)
-        let saturday = Date.today().next(.saturday)
-        
-        GGLAPIClient.shared.fetchEvents(minDate: sunday, maxDate: saturday)
-        { (_, events, error) in
+        let week = Week(date: Date.today())
+        calendarView.loadEvents(inWeek: week) { (_, events, error) in
             if let error = error {
                 self.displayAlert(title: "Error", message: error.localizedDescription)
             }
             else if let events = events {
                 self.calendarView.renderEvents(events: events)
-                self.rc.endRefreshing()
+                
             }
+            self.rc.endRefreshing()
         }
     }
     
@@ -115,14 +113,19 @@ class MyProfileViewController: UIViewController, DaySCDelegate, UIScrollViewDele
     }
     
     
-    func updateCalendarViewDate(begDate: Date, endDate: Date) {
-        calendarView.dateRange.0 = begDate
-        calendarView.dateRange.1 = endDate
-    }
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        scrollView.setContentOffset(scrollView.contentOffset, animated: true)
+    }
+    
+    
+    func didSnap(toWeek week: Week, dayPicked: Int) {
+        calendarView.currentRenderedDay = dayPicked
+        calendarView.currentShownWeek = week
+        calendarView.loadEvents(inWeek: week)
+    }
 }
