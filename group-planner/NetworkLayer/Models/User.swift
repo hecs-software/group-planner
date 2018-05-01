@@ -15,6 +15,18 @@ class User: PFUser {
     @NSManaged var firstName: String
     @NSManaged var lastName: String?
     @NSManaged var profilePicture: PFFile?
+    @NSManaged var groups: [Group]?
+    
+    var name: String {
+        get {
+            if let lastName = lastName {
+                return "\(firstName) \(lastName)"
+            }
+            else {
+                return firstName
+            }
+        }
+    }
     
     static func createNewUser(email: String, firstName: String,
                               lastName: String? = nil, profilePicture: UIImage? = nil,
@@ -47,6 +59,11 @@ class User: PFUser {
                 user.email = gidUser.profile.email
                 user.firstName = gidUser.profile.givenName
                 user.lastName = gidUser.profile.familyName
+                
+                if user.groups == nil {
+                    user.groups = [Group]()
+                }
+                
                 let profileUrl = gidUser.profile.imageURL(withDimension: 300)
                 if let url = profileUrl {
                     NetworkUtility.downloadImage(url: url, completion: { (image, error) in
