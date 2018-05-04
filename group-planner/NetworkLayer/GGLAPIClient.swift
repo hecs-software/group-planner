@@ -114,13 +114,18 @@ class GGLAPIClient {
         scope.value = user.email
         
         let currentUser = User.current()!
-        let query = GTLRCalendarQuery_AclInsert.query(withObject: aclRule, calendarId: currentUser.gglCalendarId!)
+        let query = GTLRCalendarQuery_AclInsert.query(withObject: aclRule, calendarId: "primary")
         service.executeQuery(query) { (ticket, response, error) in
             if let error = error {
                 completion?(ticket, nil, error)
             }
             else if let acl = response as? GTLRCalendar_Acl {
                 completion?(ticket, acl, nil)
+                
+                // Add the current user to the list of users that need
+                // calendar permissions
+                user.usersNeedPerms![currentUser.objectId!] = currentUser
+                user.saveInBackground()
             }
         }
     }

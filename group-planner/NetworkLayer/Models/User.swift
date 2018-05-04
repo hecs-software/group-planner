@@ -19,6 +19,9 @@ class User: PFUser {
     @NSManaged var gglCalendarId: String?
     @NSManaged var groups: [Group]?
     
+    // Google calendars that need permissions from this user
+    @NSManaged var usersNeedPerms: [String:User]?
+    
     var name: String {
         get {
             if let lastName = lastName {
@@ -37,6 +40,7 @@ class User: PFUser {
         newUser.email = email
         newUser.firstName = firstName
         newUser.lastName = lastName
+        newUser.usersNeedPerms = [String:User]()
         
         if let image = profilePicture {
             newUser.profilePicture = ParseUtility.getPFFileFromImage(image)
@@ -86,6 +90,10 @@ class User: PFUser {
         parseUser.lastName = gidUser.profile.familyName
         parseUser.gglCalendarId = calendar.identifier
         
+        if parseUser.usersNeedPerms == nil {
+            parseUser.usersNeedPerms = [String:User]()
+        }
+        
         if parseUser.groups == nil {
             parseUser.groups = [Group]()
         }
@@ -119,6 +127,36 @@ class User: PFUser {
     
     static func logout(completion: PFUserLogoutResultBlock? = nil) {
         User.logOutInBackground(block: completion)
+    }
+    
+    
+    func givePendingPermissions(completion: GTLRCalendarBooleanResult? = nil) {
+        let users = self.usersNeedPerms!
+        var errors = [Error]()
+        let group = DispatchGroup()
+        
+        for (key, user) in users {
+            group.enter()
+            GGLAPIClient.shared.givePermission(toUser: user) { (ticket, acl, error) in
+                if let error = error {
+                    errors.append(error)
+                }
+                else {
+                    self.usersNeedPerms!.removeValue(forKey: key)
+                }
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            self.saveInBackground()
+            if errors.count > 0 {
+                completion?(false, errors)
+            }
+            else {
+                completion?(true, nil)
+            }
+        }
     }
     
     

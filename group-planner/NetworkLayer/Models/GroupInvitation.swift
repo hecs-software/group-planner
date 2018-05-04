@@ -78,22 +78,28 @@ class GroupInvitation: PFObject, PFSubclassing {
     func acceptInvitation(completion: PFBooleanResultBlock? = nil, gglCompletion: GTLRCalendarBooleanResult? = nil) {
         let currentUser = User.current()!
         
-        // Add current user to the group
-        self.group.groupMembers.append(currentUser)
-        currentUser.groups!.append(self.group)
-        
-        currentUser.saveInBackground()
-        self.group.saveInBackground(block: completion)
-        
         // Get all the members that are not the current user
         let members = self.group.groupMembers.filter { (user) -> Bool in
             return user.email != currentUser.email
         }
         
         // Give permission to all the members in the group
-        GGLAPIClient.shared.givePermission(toUsers: members, completion: gglCompletion)
+        GGLAPIClient.shared.givePermission(toUsers: members) { (success, errors) in
+            if success {
+                // Add current user to the group
+                self.group.groupMembers.append(currentUser)
+                currentUser.groups!.append(self.group)
+                
+                currentUser.saveInBackground()
+                self.group.saveInBackground(block: completion)
+                
+                self.deleteInBackground()
+            }
+            else {
+                gglCompletion?(success, errors)
+            }
+        }
         
-        self.deleteInBackground()
     }
 }
 
