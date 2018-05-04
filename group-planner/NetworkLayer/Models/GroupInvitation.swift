@@ -18,6 +18,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         return "GroupInvitation"
     }
     
+    
     static func createGroupInvitation(requester: User, requestee: User, group: Group,
                                       completion: PFBooleanResultBlock? = nil) {
         let newInvitation = GroupInvitation()
@@ -27,6 +28,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         
         newInvitation.saveInBackground(block: completion)
     }
+    
     
     static func inviteUsers(requestees: [User], group: Group, completion: UsersInvitedResultBlock? = nil) {
         let currentUser = User.current()!
@@ -61,6 +63,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         }
     }
     
+    
     static func fetchGroupInvitations(completion: @escaping GroupInvitationsResultBlock) {
         let currentUser = User.current()!
         let query = GroupInvitation.query()
@@ -74,6 +77,7 @@ class GroupInvitation: PFObject, PFSubclassing {
             }
         })
     }
+    
     
     func acceptInvitation(completion: PFBooleanResultBlock? = nil, gglCompletion: GTLRCalendarBooleanResult? = nil) {
         let currentUser = User.current()!

@@ -33,6 +33,7 @@ class User: PFUser {
         }
     }
     
+    
     static func createNewUser(email: String, firstName: String,
                               lastName: String? = nil, profilePicture: UIImage? = nil,
                               completion: PFBooleanResultBlock? = nil) {
