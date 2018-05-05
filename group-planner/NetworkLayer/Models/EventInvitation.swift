@@ -17,6 +17,7 @@ class EventInvitation: PFObject, PFSubclassing {
         return "EventInvitation"
     }
     
+    
     static func createEventInvitation(requester: User, requestee: User, event: Event,
                                       completion: PFBooleanResultBlock? = nil) {
         let newInvitation = EventInvitation()
@@ -26,6 +27,7 @@ class EventInvitation: PFObject, PFSubclassing {
         
         newInvitation.saveInBackground(block: completion)
     }
+    
     
     static func inviteUsers(requestees: [User], event: Event, completion: UsersInvitedResultBlock? = nil) {
         let currentUser = User.current()!
@@ -60,6 +62,7 @@ class EventInvitation: PFObject, PFSubclassing {
         }
     }
     
+    
     static func fetchEventInvitations(completion: @escaping EventInvitationsResultBlock) {
         let currentUser = User.current()!
         let query = EventInvitation.query()
@@ -73,6 +76,7 @@ class EventInvitation: PFObject, PFSubclassing {
             }
         })
     }
+    
     
     func acceptInvitation(completion: PFBooleanResultBlock? = nil) {
         let currentUser = User.current()!
