@@ -18,6 +18,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         return "GroupInvitation"
     }
     
+    
     static func createGroupInvitation(requester: User, requestee: User, group: Group,
                                       completion: PFBooleanResultBlock? = nil) {
         let newInvitation = GroupInvitation()
@@ -27,6 +28,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         
         newInvitation.saveInBackground(block: completion)
     }
+    
     
     static func inviteUsers(requestees: [User], group: Group, completion: UsersInvitedResultBlock? = nil) {
         let currentUser = User.current()!
@@ -61,6 +63,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         }
     }
     
+    
     static func fetchGroupInvitations(completion: @escaping GroupInvitationsResultBlock) {
         let currentUser = User.current()!
         let query = GroupInvitation.query()
@@ -75,17 +78,32 @@ class GroupInvitation: PFObject, PFSubclassing {
         })
     }
     
-    func acceptInvitation(completion: PFBooleanResultBlock? = nil) {
+    
+    func acceptInvitation(completion: PFBooleanResultBlock? = nil, gglCompletion: GTLRCalendarBooleanResult? = nil) {
         let currentUser = User.current()!
         
-        // Add current user to the group
-        self.group.groupMembers.append(currentUser)
-        currentUser.groups!.append(self.group)
+        // Get all the members that are not the current user
+        let members = self.group.groupMembers.filter { (user) -> Bool in
+            return user.email != currentUser.email
+        }
         
-        currentUser.saveInBackground()
-        self.group.saveInBackground(block: completion)
+        // Give permission to all the members in the group
+        GGLAPIClient.shared.givePermission(toUsers: members) { (success, errors) in
+            if success {
+                // Add current user to the group
+                self.group.groupMembers.append(currentUser)
+                currentUser.groups!.append(self.group)
+                
+                currentUser.saveInBackground()
+                self.group.saveInBackground(block: completion)
+                
+                self.deleteInBackground()
+            }
+            else {
+                gglCompletion?(success, errors)
+            }
+        }
         
-        self.deleteInBackground()
     }
 }
 

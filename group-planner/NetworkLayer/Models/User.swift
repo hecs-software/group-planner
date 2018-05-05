@@ -8,6 +8,7 @@
 
 import Parse
 import GoogleSignIn
+import GoogleAPIClientForREST
 
 class User: PFUser {
     static let oauthType = "google"
@@ -15,7 +16,11 @@ class User: PFUser {
     @NSManaged var firstName: String
     @NSManaged var lastName: String?
     @NSManaged var profilePicture: PFFile?
+    @NSManaged var gglCalendarId: String?
     @NSManaged var groups: [Group]?
+    
+    // Google calendars that need permissions from this user
+    @NSManaged var usersNeedPerms: [String:User]?
     
     var name: String {
         get {
@@ -36,6 +41,7 @@ class User: PFUser {
         newUser.email = email
         newUser.firstName = firstName
         newUser.lastName = lastName
+        newUser.usersNeedPerms = [String:User]()
         
         if let image = profilePicture {
             newUser.profilePicture = ParseUtility.getPFFileFromImage(image)
@@ -57,38 +63,19 @@ class User: PFUser {
         let user = User.logInWithAuthType(inBackground: User.oauthType, authData: authData)
         user.continueOnSuccessWith { (task) -> Any? in
             if let user = task.result as? User {
-                user.email = gidUser.profile.email
-                user.firstName = gidUser.profile.givenName
-                user.lastName = gidUser.profile.familyName
+                GGLAPIClient.shared.getPrimaryCalendar(completion: { (ticket, calendar, error) in
+                    if let error = error {
+                        uploadCompletion?(false, error)
+                    }
+                    else if let calendar = calendar {
+                        User.updateUser(gidUser: gidUser, parseUser: user,
+                                        calendar: calendar, completion: uploadCompletion)
+                    }
+                    else {
+                        uploadCompletion?(false, nil)
+                    }
+                })
                 
-                if user.groups == nil {
-                    user.groups = [Group]()
-                }
-                
-                let profileUrl = gidUser.profile.imageURL(withDimension: 300)
-                if let url = profileUrl {
-                    NetworkUtility.downloadImage(url: url, completion: { (image, error) in
-                        if let image = image {
-                            if let profile = user.profilePicture {
-                                ParseUtility.deletePFFile(file: profile, completion: { (error) in
-                                    if let error = error {
-                                        print("ERROR: \(error)")
-                                    }
-                                })
-                            }
-                            let pffile = ParseUtility.getPFFileFromImage(image)
-                            user.profilePicture = pffile
-                        }
-                        user.saveInBackground(block: { (success, error) in
-                            uploadCompletion?(success, error)
-                        })
-                    })
-                }
-                else {
-                    user.saveInBackground(block: { (success, error) in
-                        uploadCompletion?(success, error)
-                    })
-                }
                 completion?()
             }
             return nil
@@ -96,8 +83,81 @@ class User: PFUser {
     }
     
     
+    static func updateUser(gidUser: GIDGoogleUser, parseUser: User,
+                           calendar: GTLRCalendar_CalendarListEntry,
+                           completion: PFBooleanResultBlock? = nil) {
+        parseUser.email = gidUser.profile.email
+        parseUser.firstName = gidUser.profile.givenName
+        parseUser.lastName = gidUser.profile.familyName
+        parseUser.gglCalendarId = calendar.identifier
+        
+        if parseUser.usersNeedPerms == nil {
+            parseUser.usersNeedPerms = [String:User]()
+        }
+        
+        if parseUser.groups == nil {
+            parseUser.groups = [Group]()
+        }
+        
+        let profileUrl = gidUser.profile.imageURL(withDimension: 300)
+        if let url = profileUrl {
+            NetworkUtility.downloadImage(url: url, completion: { (image, error) in
+                if let image = image {
+                    if let profile = parseUser.profilePicture {
+                        ParseUtility.deletePFFile(file: profile, completion: { (error) in
+                            if let error = error {
+                                print("ERROR: \(error)")
+                            }
+                        })
+                    }
+                    let pffile = ParseUtility.getPFFileFromImage(image)
+                    parseUser.profilePicture = pffile
+                }
+                parseUser.saveInBackground(block: { (success, error) in
+                    completion?(success, error)
+                })
+            })
+        }
+        else {
+            parseUser.saveInBackground(block: { (success, error) in
+                completion?(success, error)
+            })
+        }
+    }
+    
+    
     static func logout(completion: PFUserLogoutResultBlock? = nil) {
         User.logOutInBackground(block: completion)
+    }
+    
+    
+    func givePendingPermissions(completion: GTLRCalendarBooleanResult? = nil) {
+        let users = self.usersNeedPerms!
+        var errors = [Error]()
+        let group = DispatchGroup()
+        
+        for (key, user) in users {
+            group.enter()
+            GGLAPIClient.shared.givePermission(toUser: user) { (ticket, acl, error) in
+                if let error = error {
+                    errors.append(error)
+                }
+                else {
+                    self.usersNeedPerms!.removeValue(forKey: key)
+                }
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            self.saveInBackground()
+            if errors.count > 0 {
+                completion?(false, errors)
+            }
+            else {
+                completion?(true, nil)
+            }
+        }
     }
     
     
@@ -110,6 +170,20 @@ class User: PFUser {
             }
             else if let user = object as? User {
                 completion(user, nil)
+            }
+        })
+    }
+    
+    
+    static func searchUsers(with email: String, completion: @escaping UsersBooleanResultBlock) {
+        let query = User.query()
+        query?.whereKey("email", contains: email)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            else if let users = objects as? [User] {
+                completion(users, nil)
             }
         })
     }
