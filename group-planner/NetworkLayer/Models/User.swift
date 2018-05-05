@@ -175,7 +175,7 @@ class User: PFUser {
     }
     
     
-    static func searchUsers(with email: String, completion: @escaping UsersBooleanResultBlock) {
+    static func searchUsers(withEmail email: String, completion: @escaping UsersBooleanResultBlock) {
         let query = User.query()
         query?.whereKey("email", contains: email)
         query?.findObjectsInBackground(block: { (objects, error) in

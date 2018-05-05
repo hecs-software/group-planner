@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ParseUI
 
-class GroupCell: UITableViewCell {
+class GroupCell: UITableViewCell, UICollectionViewDataSource {
     
     
     @IBOutlet weak var groupNameLabel: UILabel!
@@ -32,4 +33,17 @@ class GroupCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePicCell", for: indexPath)
+        let users = group.groupMembers
+        let user = users[indexPath.row]
+        
+        // TODO: set cell's picture
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return group.groupMembers.count
+    }
 }
