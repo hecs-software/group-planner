@@ -13,6 +13,10 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource {
     
     
     @IBOutlet weak var groupNameLabel: UILabel!
+
+    @IBOutlet weak var profileCarousel: UICollectionView!
+    
+    @IBOutlet weak var settingsButton: UIButton!
     
     var group: Group! {
         didSet {
@@ -25,6 +29,9 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        let layout = profileCarousel.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        layout.itemSize = CGSize(width: frame.width, height: frame.height / 10)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
