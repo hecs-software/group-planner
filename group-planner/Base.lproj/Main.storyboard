@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -281,7 +281,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQW-87-PO0">
-                                <rect key="frame" x="146" y="374" width="83" height="30"/>
+                                <rect key="frame" x="146" y="437" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Create!"/>
@@ -295,10 +295,19 @@
                     </view>
                     <connections>
                         <outlet property="groupNameTextField" destination="Efj-7F-8M0" id="4pp-f7-Tkm"/>
+                        <outlet property="searchDisplayController" destination="q4S-QH-rEf" id="XNR-hL-Rom"/>
                         <outlet property="searchTextField" destination="HYC-GE-ANC" id="jPt-d6-gat"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75x-ku-KQy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="q4S-QH-rEf">
+                    <connections>
+                        <outlet property="delegate" destination="cVl-4k-NTX" id="2Nb-dL-ogo"/>
+                        <outlet property="searchContentsController" destination="cVl-4k-NTX" id="feL-pN-JQA"/>
+                        <outlet property="searchResultsDataSource" destination="cVl-4k-NTX" id="aFx-q5-Grd"/>
+                        <outlet property="searchResultsDelegate" destination="cVl-4k-NTX" id="qqW-EY-u3A"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1136.8" y="2574.96251874063"/>
         </scene>
