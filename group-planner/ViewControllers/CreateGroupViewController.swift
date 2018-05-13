@@ -8,49 +8,49 @@
 
 import UIKit
 
-class CreateGroupViewController: UIViewController, UISearchBarDelegate, UISearchResultsUpdating, UITableViewDataSource, UITableViewDelegate {
-
+class CreateGroupViewController: UIViewController, UITableViewDelegate,
+UITableViewDataSource, UISearchBarDelegate {
     
     var invitees: [User] = []
+    
     @IBOutlet weak var groupNameTextField: UITextField!
     @IBOutlet weak var searchTextField: UITextField!
     
-    var searchBar = UISearchBar()
-    var searchController = UISearchController()
-    var searchResultsView: UITableView = UITableView()
-    var searchActive: Bool = false
-    var searchUsers: [User] = []
+    var searchController: UISearchController!
+    var tableView: UITableView!
+    
+    var searchText: String?
+    var timer: Timer? = nil
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.searchController = UISearchController(searchResultsController: nil)
-        self.searchController.dimsBackgroundDuringPresentation = true
         
-        // This is used for dynamic search results updating while the user types
-        // Requires UISearchResultsUpdating delegate
-        self.searchController.searchResultsUpdater = self
+        setupTableView()
+        setupSearchController()
+    }
+    
+    func setupTableView() {
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ResultCell.self, forCellReuseIdentifier: "ResultCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.addSubview(tableView)
         
-        // Configure the search controller's search bar
-        self.searchController.searchBar.placeholder = "Search for a user"
-        self.searchController.searchBar.sizeToFit()
-        self.searchController.searchBar.delegate = self
-        self.definesPresentationContext = true
-        
-        self.searchResultsView.isHidden = true
-        searchResultsView.register(ResultCell.self, forCellReuseIdentifier: "ResultCell")
-        
-        searchResultsView.delegate = self
-        
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.60).isActive = true
+    }
+    
+    func setupSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
         searchTextField.addTarget(self, action: #selector(displaySearchController), for: .editingDidBegin)
-        
-        searchController.view.addSubview(searchResultsView)
-        let searchBar = searchController.searchBar
-        searchResultsView.translatesAutoresizingMaskIntoConstraints = false
-        searchResultsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        searchResultsView.leftAnchor.constraint(equalTo: searchController.view.leftAnchor).isActive = true
-        searchResultsView.rightAnchor.constraint(equalTo: searchController.view.rightAnchor).isActive = true
-        searchResultsView.bottomAnchor.constraint(equalTo: searchController.view.bottomAnchor).isActive = true
+        self.definesPresentationContext = true
+        searchController.searchBar.delegate = self
+        tableView.tableHeaderView = searchController.searchBar
+        tableView.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,73 +68,60 @@ class CreateGroupViewController: UIViewController, UISearchBarDelegate, UISearch
     
     @objc func displaySearchController(){
         self.present(searchController, animated: true, completion: nil)
+        tableView.isHidden = false
     }
     
     
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchString: String = searchController.searchBar.text!
-        if (searchString != "" && !self.searchActive) {
-            loadSearchUsers(searchEmail: searchString)
-        }
-    }
-    
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // Force search if user pushes button
-        let searchEmail = searchBar.text
-        if (searchEmail != "") {
-            loadSearchUsers(searchEmail: searchEmail!)
-        }
-
-    }
-    
-    
-    func loadSearchUsers(searchEmail: String) {
-        self.searchActive = true
-        
-        User.searchUsers(withEmail: searchEmail) { (users, error) in
-            if let error = error {
-                self.displayAlert(title: "User not found. Please check the inputted email.", message: error.localizedDescription)
-            } else if let users = users {
-                self.searchUsers = users
-                self.searchResultsView.reloadData()
-                self.updateSearchResultsView()
+    @objc func searchUsers(_ timer: Timer) {
+        if let text = searchText {
+            print(text)
+            User.searchUsers(withEmail: text) { (users, error) in
+                if let error = error {
+                    print(error)
+                }
+                else if let users = users {
+                    self.invitees = users
+                    self.tableView.reloadData()
+                }
             }
-            
-            self.searchActive = false
         }
-    }
-    
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // Clear any search criteria
-        searchBar.text = ""
-        
-        // Force reload of table data from normal data source
-    }
-    
-    
-    func updateSearchResultsView() {
-        if (self.searchController.isActive) {
-            self.searchResultsView.isHidden = (self.searchUsers.count > 0)
-            // TODO DISPLAY USERS IN TABLE VIEW
-        } else {
-            // Keep the emptyView hidden or update it to use along with the normal data source
-            //self.emptyViewLabel.text = "Empty normal data source text"
-            //self.emptyView?.hidden = (self.normalDataSource.count > 0)
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchUsers.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = searchResultsView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! ResultCell
-        let user = searchUsers[indexPath.row]
-        cell.user = user
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! ResultCell
+        cell.user = invitees[indexPath.row]
+        
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return invitees.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        tableView.isHidden = true
+        searchTextField.resignFirstResponder()
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+        }
+        
+        // TODO: Strip certain characters
+        self.searchText = searchText
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(searchUsers), userInfo: nil, repeats: false)
+        
+    }
+
 }
