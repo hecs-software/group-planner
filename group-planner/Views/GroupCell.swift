@@ -14,24 +14,40 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource {
     
     @IBOutlet weak var groupNameLabel: UILabel!
 
-    @IBOutlet weak var profileCarousel: UICollectionView!
+    @IBOutlet weak var profileCarousel: ProfileCarousel!
     
     @IBOutlet weak var settingsButton: UIButton!
     
     var group: Group! {
         didSet {
             groupNameLabel.text = group.name
+            
+            group.fetchUsersInGroup { (users, error) in
+                if let error = error {
+                    print(error)
+                }
+                else if let users = users {
+                    self.users = users
+                    self.profileCarousel.reloadData()
+                }
+            }
+            
+            profileCarousel.reloadData()
         }
         
     }
     
+    
+    var users: [User] = [User]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         let layout = profileCarousel.collectionViewLayout as! UICollectionViewFlowLayout
         
-        layout.itemSize = CGSize(width: frame.width, height: frame.height / 10)
+        layout.itemSize = CGSize(width: 60, height: 60)
+        profileCarousel.dataSource = self
+        profileCarousel.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,18 +55,21 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource {
 
         // Configure the view for the selected state
     }
+    
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePicCell", for: indexPath)
-        let users = group.groupMembers
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePicCell", for: indexPath) as! ProfilePictureCell
         let user = users[indexPath.row]
         
-        // TODO: set cell's picture
+        cell.user = user
+        cell.isPlusButton = false
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return group.groupMembers.count
+        return users.count
     }
+    
+    
 }

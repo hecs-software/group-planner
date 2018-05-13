@@ -36,12 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }))
                 
                 let googleClientID = dict.object(forKey: "GOOGLE_CLIENT_ID") as! String
-                print(googleClientID)
                 GIDSignIn.sharedInstance().clientID = googleClientID
             }
         }
         
         User.register(AuthDelegate(), forAuthType: "google")
+        
+//        if let _ = User.current() {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "HomeController")
+//            window?.rootViewController = vc
+//        }
 
         return true
     }

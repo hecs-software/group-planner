@@ -61,6 +61,78 @@ class CalendarView: UIScrollView {
     }
     
     
+    func loadEvents(ofUsers users: [User], week: Week, completion: GTLRCalendarEventsResult? = nil) {
+        GGLAPIClient.shared.fetchEvents(ofUsers: users, minDate: week.sunday, maxDate: week.saturday) { (map, error) in
+            if let map = map {
+                self.renderEvents(usersMap: map)
+            }
+        }
+    }
+    
+    
+    // Render the events of that week
+    func renderEvents(usersMap: [String:[GTLRCalendar_Event]]) {
+        discardAllEventViews()
+        let timeMark = timemarkViews[0]
+        let width = timeMark.frame.width * TimeMarkView.PERC_WIDTH_LINE
+        let x = timeMark.frame.width - width
+        
+        let colors = UIUtility.colors
+        var i = 0
+        
+        for (_, events) in usersMap {
+            let color = colors[i % colors.count]
+            
+            for event in events {
+                let startDate = event.start!.dateTime ?? event.start!.date!
+                let localStartDate = Utility.convertDateToLocal(date: startDate.date)
+                let calendar = Calendar.current
+                var components = calendar.dateComponents([.month, .day, .weekday, .hour, .minute],
+                                                         from: localStartDate)
+                
+                if !startDate.date.withinDates(minDate: currentShownWeek.sunday,
+                                               maxDate: currentShownWeek.saturday) {
+                    continue
+                }
+                
+                let weekday = components.weekday!
+                let startHour = components.hour!
+                let startMin = components.minute!
+                
+                if let endDate = event.end?.dateTime {
+                    var components = calendar.dateComponents([.weekday, .hour, .minute],
+                                                             from: endDate.date)
+                    let endHour = components.hour!
+                    let endMin = components.minute!
+                    
+                    let startTimemark = timemarkViews[startHour]
+                    var startY = startTimemark.center.y
+                    let startMinOffset = (CGFloat(startMin) / CGFloat(60)) * hourGap
+                    startY = startY + startMinOffset
+                    
+                    let endTimemark = timemarkViews[endHour]
+                    var endY = endTimemark.center.y
+                    let endMinOffset = (CGFloat(endMin) / CGFloat(60)) * hourGap
+                    endY = endY + endMinOffset
+                    
+                    let height = endY - startY
+                    let frame = CGRect(x: x, y: startY, width: width, height: height)
+                    let eventView = EventView(frame: frame, event: event)
+                    eventView.isHidden = true
+                    addSubview(eventView)
+                    eventView.setFontColor(UIColor.purple)
+                    eventView.setShadeColor(color)
+                    
+                    eventViewsMap[weekday]!.append(eventView)
+                }
+            }
+            i += 1
+        }
+        
+        switchToDay(weekday: currentRenderedDay)
+    }
+    
+    
     // Render the events of that week
     func renderEvents(events: [GTLRCalendar_Event]) {
         discardAllEventViews()

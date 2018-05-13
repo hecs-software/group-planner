@@ -92,9 +92,7 @@ class GroupInvitation: PFObject, PFSubclassing {
             if success {
                 // Add current user to the group
                 self.group.groupMembers.append(currentUser)
-                currentUser.groups!.append(self.group)
                 
-                currentUser.saveInBackground()
                 self.group.saveInBackground(block: completion)
                 
                 self.deleteInBackground()

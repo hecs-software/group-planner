@@ -9,22 +9,36 @@
 import UIKit
 import Parse
 
-class GroupListViewController: UIViewController, UITableViewDataSource {
+class GroupListViewController: UIViewController, UITableViewDataSource,
+                                UITableViewDelegate{
 
-  
-    
-    
     @IBOutlet weak var groupsTableView: UITableView!
     var groups: [Group] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let user = User.current()
-        if let groupList = user?.groups {
-            self.groups = groupList
+        groupsTableView.dataSource = self
+        groupsTableView.delegate = self
+        
+        fetchGroups {
+            self.groupsTableView.reloadData()
         }
     }
+    
+    
+    func fetchGroups(completion: (() -> Void)? = nil) {
+        User.fetchGroups { (groups, error) in
+            if let error = error {
+                self.displayAlert(title: "Error", message: error.localizedDescription)
+            }
+            else if let groups = groups {
+                self.groups = groups
+            }
+            completion?()
+        }
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,5 +56,24 @@ class GroupListViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "groupDetailsSegue" {
+            let cell = sender as! GroupCell
+            let vc = segue.destination as! GroupDetailsViewController
+            vc.group = cell.group
+            vc.users = cell.users
+        }
+    }
     
 }

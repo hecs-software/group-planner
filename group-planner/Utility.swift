@@ -243,6 +243,9 @@ class NetworkUtility {
 
 
 class UIUtility {
+    static let colors = [UIColor.purple, UIColor.blue, UIColor.yellow, UIColor.brown,
+                         UIColor.cyan, UIColor.magenta, UIColor.darkGray, UIColor.green]
+    
     static func hideViewWithAnimation(view: UIView, duration: Double, hidden: Bool = true,
                                       completion: ((Bool) -> Void)? = nil) {
         UIView.transition(with: view, duration: duration, options: .transitionCrossDissolve,

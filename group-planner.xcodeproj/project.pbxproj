@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933A20A8E389007AD28B /* ProfilePictureCell.swift */; };
+		4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */; };
+		4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933E20A8F78E007AD28B /* ProfileCarousel.swift */; };
 		47827D56208F1200005DDE85 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D55208F1200005DDE85 /* User.swift */; };
 		47827D58208F1208005DDE85 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D57208F1208005DDE85 /* Group.swift */; };
 		47827D5A208F120E005DDE85 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D59208F120E005DDE85 /* Event.swift */; };
@@ -59,6 +62,9 @@
 		176AB67B0C0E32821C4557EB /* Pods-group-planner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-planner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-planner/Pods-group-planner.debug.xcconfig"; sourceTree = "<group>"; };
 		1A1BB677E617D5E7E30A939E /* Pods_group_plannerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_plannerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F73050817DCC3277A39C68 /* Pods-group-plannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerTests/Pods-group-plannerTests.release.xcconfig"; sourceTree = "<group>"; };
+		4781933A20A8E389007AD28B /* ProfilePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCell.swift; sourceTree = "<group>"; };
+		4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailsViewController.swift; sourceTree = "<group>"; };
+		4781933E20A8F78E007AD28B /* ProfileCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCarousel.swift; sourceTree = "<group>"; };
 		47827D55208F1200005DDE85 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		47827D57208F1208005DDE85 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		47827D59208F120E005DDE85 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -148,6 +154,7 @@
 				47B717A920900BF0004A7948 /* MyProfileViewController.swift */,
 				9D2C89BE2096820E009576C4 /* GroupListViewController.swift */,
 				9DD6391220980B2F00DEC8D6 /* CreateGroupViewController.swift */,
+				4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -170,6 +177,8 @@
 				47B717B1209325DE004A7948 /* CalendarDateView.swift */,
 				9D2C89C0209682A5009576C4 /* GroupCell.swift */,
 				9DB871A2209D5129002EAA13 /* ResultCell.swift */,
+				4781933A20A8E389007AD28B /* ProfilePictureCell.swift */,
+				4781933E20A8F78E007AD28B /* ProfileCarousel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -570,8 +579,10 @@
 				47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */,
 				47827D5C208F1218005DDE85 /* GroupInvitation.swift in Sources */,
 				47827D62208F1F18005DDE85 /* Utility.swift in Sources */,
+				4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */,
 				47B717B2209325DE004A7948 /* CalendarDateView.swift in Sources */,
 				9DB871A3209D5129002EAA13 /* ResultCell.swift in Sources */,
+				4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */,
 				47827D5E208F1220005DDE85 /* EventInvitation.swift in Sources */,
 				9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
@@ -587,6 +598,7 @@
 				47827D5A208F120E005DDE85 /* Event.swift in Sources */,
 				47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */,
 				9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */,
+				4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

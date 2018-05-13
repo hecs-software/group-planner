@@ -73,6 +73,18 @@ extension UIViewController {
     }
 }
 
+
+extension UIView {
+    func addTopBorder(color: CGColor, borderWidth: CGFloat) {
+        let layer = CALayer()
+        let width = self.frame.size.width
+        layer.frame = CGRect(x: 0, y: 0, width: width, height: borderWidth)
+        layer.backgroundColor = color
+        self.layer.addSublayer(layer)
+    }
+}
+
+
 extension Date {
     func withinDates(minDate: Date, maxDate: Date) -> Bool {
         return minDate.compare(self).rawValue * self.compare(maxDate).rawValue >= 0

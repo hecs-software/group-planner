@@ -17,7 +17,7 @@ class User: PFUser {
     @NSManaged var lastName: String?
     @NSManaged var profilePicture: PFFile?
     @NSManaged var gglCalendarId: String?
-    @NSManaged var groups: [Group]?
+    @NSManaged var groupsIds: [String]?
     
     // Google calendars that need permissions from this user
     @NSManaged var usersNeedPerms: [String:User]?
@@ -95,8 +95,8 @@ class User: PFUser {
             parseUser.usersNeedPerms = [String:User]()
         }
         
-        if parseUser.groups == nil {
-            parseUser.groups = [Group]()
+        if parseUser.groupsIds == nil {
+            parseUser.groupsIds = [String]()
         }
         
         let profileUrl = gidUser.profile.imageURL(withDimension: 300)
@@ -186,6 +186,21 @@ class User: PFUser {
             }
             else if let users = objects as? [User] {
                 completion(users, nil)
+            }
+        })
+    }
+    
+    
+    static func fetchGroups(completion: @escaping GroupsResultBlock) {
+        let currentUser = User.current()!
+        let query = Group.query()
+        query?.whereKey("objectId", containedIn: currentUser.groupsIds!)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            else if let groups = objects as? [Group] {
+                completion(groups, nil)
             }
         })
     }
