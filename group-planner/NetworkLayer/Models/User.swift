@@ -138,7 +138,7 @@ class User: PFUser {
         
         for (key, user) in users {
             group.enter()
-            GGLAPIClient.shared.givePermission(toUser: user) { (ticket, acl, error) in
+            GGLAPIClient.shared.givePermission(toUser: user) { (ticket, error) in
                 if let error = error {
                     errors.append(error)
                 }
@@ -185,6 +185,14 @@ class User: PFUser {
                 completion(nil, error)
             }
             else if let users = objects as? [User] {
+                // Remove the current logged in user from search result
+                let users = users.filter({ (user) -> Bool in
+                    if let email = user.email {
+                        return email != User.current()!.email
+                    }
+                    
+                    return true
+                })
                 completion(users, nil)
             }
         })
@@ -194,6 +202,7 @@ class User: PFUser {
     static func fetchGroups(completion: @escaping GroupsResultBlock) {
         let currentUser = User.current()!
         let query = Group.query()
+        query?.addDescendingOrder("createdAt")
         query?.includeKey("groupMembers")
         query?.whereKey("objectId", containedIn: currentUser.groupsIds!)
         query?.findObjectsInBackground(block: { (objects, error) in

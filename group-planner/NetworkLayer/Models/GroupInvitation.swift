@@ -67,6 +67,10 @@ class GroupInvitation: PFObject, PFSubclassing {
     static func fetchGroupInvitations(completion: @escaping GroupInvitationsResultBlock) {
         let currentUser = User.current()!
         let query = GroupInvitation.query()
+        query?.includeKey("requester")
+        query?.includeKey("requestee")
+        query?.includeKey("group")
+        query?.addDescendingOrder("createdAt")
         query?.whereKey("requestee", equalTo: currentUser)
         query?.findObjectsInBackground(block: { (objects, error) in
             if let error = error {
@@ -83,25 +87,30 @@ class GroupInvitation: PFObject, PFSubclassing {
         let currentUser = User.current()!
         
         // Get all the members that are not the current user
-        let members = self.group.groupMembers.filter { (user) -> Bool in
-            return user.email != currentUser.email
-        }
-        
-        // Give permission to all the members in the group
-        GGLAPIClient.shared.givePermission(toUsers: members) { (success, errors) in
-            if success {
-                // Add current user to the group
-                self.group.groupMembers.append(currentUser)
-                
-                self.group.saveInBackground(block: completion)
-                
-                self.deleteInBackground()
+        group.fetchUsersInGroup(completion: { (users, error) in
+            if let users = users {
+                // Give permission to all the members in the group
+                print(users)
+                GGLAPIClient.shared.givePermission(toUsers: users) { (success, errors) in
+                    if success {
+                        // Add current user to the group
+                        self.group.groupMembers.append(currentUser)
+                        
+                        self.group.saveInBackground(block: completion)
+                        
+                        self.deleteInBackground()
+                    }
+                    else {
+                        gglCompletion?(success, errors)
+                    }
+                }
             }
-            else {
-                gglCompletion?(success, errors)
-            }
-        }
-        
+        })
+    }
+    
+    
+    func declineInvitation(completion: PFBooleanResultBlock? = nil) {
+        self.deleteInBackground(block: completion)
     }
 }
 

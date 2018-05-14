@@ -106,26 +106,30 @@ class GGLAPIClient {
     }
     
     
-    func givePermission(toUser user: User, completion: GTLRCalendarAclResult? = nil) {
+    func givePermission(toUser user: User, completion: GTLRCalendarErrorResult? = nil) {
         let aclRule = GTLRCalendar_AclRule.init()
         aclRule.role = "reader"
         let scope = GTLRCalendar_AclRule_Scope.init()
         scope.type = "user"
-        scope.value = user.email
+        scope.value = user.gglCalendarId
+        aclRule.scope = scope
         
         let currentUser = User.current()!
         let query = GTLRCalendarQuery_AclInsert.query(withObject: aclRule, calendarId: "primary")
         service.executeQuery(query) { (ticket, response, error) in
             if let error = error {
-                completion?(ticket, nil, error)
+                completion?(ticket, error)
             }
-            else if let acl = response as? GTLRCalendar_Acl {
-                completion?(ticket, acl, nil)
+            else if let _ = response {
+                completion?(ticket, nil)
                 
                 // Add the current user to the list of users that need
                 // calendar permissions
                 user.usersNeedPerms![currentUser.objectId!] = currentUser
                 user.saveInBackground()
+            }
+            else {
+                completion?(ticket, nil)
             }
         }
     }
@@ -138,11 +142,11 @@ class GGLAPIClient {
         
         for user in users {
             group.enter()
-            givePermission(toUser: user) { (ticket, acl, error) in
+            givePermission(toUser: user) { (ticket, error) in
                 if let error = error {
                     errors.append(error)
                 }
-                else if let _ = acl {
+                else {
                     aclCount += 1
                 }
                 group.leave()
@@ -150,6 +154,7 @@ class GGLAPIClient {
         }
         
         group.notify(queue: .main) {
+            print("HERE", errors.count)
             if errors.count > 0 || aclCount != users.count {
                 completion?(false, errors)
             }

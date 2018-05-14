@@ -28,12 +28,34 @@ class CreateGroupViewController: UIViewController, UserSearchControllerDelegate 
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didSearch(_ sender: UIButton) {
-
+    
+    @IBAction func onClickDone(_ sender: UIBarButtonItem) {
+        Group.createNewGroup(groupName: groupNameTextField.text) { (group, error) in
+            if let error = error {
+                self.displayAlert(title: "Error", message: error.localizedDescription)
+            }
+            else if let group = group {
+                GroupInvitation.inviteUsers(requestees: self.pickedUsers,
+                                            group: group, completion:
+                    { (users, errors) in
+                        if let errors = errors {
+                            print(errors)
+                        }
+                        else if let users = users {
+                            print(users)
+                        }
+                })
+                self.dismiss(animated: true, completion: {
+                    NotificationCenter.default.post(name: NSNotification.Name("groupCreated"),
+                                                    object: nil)
+                })
+            }
+        }
     }
     
     
-    @IBAction func didCreate(_ sender: UIButton) {
+    @IBAction func onClickCancel(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     

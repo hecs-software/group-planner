@@ -15,14 +15,48 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
     @IBOutlet weak var groupsTableView: UITableView!
     var groups: [Group] = []
     
+    
+    var needsRefresh: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         groupsTableView.dataSource = self
         groupsTableView.delegate = self
         
-        fetchGroups {
-            self.groupsTableView.reloadData()
+        fetchGroups()
+        
+        setupObservers()
+        setupRefreshControl()
+    }
+    
+    
+    func setupObservers() {
+        NotificationCenter.default.addObserver(forName: Notification.Name("groupCreated"),
+                                               object: nil, queue: .main)
+        { _ in
+            self.fetchGroups()
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name("acceptedGroupInvitation"),
+                                               object: nil, queue: .main)
+        { _ in
+            self.needsRefresh = true
+        }
+    }
+    
+    
+    func setupRefreshControl() {
+        let rc = UIRefreshControl()
+        groupsTableView.insertSubview(rc, at: 0)
+        
+        rc.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+    }
+    
+    
+    @objc func onRefresh(_ rc: UIRefreshControl) {
+        self.fetchGroups {
+            rc.endRefreshing()
         }
     }
     
@@ -34,6 +68,7 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
             }
             else if let groups = groups {
                 self.groups = groups
+                self.groupsTableView.reloadData()
             }
             completion?()
         }
@@ -64,6 +99,15 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if needsRefresh {
+            fetchGroups()
+        }
     }
     
     

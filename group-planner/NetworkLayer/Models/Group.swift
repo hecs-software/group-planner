@@ -18,7 +18,7 @@ class Group: PFObject, PFSubclassing {
         return "Group"
     }
     
-    static func createNewGroup(groupName name: String? = nil, completion: PFBooleanResultBlock? = nil) {
+    static func createNewGroup(groupName name: String? = nil, completion: GroupResultBlock? = nil) {
         let newGroup = Group()
         newGroup.groupMembers = []
         
@@ -36,9 +36,14 @@ class Group: PFObject, PFSubclassing {
         
         
         newGroup.saveInBackground { (success, error) in
-            currentUser!.groupsIds!.append(newGroup.objectId!)
-            currentUser!.saveInBackground()
-            completion?(success, error)
+            if success {
+                currentUser!.groupsIds!.append(newGroup.objectId!)
+                currentUser!.saveInBackground()
+                completion?(newGroup, error)
+            }
+            else if let error = error {
+                completion?(nil, error)
+            }
         }
     }
     
