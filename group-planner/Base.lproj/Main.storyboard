@@ -264,10 +264,11 @@
                                             <outlet property="groupNameLabel" destination="0m3-DL-lr6" id="bne-yW-hj7"/>
                                             <outlet property="profileCarousel" destination="rj1-4a-3Af" id="HgV-2V-Iia"/>
                                             <outlet property="settingsButton" destination="LB3-cu-5HF" id="och-rb-4oj"/>
-                                            <segue destination="I6T-kz-nDV" kind="show" identifier="groupDetailsSegue" id="9U1-9f-BNN"/>
+                                            <segue destination="I6T-kz-nDV" kind="show" identifier="groupDetailsSegue" id="xKh-LH-x1Y"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <sections/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -349,6 +350,7 @@
                         <outlet property="groupNameTextField" destination="Efj-7F-8M0" id="4pp-f7-Tkm"/>
                         <outlet property="searchDisplayController" destination="q4S-QH-rEf" id="XNR-hL-Rom"/>
                         <outlet property="searchTextField" destination="HYC-GE-ANC" id="jPt-d6-gat"/>
+                        <segue destination="WMg-t5-v4K" kind="presentation" identifier="usersSearchControllerSegue" id="38C-yn-YA8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75x-ku-KQy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -455,6 +457,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Piz-uC-mK4"/>
                     </view>
+                    <navigationItem key="navigationItem" id="srw-uG-TgU">
+                        <barButtonItem key="rightBarButtonItem" title="Invite" id="IYX-q0-AlU">
+                            <connections>
+                                <action selector="inviteButtonClicked:" destination="I6T-kz-nDV" id="zHU-iU-rNf"/>
+                                <segue destination="WMg-t5-v4K" kind="presentation" identifier="userSearchSegue" id="aDa-ug-nKL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendarDateView" destination="z8l-Ck-3u9" id="mCI-Dg-Nf8"/>
                         <outlet property="calendarView" destination="fgu-FX-7d9" id="CXA-MU-3fh"/>
@@ -464,6 +474,108 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9i0-a5-YDz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1304.8" y="2576.7616191904049"/>
+        </scene>
+        <!--User Search Controller-->
+        <scene sceneID="gO5-v4-ZS8">
+            <objects>
+                <viewController id="WMg-t5-v4K" customClass="UserSearchController" customModule="group_planner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jG0-uf-OkQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search for users" translatesAutoresizingMaskIntoConstraints="NO" id="Ijj-a6-KV6">
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="m6C-hT-TNf"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wwp-xa-R9i">
+                                <rect key="frame" x="0.0" y="70" width="375" height="553"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResultCell" rowHeight="74" id="Pga-FR-YAo" customClass="ResultCell" customModule="group_planner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="74"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pga-FR-YAo" id="gfy-Za-tmn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="73.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8rx-7y-7OK" customClass="PFImageView">
+                                                    <rect key="frame" x="15" y="11" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="T2G-B9-2R3"/>
+                                                        <constraint firstAttribute="width" constant="50" id="vKq-n5-ola"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emily Son" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGD-ko-Dle">
+                                                    <rect key="frame" x="73" y="22.5" width="105.5" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check-circular-button" translatesAutoresizingMaskIntoConstraints="NO" id="vQO-Tb-Jvl">
+                                                    <rect key="frame" x="334" y="23" width="26" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="26" id="Xhk-Z8-u8m"/>
+                                                        <constraint firstAttribute="height" constant="26" id="Zcq-ba-NXN"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vQO-Tb-Jvl" firstAttribute="centerY" secondItem="gfy-Za-tmn" secondAttribute="centerY" id="5JI-nm-b65"/>
+                                                <constraint firstItem="rGD-ko-Dle" firstAttribute="leading" secondItem="8rx-7y-7OK" secondAttribute="trailing" constant="8" id="8gY-gR-ifk"/>
+                                                <constraint firstItem="vQO-Tb-Jvl" firstAttribute="trailing" secondItem="gfy-Za-tmn" secondAttribute="trailingMargin" id="MGw-oD-vQ5"/>
+                                                <constraint firstItem="8rx-7y-7OK" firstAttribute="leading" secondItem="gfy-Za-tmn" secondAttribute="leadingMargin" id="Tl7-K9-v0b"/>
+                                                <constraint firstItem="rGD-ko-Dle" firstAttribute="centerY" secondItem="gfy-Za-tmn" secondAttribute="centerY" id="nuU-eK-F59"/>
+                                                <constraint firstItem="vQO-Tb-Jvl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rGD-ko-Dle" secondAttribute="trailing" constant="8" id="x31-lI-H5q"/>
+                                                <constraint firstItem="8rx-7y-7OK" firstAttribute="centerY" secondItem="gfy-Za-tmn" secondAttribute="centerY" id="zFP-QO-b7E"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="checkMarkView" destination="vQO-Tb-Jvl" id="QJU-9r-uOm"/>
+                                            <outlet property="nameLabel" destination="rGD-ko-Dle" id="QUf-UZ-fvr"/>
+                                            <outlet property="profileImageView" destination="8rx-7y-7OK" id="vG0-9K-xv6"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7e-8k-Qqt">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="1G1-nK-asp"/>
+                                    <barButtonItem title="Add" id="wTv-ah-wuq">
+                                        <connections>
+                                            <action selector="onClickedAdd:" destination="WMg-t5-v4K" id="HKG-Pq-Xx8"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="x7e-8k-Qqt" firstAttribute="trailing" secondItem="eJb-4Y-Z9j" secondAttribute="trailing" id="0m4-vU-Em7"/>
+                            <constraint firstItem="Wwp-xa-R9i" firstAttribute="leading" secondItem="eJb-4Y-Z9j" secondAttribute="leading" id="1ub-NL-5PM"/>
+                            <constraint firstItem="eJb-4Y-Z9j" firstAttribute="bottom" secondItem="x7e-8k-Qqt" secondAttribute="bottom" id="M2n-CA-vTh"/>
+                            <constraint firstItem="x7e-8k-Qqt" firstAttribute="top" secondItem="Wwp-xa-R9i" secondAttribute="bottom" id="UNs-Qn-ILa"/>
+                            <constraint firstItem="Wwp-xa-R9i" firstAttribute="trailing" secondItem="eJb-4Y-Z9j" secondAttribute="trailing" id="Yeq-5q-y7P"/>
+                            <constraint firstItem="Ijj-a6-KV6" firstAttribute="trailing" secondItem="eJb-4Y-Z9j" secondAttribute="trailing" id="ezf-LU-zQ0"/>
+                            <constraint firstItem="x7e-8k-Qqt" firstAttribute="leading" secondItem="eJb-4Y-Z9j" secondAttribute="leading" id="gDP-nP-8RU"/>
+                            <constraint firstItem="Wwp-xa-R9i" firstAttribute="top" secondItem="Ijj-a6-KV6" secondAttribute="bottom" id="iV9-hF-QT2"/>
+                            <constraint firstItem="Ijj-a6-KV6" firstAttribute="leading" secondItem="eJb-4Y-Z9j" secondAttribute="leading" id="uKx-U1-ctp"/>
+                            <constraint firstItem="Ijj-a6-KV6" firstAttribute="top" secondItem="eJb-4Y-Z9j" secondAttribute="top" id="y8C-b7-jeu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eJb-4Y-Z9j"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="Ijj-a6-KV6" id="K8c-oY-Luf"/>
+                        <outlet property="usersTableView" destination="Wwp-xa-R9i" id="0TQ-o5-odx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ddc-zp-0L8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2152.8000000000002" y="2576.7616191904049"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Qym-fl-KrA">
@@ -577,6 +689,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="check-circular-button" width="128" height="128"/>
         <image name="login_calendar" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="38C-yn-YA8"/>
+    </inferredMetricsTieBreakers>
 </document>

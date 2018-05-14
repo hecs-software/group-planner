@@ -21,20 +21,9 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource {
     var group: Group! {
         didSet {
             groupNameLabel.text = group.name
-            
-            group.fetchUsersInGroup { (users, error) in
-                if let error = error {
-                    print(error)
-                }
-                else if let users = users {
-                    self.users = users
-                    self.profileCarousel.reloadData()
-                }
-            }
-            
+            self.users = group.groupMembers
             profileCarousel.reloadData()
         }
-        
     }
     
     

@@ -10,6 +10,7 @@
 		4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933A20A8E389007AD28B /* ProfilePictureCell.swift */; };
 		4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */; };
 		4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933E20A8F78E007AD28B /* ProfileCarousel.swift */; };
+		4781934120A93131007AD28B /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781934020A93131007AD28B /* UserSearchController.swift */; };
 		47827D56208F1200005DDE85 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D55208F1200005DDE85 /* User.swift */; };
 		47827D58208F1208005DDE85 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D57208F1208005DDE85 /* Group.swift */; };
 		47827D5A208F120E005DDE85 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D59208F120E005DDE85 /* Event.swift */; };
@@ -65,6 +66,7 @@
 		4781933A20A8E389007AD28B /* ProfilePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCell.swift; sourceTree = "<group>"; };
 		4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailsViewController.swift; sourceTree = "<group>"; };
 		4781933E20A8F78E007AD28B /* ProfileCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCarousel.swift; sourceTree = "<group>"; };
+		4781934020A93131007AD28B /* UserSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
 		47827D55208F1200005DDE85 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		47827D57208F1208005DDE85 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		47827D59208F120E005DDE85 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				9D2C89BE2096820E009576C4 /* GroupListViewController.swift */,
 				9DD6391220980B2F00DEC8D6 /* CreateGroupViewController.swift */,
 				4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */,
+				4781934020A93131007AD28B /* UserSearchController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				47827D5C208F1218005DDE85 /* GroupInvitation.swift in Sources */,
 				47827D62208F1F18005DDE85 /* Utility.swift in Sources */,
 				4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */,
+				4781934120A93131007AD28B /* UserSearchController.swift in Sources */,
 				47B717B2209325DE004A7948 /* CalendarDateView.swift in Sources */,
 				9DB871A3209D5129002EAA13 /* ResultCell.swift in Sources */,
 				4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */,

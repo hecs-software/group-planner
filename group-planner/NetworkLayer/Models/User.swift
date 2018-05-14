@@ -194,6 +194,7 @@ class User: PFUser {
     static func fetchGroups(completion: @escaping GroupsResultBlock) {
         let currentUser = User.current()!
         let query = Group.query()
+        query?.includeKey("groupMembers")
         query?.whereKey("objectId", containedIn: currentUser.groupsIds!)
         query?.findObjectsInBackground(block: { (objects, error) in
             if let error = error {

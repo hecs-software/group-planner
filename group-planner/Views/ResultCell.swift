@@ -10,6 +10,9 @@ import UIKit
 import ParseUI
 
 class ResultCell: UITableViewCell {
+    @IBOutlet weak var profileImageView: PFImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var checkMarkView: UIImageView!
     
     var user: User? {
         didSet {
@@ -19,44 +22,26 @@ class ResultCell: UITableViewCell {
         }
     }
     
-    var laidoutSubviews: Bool = false
+    override var isSelected: Bool {
+        didSet {
+            print(isSelected)
+            self.setCheckmarkSelected(isSelected)
+        }
+    }
     
-    var profileImageView: PFImageView!
-    var nameLabel: UILabel!
+    var laidoutSubviews: Bool = false
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setupProfileImageView()
-        setupNameLabel()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
         self.setNeedsLayout()
         self.layoutIfNeeded()
-    }
-    
-    func setupProfileImageView() {
-        profileImageView = PFImageView()
-        profileImageView.clipsToBounds = true
-        profileImageView.contentMode = .scaleAspectFill
         
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(profileImageView)
-        
-        profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
-        profileImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
-        profileImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-    }
-    
-    func setupNameLabel() {
-        nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(nameLabel)
-        
-        nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10).isActive = true
-        self.trailingAnchor.constraint(greaterThanOrEqualTo: nameLabel.trailingAnchor, constant: 30).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        checkMarkView.isHidden = true
     }
     
     
@@ -64,9 +49,19 @@ class ResultCell: UITableViewCell {
         super.layoutSubviews()
         
         if !laidoutSubviews {
-            print(profileImageView.frame)
             let width = profileImageView.frame.width
             profileImageView.layer.cornerRadius = width/2
+            laidoutSubviews = true
+        }
+    }
+    
+    
+    func setCheckmarkSelected(_ checked: Bool) {
+        if checked {
+            checkMarkView.isHidden = false
+        }
+        else {
+            checkMarkView.isHidden = true
         }
     }
     

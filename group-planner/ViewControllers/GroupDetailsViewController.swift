@@ -10,7 +10,7 @@ import UIKit
 
 class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
                                 UICollectionViewDataSource, DaySCDelegate, CalendarDateViewDelegate,
-                                UIScrollViewDelegate {
+                                UIScrollViewDelegate, UserSearchControllerDelegate {
     
     @IBOutlet weak var calendarDateView: CalendarDateView!
     @IBOutlet weak var calendarView: CalendarView!
@@ -98,6 +98,23 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if scrollView == calendarDateView {
             scrollView.setContentOffset(scrollView.contentOffset, animated: true)
+        }
+    }
+    
+    @IBAction func inviteButtonClicked(_ sender: UIBarButtonItem) {
+        let sc = UserSearchController()
+        self.present(sc, animated: true, completion: nil)
+    }
+    
+    func pickedUsers(users: [User]) {
+        // TODO Invite people
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "userSearchSegue" {
+            let userSC = segue.destination as! UserSearchController
+            userSC.delegate = self
         }
     }
 }
