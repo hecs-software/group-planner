@@ -91,17 +91,17 @@ class GroupInvitation: PFObject, PFSubclassing {
             if let users = users {
                 // Give permission to all the members in the group
                 print(users)
-                GGLAPIClient.shared.givePermission(toUsers: users) { (success, errors) in
-                    if success {
+                GGLAPIClient.shared.givePermission(toUsers: users) { (usersIds, errors) in
+                    if let errors = errors {
+                        gglCompletion?(false, errors)
+                    }
+                    else {
                         // Add current user to the group
                         self.group.groupMembers.append(currentUser)
                         
                         self.group.saveInBackground(block: completion)
                         
                         self.deleteInBackground()
-                    }
-                    else {
-                        gglCompletion?(success, errors)
                     }
                 }
             }

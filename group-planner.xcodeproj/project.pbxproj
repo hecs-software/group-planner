@@ -21,6 +21,7 @@
 		47827D60208F19CA005DDE85 /* CompletionBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */; };
 		47827D62208F1F18005DDE85 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D61208F1F18005DDE85 /* Utility.swift */; };
 		47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D63208F232F005DDE85 /* AuthDelegate.swift */; };
+		479CCE8720AA711600453BAC /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479CCE8620AA711600453BAC /* UserNotification.swift */; };
 		47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717A920900BF0004A7948 /* MyProfileViewController.swift */; };
 		47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AB20900F46004A7948 /* DaySegmentedControl.swift */; };
 		47B717AE20901831004A7948 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AD20901831004A7948 /* CalendarView.swift */; };
@@ -79,6 +80,7 @@
 		47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBlocks.swift; sourceTree = "<group>"; };
 		47827D61208F1F18005DDE85 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		47827D63208F232F005DDE85 /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
+		479CCE8620AA711600453BAC /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		47B717A920900BF0004A7948 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		47B717AB20900F46004A7948 /* DaySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySegmentedControl.swift; sourceTree = "<group>"; };
 		47B717AD20901831004A7948 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				47827D5D208F1220005DDE85 /* EventInvitation.swift */,
 				47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */,
 				47B717B3209447F0004A7948 /* Week.swift */,
+				479CCE8620AA711600453BAC /* UserNotification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
 				47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */,
 				9D2C89C1209682A5009576C4 /* GroupCell.swift in Sources */,
+				479CCE8720AA711600453BAC /* UserNotification.swift in Sources */,
 				9DD6391320980B2F00DEC8D6 /* CreateGroupViewController.swift in Sources */,
 				47827D58208F1208005DDE85 /* Group.swift in Sources */,
 				47B717AE20901831004A7948 /* CalendarView.swift in Sources */,
