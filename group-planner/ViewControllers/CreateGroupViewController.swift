@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
 
 class CreateGroupViewController: UIViewController, UserSearchControllerDelegate {
     
