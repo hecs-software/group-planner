@@ -18,9 +18,7 @@ class User: PFUser {
     @NSManaged var profilePicture: PFFile?
     @NSManaged var gglCalendarId: String?
     @NSManaged var groupsIds: [String]?
-    
-    // Google calendars that need permissions from this user
-    @NSManaged var usersNeedPerms: [String:User]?
+    @NSManaged var userNotification: UserNotification?
     
     var name: String {
         get {
@@ -41,7 +39,6 @@ class User: PFUser {
         newUser.email = email
         newUser.firstName = firstName
         newUser.lastName = lastName
-        newUser.usersNeedPerms = [String:User]()
         
         if let image = profilePicture {
             newUser.profilePicture = ParseUtility.getPFFileFromImage(image)
@@ -91,8 +88,10 @@ class User: PFUser {
         parseUser.lastName = gidUser.profile.familyName
         parseUser.gglCalendarId = calendar.identifier
         
-        if parseUser.usersNeedPerms == nil {
-            parseUser.usersNeedPerms = [String:User]()
+        if parseUser.userNotification == nil {
+            parseUser.userNotification = UserNotification()
+            parseUser.userNotification?.usersNeedPerms = [String:User]()
+            parseUser.userNotification?.saveInBackground()
         }
         
         if parseUser.groupsIds == nil {
@@ -132,32 +131,27 @@ class User: PFUser {
     
     
     func givePendingPermissions(completion: GTLRCalendarBooleanResult? = nil) {
-        let users = self.usersNeedPerms!
-        var errors = [Error]()
-        let group = DispatchGroup()
-        
-        for (key, user) in users {
-            group.enter()
-            GGLAPIClient.shared.givePermission(toUser: user) { (ticket, error) in
-                if let error = error {
-                    errors.append(error)
-                }
-                else {
-                    self.usersNeedPerms!.removeValue(forKey: key)
-                }
-                group.leave()
+        self.userNotification?.fetchIfNeededInBackground(block: { (noti, error) in
+            if let error = error {
+                completion?(false, [error])
             }
-        }
-        
-        group.notify(queue: .main) {
-            self.saveInBackground()
-            if errors.count > 0 {
-                completion?(false, errors)
+            else if let noti = noti as? UserNotification {
+                let users = noti.usersNeedPerms!
+                
+                GGLAPIClient.shared.givePermission(toUsers: Array(users.values), completion: { (usersIds, errors) in
+                    if let errors = errors {
+                        completion?(false, errors)
+                    }
+                    else {
+                        for key in usersIds {
+                            noti.usersNeedPerms!.removeValue(forKey: key)
+                        }
+                        noti.saveInBackground()
+                        completion?(true, nil)
+                    }
+                })
             }
-            else {
-                completion?(true, nil)
-            }
-        }
+        })
     }
     
     
@@ -213,6 +207,20 @@ class User: PFUser {
                 completion(groups, nil)
             }
         })
+    }
+    
+    
+    func appendUsersNeedPermission(user: User, completion: PFBooleanResultBlock? = nil) {
+        self.userNotification?.fetchIfNeededInBackground(block: { (noti, error) in
+            if let error = error {
+                completion?(false, error)
+            }
+            else if let noti = noti as? UserNotification {
+                noti.usersNeedPerms![user.objectId!] = user
+                noti.saveInBackground(block: completion)
+            }
+        })
+        
     }
     
 }

@@ -83,7 +83,6 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     
     func acceptedInvitation(groupInvitation inv: GroupInvitation) {
-        print(inv)
         inv.acceptInvitation(completion: { (success, error) in
             NotificationCenter.default.post(name: NSNotification.Name("acceptedGroupInvitation"),
                                             object: nil)

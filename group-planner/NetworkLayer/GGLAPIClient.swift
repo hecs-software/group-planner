@@ -125,8 +125,7 @@ class GGLAPIClient {
                 
                 // Add the current user to the list of users that need
                 // calendar permissions
-                user.usersNeedPerms![currentUser.objectId!] = currentUser
-                user.saveInBackground()
+                user.appendUsersNeedPermission(user: currentUser)
             }
             else {
                 completion?(ticket, nil)
@@ -135,9 +134,10 @@ class GGLAPIClient {
     }
     
     
-    func givePermission(toUsers users: [User], completion: GTLRCalendarBooleanResult? = nil) {
+    func givePermission(toUsers users: [User], completion: GTLRCalendarKeyErrorResult? = nil) {
         var aclCount: Int = 0
         var errors: [Error] = [Error]()
+        var usersIds: [String] = [String]()
         let group = DispatchGroup()
         
         for user in users {
@@ -148,18 +148,18 @@ class GGLAPIClient {
                 }
                 else {
                     aclCount += 1
+                    usersIds.append(user.objectId!)
                 }
                 group.leave()
             }
         }
         
         group.notify(queue: .main) {
-            print("HERE", errors.count)
             if errors.count > 0 || aclCount != users.count {
-                completion?(false, errors)
+                completion?(usersIds, errors)
             }
             else {
-                completion?(true, nil)
+                completion?(usersIds, nil)
             }
         }
     }

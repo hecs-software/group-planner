@@ -30,3 +30,4 @@ typealias GTLRCalendarListEntryResult = (GTLRServiceTicket, GTLRCalendar_Calenda
 typealias GTLRCalendarAclResult = (GTLRServiceTicket, GTLRCalendar_Acl?, Error?) -> Void
 typealias GTLRCalendarErrorResult = (GTLRServiceTicket, Error?) -> Void
 typealias GTLRCalendarBooleanResult = (Bool, [Error]?) -> Void
+typealias GTLRCalendarKeyErrorResult = ([String], [Error]?) -> Void
