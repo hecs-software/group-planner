@@ -243,7 +243,7 @@ class NetworkUtility {
 
 
 class UIUtility {
-    static let colors = [UIColor.purple, UIColor.blue, UIColor.yellow, UIColor.brown,
+    static let colors = [UIColor.purple, UIColor.yellow, UIColor.blue, UIColor.brown,
                          UIColor.cyan, UIColor.magenta, UIColor.darkGray, UIColor.green]
     
     static func hideViewWithAnimation(view: UIView, duration: Double, hidden: Bool = true,

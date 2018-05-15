@@ -58,7 +58,7 @@ class GGLAPIClient {
     }
     
     
-    // Completion returns a hash map with key as the user email and value
+    // Completion returns a hash map with key as the user object id and value
     // as the user's events
     func fetchEvents(ofUsers users: [User], minDate: Date, maxDate: Date,
                      completion: GTLRCalendarUsersEventsResult? = nil) {
@@ -75,7 +75,7 @@ class GGLAPIClient {
                         errors.append(error)
                     }
                     else if let events = events {
-                        result[user.email!] = events
+                        result[user.objectId!] = events
                     }
                     group.leave()
                 }
@@ -87,7 +87,7 @@ class GGLAPIClient {
                         errors.append(error)
                     }
                     else if let events = events {
-                        result[user.email!] = events
+                        result[user.objectId!] = events
                     }
                     group.leave()
                 }

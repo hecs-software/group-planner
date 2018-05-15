@@ -137,17 +137,28 @@ class User: PFUser {
             }
             else if let noti = noti as? UserNotification {
                 let users = noti.usersNeedPerms!
+                let usersValues = Array(users.values)
+                let ids = usersValues.map({ (user) -> String in
+                    return user.objectId!
+                })
                 
-                GGLAPIClient.shared.givePermission(toUsers: Array(users.values), completion: { (usersIds, errors) in
-                    if let errors = errors {
-                        completion?(false, errors)
+                User.fetchUsers(with: ids, completion: { (users, error) in
+                    if let error = error {
+                        completion?(false, [error])
                     }
-                    else {
-                        for key in usersIds {
-                            noti.usersNeedPerms!.removeValue(forKey: key)
-                        }
-                        noti.saveInBackground()
-                        completion?(true, nil)
+                    else if let users = users {
+                        GGLAPIClient.shared.givePermission(toUsers: users, completion: { (usersIds, errors) in
+                            if let errors = errors {
+                                completion?(false, errors)
+                            }
+                            else {
+                                for key in usersIds {
+                                    noti.usersNeedPerms!.removeValue(forKey: key)
+                                }
+                                noti.saveInBackground()
+                                completion?(true, nil)
+                            }
+                        })
                     }
                 })
             }
@@ -221,6 +232,20 @@ class User: PFUser {
             }
         })
         
+    }
+    
+    
+    static func fetchUsers(with ids: [String], completion: UsersBooleanResultBlock? = nil) {
+        let query = User.query()
+        query?.whereKey("objectId", containedIn: ids)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                completion?(nil, error)
+            }
+            else if let users = objects as? [User] {
+                completion?(users, nil)
+            }
+        })
     }
     
 }

@@ -108,6 +108,8 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
         if needsRefresh {
             fetchGroups()
         }
+        
+        User.current()!.givePendingPermissions()
     }
     
     
