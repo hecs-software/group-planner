@@ -51,15 +51,27 @@
                                     <constraint firstAttribute="bottom" secondItem="BED-fg-QHl" secondAttribute="bottom" constant="4" id="zME-do-zk1"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons provided by Icons 8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hho-eP-uS4">
+                                <rect key="frame" x="102" y="626" width="170" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="QvG-tO-gbv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="sdg-HJ-s1C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3KR-h6-abI"/>
                             <constraint firstItem="BED-fg-QHl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Pk-i1-ify"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hho-eP-uS4" secondAttribute="trailing" constant="103" id="KMH-pk-b4v"/>
                             <constraint firstItem="sdg-HJ-s1C" firstAttribute="top" secondItem="Uwx-ZA-rn1" secondAttribute="bottom" constant="7" id="Lka-0O-uNf"/>
                             <constraint firstItem="Uwx-ZA-rn1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N6j-fn-vOs"/>
                             <constraint firstItem="Uwx-ZA-rn1" firstAttribute="top" secondItem="CS1-qZ-Mxn" secondAttribute="bottom" constant="17" id="Uea-6S-Rs7"/>
+                            <constraint firstItem="Hho-eP-uS4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="102" id="YqA-xa-Fxo"/>
                             <constraint firstItem="CS1-qZ-Mxn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="fsZ-r1-VQm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hho-eP-uS4" secondAttribute="bottom" constant="20" id="qEQ-O3-BUu"/>
                             <constraint firstItem="CS1-qZ-Mxn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qh5-RI-PG8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -162,7 +174,7 @@
         <scene sceneID="4hZ-dp-Q7D">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZrQ-LC-yFi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Profile" id="D9a-bW-ICz"/>
+                    <tabBarItem key="tabBarItem" title="My Profile" image="icons8-user-50" selectedImage="icons8-user-50" id="D9a-bW-ICz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mg8-tm-pwF">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -304,13 +316,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-7F-8M0" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="12" y="160" width="351" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-7F-8M0" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="12" y="160" width="351" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="2rG-7V-9zg"/>
+                                    <constraint firstAttribute="height" constant="60" id="2rG-7V-9zg"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
@@ -318,6 +330,19 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
                                         <color key="value" red="0.50980392159999999" green="0.69803921570000005" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="icons8-dog-tag-50"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginLeft">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
@@ -331,13 +356,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite your friends" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HYC-GE-ANC" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="12" y="217" width="351" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite your friends" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HYC-GE-ANC" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="12" y="247" width="351" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="2op-gz-ZyL"/>
+                                    <constraint firstAttribute="height" constant="60" id="2op-gz-ZyL"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
@@ -345,6 +370,16 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
                                         <color key="value" red="0.50980392159999999" green="0.69803921570000005" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="icons8-user-groups-50"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginLeft">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
@@ -642,7 +677,7 @@
         <scene sceneID="bO7-xh-3ub">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dbx-T8-rJO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Groups" id="TBx-lM-LHa"/>
+                    <tabBarItem key="tabBarItem" title="Groups" image="icons8-user-groups-50" selectedImage="icons8-user-groups-50" id="TBx-lM-LHa"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gMK-eQ-9Eg">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -780,7 +815,7 @@
         <scene sceneID="WDy-fs-ltK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i1I-ZI-S8n" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" id="wdE-Nh-NIv"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="icons8-schedule-50" selectedImage="icons8-schedule-50" id="wdE-Nh-NIv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XyP-Sk-lkR">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -799,7 +834,7 @@
         <scene sceneID="90u-DE-i4F">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N1d-wj-457" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notifications" id="gPd-Wm-rbh"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="icons8-bell-50" selectedImage="icons8-bell-50" id="gPd-Wm-rbh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yNf-uo-4Ld">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -817,6 +852,11 @@
     </scenes>
     <resources>
         <image name="check-circular-button" width="128" height="128"/>
+        <image name="icons8-bell-50" width="25" height="25"/>
+        <image name="icons8-dog-tag-50" width="25" height="25"/>
+        <image name="icons8-schedule-50" width="25" height="25"/>
+        <image name="icons8-user-50" width="25" height="25"/>
+        <image name="icons8-user-groups-50" width="25" height="25"/>
         <image name="login_calendar" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
