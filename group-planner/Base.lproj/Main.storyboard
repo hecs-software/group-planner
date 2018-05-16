@@ -35,10 +35,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sdg-HJ-s1C" customClass="GIDSignInButton">
-                                <rect key="frame" x="100" y="333" width="175" height="30"/>
+                                <rect key="frame" x="100.5" y="333" width="174.5" height="29.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in to Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BED-fg-QHl">
-                                        <rect key="frame" x="22" y="5" width="131" height="21"/>
+                                        <rect key="frame" x="22" y="5" width="130.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -51,12 +51,12 @@
                                     <constraint firstAttribute="bottom" secondItem="BED-fg-QHl" secondAttribute="bottom" constant="4" id="zME-do-zk1"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons provided by Icons 8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hho-eP-uS4">
-                                <rect key="frame" x="102" y="626" width="170" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons provided by Icons 8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onR-Rw-MU1">
+                                <rect key="frame" x="114.5" y="626" width="145.5" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="QvG-tO-gbv"/>
+                                    <constraint firstAttribute="height" constant="21" id="5fm-e1-M30"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -65,13 +65,12 @@
                         <constraints>
                             <constraint firstItem="sdg-HJ-s1C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3KR-h6-abI"/>
                             <constraint firstItem="BED-fg-QHl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Pk-i1-ify"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hho-eP-uS4" secondAttribute="trailing" constant="103" id="KMH-pk-b4v"/>
                             <constraint firstItem="sdg-HJ-s1C" firstAttribute="top" secondItem="Uwx-ZA-rn1" secondAttribute="bottom" constant="7" id="Lka-0O-uNf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="onR-Rw-MU1" secondAttribute="bottom" constant="20" id="Ln1-LC-U3K"/>
                             <constraint firstItem="Uwx-ZA-rn1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N6j-fn-vOs"/>
+                            <constraint firstItem="onR-Rw-MU1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NGR-Rn-bMD"/>
                             <constraint firstItem="Uwx-ZA-rn1" firstAttribute="top" secondItem="CS1-qZ-Mxn" secondAttribute="bottom" constant="17" id="Uea-6S-Rs7"/>
-                            <constraint firstItem="Hho-eP-uS4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="102" id="YqA-xa-Fxo"/>
                             <constraint firstItem="CS1-qZ-Mxn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="fsZ-r1-VQm"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hho-eP-uS4" secondAttribute="bottom" constant="20" id="qEQ-O3-BUu"/>
                             <constraint firstItem="CS1-qZ-Mxn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qh5-RI-PG8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
