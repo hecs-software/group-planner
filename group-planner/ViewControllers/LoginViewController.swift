@@ -9,6 +9,7 @@
 import UIKit
 import GoogleAPIClientForREST
 import GoogleSignIn
+import Pastel
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
 
@@ -34,6 +35,19 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         
         // Add the sign-in button.
         signInButtonView = GIDSignInButton()
+        
+        // Configure Pastel Gradient Background
+        let pastelView = PastelView(frame: view.bounds)
+
+        // Custom Duration
+        pastelView.animationDuration = 3.0
+        
+        // Custom Color
+        pastelView.setColors([UIColor(red: 23/255, green: 234/255, blue: 217/255, alpha: 1.0),
+                              UIColor(red: 96/255, green: 120/255, blue: 234/255, alpha: 1.0)])
+        
+        pastelView.startAnimation()
+        view.insertSubview(pastelView, at: 0)
     }
 
     

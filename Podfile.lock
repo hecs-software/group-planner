@@ -35,6 +35,7 @@ PODS:
   - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
+  - Pastel (0.4.0)
   - SkyFloatingLabelTextField (3.4.1)
 
 DEPENDENCIES:
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - GoogleSignIn (~> 4.1.1)
   - Parse
   - ParseUI
+  - Pastel
   - SkyFloatingLabelTextField (~> 3.0)
 
 SPEC CHECKSUMS:
@@ -56,8 +58,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   ParseUI: 2b37a0bc692a3e7666cf0c37b5521dfddd74a1af
+  Pastel: 7fa5e26123b3dbe11f7ed255654bf37100b199a5
   SkyFloatingLabelTextField: 8085f20f57f74a00cfcae58099299faa1a971035
 
-PODFILE CHECKSUM: bf88302a17bc6491b5ad4fd686d60f6d997bc221
+PODFILE CHECKSUM: 8b6e73e238088d236bd2bd8147bf7c6998d31d8e
 
 COCOAPODS: 1.4.0
