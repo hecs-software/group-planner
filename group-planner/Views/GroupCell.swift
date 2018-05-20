@@ -9,8 +9,9 @@
 import UIKit
 import ParseUI
 
-class GroupCell: UITableViewCell, UICollectionViewDataSource {
+class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    @IBOutlet weak var cellContainer: UIView!
     
     @IBOutlet weak var groupNameLabel: UILabel!
 
@@ -37,6 +38,9 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource {
         layout.itemSize = CGSize(width: 60, height: 60)
         profileCarousel.dataSource = self
         profileCarousel.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        cellContainer.cornerRadiusWithShadow(radius: 30)
+        profileCarousel.layer.cornerRadius = 30
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

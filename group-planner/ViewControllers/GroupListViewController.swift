@@ -87,15 +87,13 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupCell
         let group = groups[indexPath.row]
-        cell.group = group
-        //let background = UIColor(displayP3Red: 0.2, green: 0.3, blue: 0.6, alpha: 0.2)
-        //bcell.backgroundColor = background
+        cell.group = groupg
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
+        return 150
     }
     
     

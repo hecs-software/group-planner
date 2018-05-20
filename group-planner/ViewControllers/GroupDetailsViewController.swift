@@ -73,6 +73,7 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         if indexPath.row == 0 {
             cell.profileImageView.image = #imageLiteral(resourceName: "plus_sign")
             cell.isPlusButton = true
+            cell.delegate = self
         }
         else {
             cell.user = users[indexPath.row - 1]
@@ -104,10 +105,11 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     
-    @IBAction func inviteButtonClicked(_ sender: UIBarButtonItem) {
-        let sc = UserSearchController()
-        self.present(sc, animated: true, completion: nil)
+    
+    func clickedOnPlus() {
+        self.performSegue(withIdentifier: "userSearchSegue", sender: nil)
     }
+    
     
     func pickedUsers(users: [User]) {
         // TODO Invite people
