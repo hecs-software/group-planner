@@ -81,6 +81,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     }
     
     @IBAction func didLogout(_ sender: UIBarButtonItem) {
+        GIDSignIn.sharedInstance().signOut()
         User.logout { (error) in
             if let _ = error {
                 self.displayAlert(title: "Error", message: "Could not logout")

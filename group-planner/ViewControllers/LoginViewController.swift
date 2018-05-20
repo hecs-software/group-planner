@@ -40,7 +40,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         let pastelView = PastelView(frame: view.bounds)
 
         // Custom Duration
-        pastelView.animationDuration = 3.0
+        pastelView.animationDuration = 2.0
         
         // Custom Color
         pastelView.setColors([UIColor(red: 23/255, green: 234/255, blue: 217/255, alpha: 1.0),

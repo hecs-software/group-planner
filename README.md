@@ -12,12 +12,12 @@ The following **required** user stories are complete:
 
 - [x] Users can log in using Google Sign-In in the Login Page
 - [x] Login Page has AutoLayout that adjusts with rotation
-- [ ] Profile page displays events in Google Calendar
-- [ ] Group List Page that displays all of your current groups in a TableView
-- [ ] Create Group Page that allows you to give a group a name and invite
+- [x] Profile page displays events in Google Calendar
+- [x] Group List Page that displays all of your current groups in a TableView
+- [x] Create Group Page that allows you to give a group a name and invite
   members via their Google accounts
-- [ ] Group page that overlays the events of everybody in the group 
-- [ ] Notifications page to accept group invitations
+- [x] Group page that overlays the events of everybody in the group 
+- [x] Notifications page to accept group invitations
 
 The following **stretch** user stories are implemented:
 
@@ -52,6 +52,7 @@ Here's a walkthrough of implemented user stories:
 <img src='https://i.imgur.com/GFlEJtY.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/gz4pmW0.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/raBheGu.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/EIWOrvR.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
