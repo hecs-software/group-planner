@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		470B027F20A9870D001008E6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B027E20A9870D001008E6 /* NotificationViewController.swift */; };
+		470B028120A989E9001008E6 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B028020A989E9001008E6 /* NotificationCell.swift */; };
+		4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933A20A8E389007AD28B /* ProfilePictureCell.swift */; };
+		4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */; };
+		4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933E20A8F78E007AD28B /* ProfileCarousel.swift */; };
+		4781934120A93131007AD28B /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781934020A93131007AD28B /* UserSearchController.swift */; };
 		47827D56208F1200005DDE85 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D55208F1200005DDE85 /* User.swift */; };
 		47827D58208F1208005DDE85 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D57208F1208005DDE85 /* Group.swift */; };
 		47827D5A208F120E005DDE85 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D59208F120E005DDE85 /* Event.swift */; };
@@ -15,6 +21,7 @@
 		47827D60208F19CA005DDE85 /* CompletionBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */; };
 		47827D62208F1F18005DDE85 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D61208F1F18005DDE85 /* Utility.swift */; };
 		47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D63208F232F005DDE85 /* AuthDelegate.swift */; };
+		479CCE8720AA711600453BAC /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479CCE8620AA711600453BAC /* UserNotification.swift */; };
 		47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717A920900BF0004A7948 /* MyProfileViewController.swift */; };
 		47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AB20900F46004A7948 /* DaySegmentedControl.swift */; };
 		47B717AE20901831004A7948 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AD20901831004A7948 /* CalendarView.swift */; };
@@ -29,7 +36,11 @@
 		9D1965FF2049187B00A8BEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D1965FD2049187B00A8BEB6 /* LaunchScreen.storyboard */; };
 		9D19660A2049187B00A8BEB6 /* group_plannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1966092049187B00A8BEB6 /* group_plannerTests.swift */; };
 		9D1966152049187B00A8BEB6 /* group_plannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1966142049187B00A8BEB6 /* group_plannerUITests.swift */; };
+		9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C89BE2096820E009576C4 /* GroupListViewController.swift */; };
+		9D2C89C1209682A5009576C4 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C89C0209682A5009576C4 /* GroupCell.swift */; };
 		9D9F59A2208581E900909D09 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F59A1208581E900909D09 /* LoginViewController.swift */; };
+		9DB871A3209D5129002EAA13 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB871A2209D5129002EAA13 /* ResultCell.swift */; };
+		9DD6391320980B2F00DEC8D6 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6391220980B2F00DEC8D6 /* CreateGroupViewController.swift */; };
 		B2D56824677F7C7717AA55F4 /* Pods_group_plannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1BB677E617D5E7E30A939E /* Pods_group_plannerTests.framework */; };
 		C7DC17F36F54D306578558FD /* Pods_group_planner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908C5AFDA979F23F2D3ACDBE /* Pods_group_planner.framework */; };
 /* End PBXBuildFile section */
@@ -55,6 +66,12 @@
 		176AB67B0C0E32821C4557EB /* Pods-group-planner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-planner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-planner/Pods-group-planner.debug.xcconfig"; sourceTree = "<group>"; };
 		1A1BB677E617D5E7E30A939E /* Pods_group_plannerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_plannerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F73050817DCC3277A39C68 /* Pods-group-plannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerTests/Pods-group-plannerTests.release.xcconfig"; sourceTree = "<group>"; };
+		470B027E20A9870D001008E6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		470B028020A989E9001008E6 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		4781933A20A8E389007AD28B /* ProfilePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCell.swift; sourceTree = "<group>"; };
+		4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailsViewController.swift; sourceTree = "<group>"; };
+		4781933E20A8F78E007AD28B /* ProfileCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCarousel.swift; sourceTree = "<group>"; };
+		4781934020A93131007AD28B /* UserSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
 		47827D55208F1200005DDE85 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		47827D57208F1208005DDE85 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		47827D59208F120E005DDE85 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -63,6 +80,7 @@
 		47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBlocks.swift; sourceTree = "<group>"; };
 		47827D61208F1F18005DDE85 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		47827D63208F232F005DDE85 /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
+		479CCE8620AA711600453BAC /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		47B717A920900BF0004A7948 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		47B717AB20900F46004A7948 /* DaySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySegmentedControl.swift; sourceTree = "<group>"; };
 		47B717AD20901831004A7948 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -85,7 +103,11 @@
 		9D1966102049187B00A8BEB6 /* group-plannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "group-plannerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1966142049187B00A8BEB6 /* group_plannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = group_plannerUITests.swift; sourceTree = "<group>"; };
 		9D1966162049187B00A8BEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D2C89BE2096820E009576C4 /* GroupListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListViewController.swift; sourceTree = "<group>"; };
+		9D2C89C0209682A5009576C4 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		9D9F59A1208581E900909D09 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9DB871A2209D5129002EAA13 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
+		9DD6391220980B2F00DEC8D6 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		CC5E1B2FFD8DB24E8A3EB2F2 /* Pods-group-plannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerTests/Pods-group-plannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E84CB903DD2E7C955EBD43ED /* Pods_group_plannerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_group_plannerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98347500922F12B056EA488 /* Pods-group-plannerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerUITests/Pods-group-plannerUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +151,7 @@
 				47827D5D208F1220005DDE85 /* EventInvitation.swift */,
 				47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */,
 				47B717B3209447F0004A7948 /* Week.swift */,
+				479CCE8620AA711600453BAC /* UserNotification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +161,11 @@
 			children = (
 				9D9F59A1208581E900909D09 /* LoginViewController.swift */,
 				47B717A920900BF0004A7948 /* MyProfileViewController.swift */,
+				9D2C89BE2096820E009576C4 /* GroupListViewController.swift */,
+				9DD6391220980B2F00DEC8D6 /* CreateGroupViewController.swift */,
+				4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */,
+				4781934020A93131007AD28B /* UserSearchController.swift */,
+				470B027E20A9870D001008E6 /* NotificationViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -158,6 +186,11 @@
 				47B717AB20900F46004A7948 /* DaySegmentedControl.swift */,
 				47B717AD20901831004A7948 /* CalendarView.swift */,
 				47B717B1209325DE004A7948 /* CalendarDateView.swift */,
+				9D2C89C0209682A5009576C4 /* GroupCell.swift */,
+				9DB871A2209D5129002EAA13 /* ResultCell.swift */,
+				4781933A20A8E389007AD28B /* ProfilePictureCell.swift */,
+				4781933E20A8F78E007AD28B /* ProfileCarousel.swift */,
+				470B028020A989E9001008E6 /* NotificationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -422,7 +455,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -511,6 +544,8 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/ParseUI/ParseUI.framework",
+				"${BUILT_PRODUCTS_DIR}/Pastel/Pastel.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -523,6 +558,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pastel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -558,10 +595,19 @@
 				47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */,
 				47827D5C208F1218005DDE85 /* GroupInvitation.swift in Sources */,
 				47827D62208F1F18005DDE85 /* Utility.swift in Sources */,
+				4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */,
+				4781934120A93131007AD28B /* UserSearchController.swift in Sources */,
 				47B717B2209325DE004A7948 /* CalendarDateView.swift in Sources */,
+				9DB871A3209D5129002EAA13 /* ResultCell.swift in Sources */,
+				4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */,
 				47827D5E208F1220005DDE85 /* EventInvitation.swift in Sources */,
+				470B028120A989E9001008E6 /* NotificationCell.swift in Sources */,
+				9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
 				47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */,
+				9D2C89C1209682A5009576C4 /* GroupCell.swift in Sources */,
+				479CCE8720AA711600453BAC /* UserNotification.swift in Sources */,
+				9DD6391320980B2F00DEC8D6 /* CreateGroupViewController.swift in Sources */,
 				47827D58208F1208005DDE85 /* Group.swift in Sources */,
 				47B717AE20901831004A7948 /* CalendarView.swift in Sources */,
 				47B717B02091AC44004A7948 /* GGLAPIClient.swift in Sources */,
@@ -569,8 +615,10 @@
 				47827D60208F19CA005DDE85 /* CompletionBlocks.swift in Sources */,
 				47B717B4209447F0004A7948 /* Week.swift in Sources */,
 				47827D5A208F120E005DDE85 /* Event.swift in Sources */,
+				470B027F20A9870D001008E6 /* NotificationViewController.swift in Sources */,
 				47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */,
 				9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */,
+				4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

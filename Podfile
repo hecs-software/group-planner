@@ -22,5 +22,7 @@ target 'group-planner' do
 	pod 'ParseUI'
         pod 'GoogleAPIClientForREST/Calendar', '~> 1.2.1'
         pod 'GoogleSignIn', '~> 4.1.1'
+        pod 'SkyFloatingLabelTextField', '~> 3.0'
+        pod 'Pastel'
 
 end

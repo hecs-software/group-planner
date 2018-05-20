@@ -18,7 +18,7 @@ class Group: PFObject, PFSubclassing {
         return "Group"
     }
     
-    static func createNewGroup(groupName name: String? = nil, completion: PFBooleanResultBlock? = nil) {
+    static func createNewGroup(groupName name: String? = nil, completion: GroupResultBlock? = nil) {
         let newGroup = Group()
         newGroup.groupMembers = []
         
@@ -34,12 +34,37 @@ class Group: PFObject, PFSubclassing {
         newGroup.creator = currentUser!
         newGroup.groupMembers.append(currentUser!)
         
-        newGroup.saveInBackground(block: completion)
+        
+        newGroup.saveInBackground { (success, error) in
+            if success {
+                currentUser!.groupsIds!.append(newGroup.objectId!)
+                currentUser!.saveInBackground()
+                completion?(newGroup, error)
+            }
+            else if let error = error {
+                completion?(nil, error)
+            }
+        }
     }
     
     
     func updateThumbnail(image: UIImage, completion: PFBooleanResultBlock? = nil) {
         self.thumbnail = ParseUtility.getPFFileFromImage(image)
         self.saveInBackground(block: completion)
+    }
+    
+    func fetchUsersInGroup(completion: @escaping UsersBooleanResultBlock) {
+        let ids = self.groupMembers.map {$0.objectId!}
+        
+        let query = User.query()
+        query?.whereKey("objectId", containedIn: ids)
+        query?.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            else if let users = objects as? [User] {
+                completion(users, nil)
+            }
+        })
     }
 }
