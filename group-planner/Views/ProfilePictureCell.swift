@@ -62,7 +62,7 @@ class ProfilePictureCell: UICollectionViewCell {
     }
     
     @objc func clickedOnPlus(_ tapGesture: UITapGestureRecognizer) {
-        print("clicked on plus")
+        delegate?.clickedOnPlus()
     }
     
     @objc func clickedOnProfile(_ tapGesture: UITapGestureRecognizer) {
@@ -86,6 +86,7 @@ class ProfilePictureCell: UICollectionViewCell {
 
 protocol ProfilePictureCellDelegate: class {
     func clickedOnProfile(userId: String, selected: Bool)
+    func clickedOnPlus()
 }
 
 

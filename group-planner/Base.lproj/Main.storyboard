@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -531,18 +531,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Piz-uC-mK4"/>
                     </view>
-                    <navigationItem key="navigationItem" id="srw-uG-TgU">
-                        <barButtonItem key="rightBarButtonItem" title="Invite" id="IYX-q0-AlU">
-                            <connections>
-                                <action selector="inviteButtonClicked:" destination="I6T-kz-nDV" id="zHU-iU-rNf"/>
-                                <segue destination="WMg-t5-v4K" kind="presentation" identifier="userSearchSegue" id="aDa-ug-nKL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="srw-uG-TgU"/>
                     <connections>
                         <outlet property="calendarDateView" destination="z8l-Ck-3u9" id="mCI-Dg-Nf8"/>
                         <outlet property="calendarView" destination="fgu-FX-7d9" id="CXA-MU-3fh"/>
                         <outlet property="profileCarousel" destination="fPr-XV-Rme" id="uOo-1o-2YB"/>
+                        <segue destination="WMg-t5-v4K" kind="modal" identifier="userSearchSegue" id="bD9-Nk-2wb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9i0-a5-YDz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -858,6 +852,6 @@
         <image name="login_calendar" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="38C-yn-YA8"/>
+        <segue reference="bD9-Nk-2wb"/>
     </inferredMetricsTieBreakers>
 </document>
