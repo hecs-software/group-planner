@@ -10,7 +10,8 @@ import UIKit
 
 class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
                                 UICollectionViewDataSource, DaySCDelegate, CalendarDateViewDelegate,
-                                UIScrollViewDelegate, UserSearchControllerDelegate {
+                                UIScrollViewDelegate, UserSearchControllerDelegate,
+                                ProfilePictureCellDelegate {
     
     @IBOutlet weak var calendarDateView: CalendarDateView!
     @IBOutlet weak var calendarView: CalendarView!
@@ -76,6 +77,8 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         else {
             cell.user = users[indexPath.row - 1]
             cell.isPlusButton = false
+            cell.delegate = self
+            cell.inGroupsDetailPage = true
         }
         return cell
     }
@@ -108,6 +111,14 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
     
     func pickedUsers(users: [User]) {
         // TODO Invite people
+    }
+    
+    
+    func clickedOnProfile(userId: String, selected: Bool) {
+        if let user = User.current(),
+            user.objectId! != userId {
+            calendarView.hideUsersEvents(userId: userId, hide: !selected)
+        }
     }
     
     

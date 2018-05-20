@@ -44,6 +44,8 @@ class CalendarView: UIScrollView {
         5: [EventView](), 6: [EventView](), 7: [EventView]()
     ]
     
+    var usersEVMap: [String:[EventView]] = [String:[EventView]]()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -80,7 +82,7 @@ class CalendarView: UIScrollView {
         let colors = UIUtility.colors
         var i = 0
         
-        for (_, events) in usersMap {
+        for (userId, events) in usersMap {
             let color = colors[i % colors.count]
             
             for event in events {
@@ -117,13 +119,30 @@ class CalendarView: UIScrollView {
                     
                     let height = endY - startY
                     let frame = CGRect(x: x, y: startY, width: width, height: height)
-                    let eventView = EventView(frame: frame, event: event)
+                    
+                    var eventView: EventView!
+                    // Create a disabled text event view for users that are not
+                    // the current user
+                    if let user = User.current(),
+                        user.objectId! != userId {
+                        eventView = EventView(frame: frame, event: event, disableText: true)
+                    }
+                    else {
+                        eventView = EventView(frame: frame, event: event)
+                    }
                     eventView.isHidden = true
                     addSubview(eventView)
                     eventView.setFontColor(UIColor.purple)
                     eventView.setShadeColor(color)
                     
                     eventViewsMap[weekday]!.append(eventView)
+                    if let _ = usersEVMap[userId] {
+                        usersEVMap[userId]!.append(eventView)
+                    }
+                    else {
+                        usersEVMap[userId] = [EventView]()
+                        usersEVMap[userId]!.append(eventView)
+                    }
                 }
             }
             i += 1
@@ -233,7 +252,17 @@ class CalendarView: UIScrollView {
     }
     
     
+    func hideUsersEvents(userId: String, hide: Bool) {
+        let eventViews = usersEVMap[userId]!
+        for eventView in eventViews {
+            UIUtility.hideViewWithAnimation(view: eventView, duration: CalendarView.HIDE_ANIMATION_DURATION,
+                                            hidden: hide)
+        }
+    }
+    
+    
     func discardAllEventViews() {
+        usersEVMap.removeAll()
         for (_, eventViews) in eventViewsMap {
             var eventViews = eventViews
             let group = DispatchGroup()
@@ -340,19 +369,22 @@ class EventView: UIView {
     var descriptionLabel: UILabel?
     var googleEvent: GTLRCalendar_Event!
     
-    init(frame: CGRect, event: GTLRCalendar_Event) {
+    init(frame: CGRect, event: GTLRCalendar_Event, disableText: Bool = false) {
         super.init(frame: frame)
         
         self.googleEvent = event
         setupContainer()
         
-        if let text = event.summary {
+        if let text = event.summary,
+            !disableText {
             setupTitleLabel(text)
         }
-        if let text = event.location {
+        if let text = event.location,
+            !disableText {
             setupLocationLabel(text)
         }
-        if let text = event.descriptionProperty {
+        if let text = event.descriptionProperty,
+            !disableText {
             setupDescriptionLabel(text)
         }
     }

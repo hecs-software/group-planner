@@ -13,6 +13,9 @@ import Parse
 class ProfilePictureCell: UICollectionViewCell {
     @IBOutlet weak var profileImageView: PFImageView!
     
+    var inGroupsDetailPage: Bool = false
+    var profileSelected: Bool = true
+    
     var user: User? {
         didSet {
             profileImageView.file = user!.profilePicture
@@ -33,6 +36,8 @@ class ProfilePictureCell: UICollectionViewCell {
         }
     }
     
+    weak var delegate: ProfilePictureCellDelegate? = nil
+    
     var laidoutSubviews: Bool = false
     
     override func awakeFromNib() {
@@ -48,6 +53,11 @@ class ProfilePictureCell: UICollectionViewCell {
             profileImageView.clipsToBounds = true
             profileImageView.contentMode = .scaleAspectFill
             laidoutSubviews = true
+            
+            if inGroupsDetailPage && !isPlusButton! {
+                self.profileImageView.layer.borderWidth = 2.0
+                self.profileImageView.layer.borderColor = UIColor.green.cgColor
+            }
         }
     }
     
@@ -56,6 +66,27 @@ class ProfilePictureCell: UICollectionViewCell {
     }
     
     @objc func clickedOnProfile(_ tapGesture: UITapGestureRecognizer) {
-        print("clicked on profile")
+        if !inGroupsDetailPage {return}
+        if let user = User.current(),
+            user.objectId! == self.user!.objectId! {return}
+        
+        profileSelected = !profileSelected
+        if !profileSelected && !isPlusButton! {
+            self.profileImageView.layer.borderWidth = 0
+            delegate?.clickedOnProfile(userId: user!.objectId!, selected: profileSelected)
+        }
+        else if !isPlusButton! {
+            self.profileImageView.layer.borderWidth = 2.0
+            self.profileImageView.layer.borderColor = UIColor.green.cgColor
+            delegate?.clickedOnProfile(userId: user!.objectId!, selected: profileSelected)
+        }
     }
 }
+
+
+protocol ProfilePictureCellDelegate: class {
+    func clickedOnProfile(userId: String, selected: Bool)
+}
+
+
+
