@@ -108,6 +108,18 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
     
     func pickedUsers(users: [User]) {
         // TODO Invite people
+        GroupInvitation.inviteUsers(requestees: users,
+                                    group: group!, completion:
+            { (users, errors) in
+                if let errors = errors {
+                    print(errors)
+                }
+                else if let users = users {
+                    print(users)
+                }
+        })
+        
+
     }
     
     

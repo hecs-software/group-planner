@@ -78,6 +78,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
         
         delegate?.pickedUsers(users: users)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
