@@ -6,6 +6,7 @@
 //  Copyright © 2018 Christopher Guan. All rights reserved.
 //
 
+import ParseUI
 import Parse
 
 class GroupInvitation: PFObject, PFSubclassing {
@@ -17,6 +18,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         return "GroupInvitation"
     }
     
+    
     static func createGroupInvitation(requester: User, requestee: User, group: Group,
                                       completion: PFBooleanResultBlock? = nil) {
         let newInvitation = GroupInvitation()
@@ -26,6 +28,7 @@ class GroupInvitation: PFObject, PFSubclassing {
         
         newInvitation.saveInBackground(block: completion)
     }
+    
     
     static func inviteUsers(requestees: [User], group: Group, completion: UsersInvitedResultBlock? = nil) {
         let currentUser = User.current()!
@@ -60,9 +63,14 @@ class GroupInvitation: PFObject, PFSubclassing {
         }
     }
     
+    
     static func fetchGroupInvitations(completion: @escaping GroupInvitationsResultBlock) {
         let currentUser = User.current()!
         let query = GroupInvitation.query()
+        query?.includeKey("requester")
+        query?.includeKey("requestee")
+        query?.includeKey("group")
+        query?.addDescendingOrder("createdAt")
         query?.whereKey("requestee", equalTo: currentUser)
         query?.findObjectsInBackground(block: { (objects, error) in
             if let error = error {
@@ -74,14 +82,36 @@ class GroupInvitation: PFObject, PFSubclassing {
         })
     }
     
-    func acceptInvitation(completion: PFBooleanResultBlock? = nil) {
+    
+    func acceptInvitation(completion: PFBooleanResultBlock? = nil, gglCompletion: GTLRCalendarBooleanResult? = nil) {
         let currentUser = User.current()!
         
-        // Add current user to the group
-        self.group.groupMembers.append(currentUser)
-        self.group.saveInBackground(block: completion)
-        
-        self.deleteInBackground()
+        // Get all the members that are not the current user
+        group.fetchUsersInGroup(completion: { (users, error) in
+            if let users = users {
+                // Give permission to all the members in the group
+                GGLAPIClient.shared.givePermission(toUsers: users) { (usersIds, errors) in
+                    if let errors = errors {
+                        gglCompletion?(false, errors)
+                    }
+                    else {
+                        // Add current user to the group
+                        self.group.groupMembers.append(currentUser)
+                        
+                        self.group.saveInBackground(block: completion)
+                        currentUser.groupsIds!.append(self.group.objectId!)
+                        currentUser.saveInBackground()
+                        
+                        self.deleteInBackground()
+                    }
+                }
+            }
+        })
+    }
+    
+    
+    func declineInvitation(completion: PFBooleanResultBlock? = nil) {
+        self.deleteInBackground(block: completion)
     }
 }
 

@@ -23,14 +23,6 @@ extension UIColor {
 
 
 extension UIViewController {
-    func hideViewWithAnimation(view: UIView, duration: Double, hidden: Bool = true) {
-        UIView.transition(with: view, duration: duration, options: .transitionCrossDissolve,
-                          animations:
-            {
-                view.isHidden = hidden
-        }, completion: nil)
-    }
-    
     func displayAlert(title: String, message: String) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -66,15 +58,235 @@ extension UIViewController {
     
     
     func shadeView(shaded: Bool) {
-        if shaded {
-            let mask = UIView(frame: self.view.frame)
-            mask.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-            self.view.mask = mask
-            self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.async {
+            if shaded {
+                let mask = UIView(frame: self.view.frame)
+                mask.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                self.view.mask = mask
+                self.view.isUserInteractionEnabled = false
+            }
+            else {
+                self.view.mask = nil
+                self.view.isUserInteractionEnabled = true
+            }
         }
-        else {
-            self.view.mask = nil
-            self.view.isUserInteractionEnabled = true
+    }
+}
+
+
+extension UIView {
+    var safeTopAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.topAnchor
+        } else {
+            return self.topAnchor
         }
+    }
+    
+    var safeLeftAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *){
+            return self.safeAreaLayoutGuide.leftAnchor
+        }else {
+            return self.leftAnchor
+        }
+    }
+    
+    var safeRightAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *){
+            return self.safeAreaLayoutGuide.rightAnchor
+        }else {
+            return self.rightAnchor
+        }
+    }
+    
+    var safeBottomAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            return self.bottomAnchor
+        }
+    }
+    
+    func addTopBorder(color: CGColor, borderWidth: CGFloat) {
+        let layer = CALayer()
+        let width = self.frame.size.width
+        layer.frame = CGRect(x: 0, y: 0, width: width, height: borderWidth)
+        layer.backgroundColor = color
+        self.layer.addSublayer(layer)
+    }
+    
+    /**
+     Format the view to have rounded bottom corners with shadow
+     */
+    func bottomRoundedWithShadow(radius: CGFloat) {
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.path = UIBezierPath(roundedRect: self.bounds,
+                                        byRoundingCorners: [.bottomLeft , .bottomRight],
+                                        cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        shadowLayer.fillColor = UIColor.white.cgColor
+        shadowLayer.shadowColor = UIColor.lightGray.cgColor
+        shadowLayer.shadowPath = shadowLayer.path
+        shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        shadowLayer.shadowOpacity = 0.8
+        shadowLayer.shadowRadius = 2
+        shadowLayer.frame = self.bounds
+        self.layer.insertSublayer(shadowLayer, at: 0)
+    }
+    
+    
+    func cornerRadiusWithShadow(radius: CGFloat, shadowOpacity: Float = 0.8,
+                                shadowRadius: CGFloat = 2) {
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.path = UIBezierPath(roundedRect: self.bounds,
+                                        byRoundingCorners: [.bottomLeft , .bottomRight, .topLeft, .topRight],
+                                        cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        shadowLayer.fillColor = UIColor.white.cgColor
+        shadowLayer.shadowColor = UIColor.lightGray.cgColor
+        shadowLayer.shadowPath = shadowLayer.path
+        shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        shadowLayer.shadowOpacity = shadowOpacity
+        shadowLayer.shadowRadius = shadowRadius
+        shadowLayer.frame = self.bounds
+        self.layer.insertSublayer(shadowLayer, at: 0)
+    }
+}
+
+
+extension Date {
+    func withinDates(minDate: Date, maxDate: Date) -> Bool {
+        return minDate.compare(self).rawValue * self.compare(maxDate).rawValue >= 0
+    }
+    
+    
+    func startOfDay() -> Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+    
+    
+    func endOfDay() -> Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: self.startOfDay())!
+    }
+    
+    
+    func lastWeek() -> Date {
+        var components = DateComponents()
+        components.day = -7
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    
+    func nextWeek() -> Date {
+        var components = DateComponents()
+        components.day = 7
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    
+    static func today() -> Date {
+        return Date()
+    }
+    
+    func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+        return get(.Next,
+                   weekday,
+                   considerToday: considerToday)
+    }
+    
+    func previous(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+        return get(.Previous,
+                   weekday,
+                   considerToday: considerToday)
+    }
+    
+    func get(_ direction: SearchDirection,
+             _ weekDay: Weekday,
+             considerToday consider: Bool = false) -> Date {
+        
+        let dayName = weekDay.rawValue
+        
+        let weekdaysName = getWeekDaysInEnglish().map { $0.lowercased() }
+        
+        assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
+        
+        let searchWeekdayIndex = weekdaysName.index(of: dayName)! + 1
+        
+        let calendar = Calendar(identifier: .gregorian)
+        
+        if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
+            return self
+        }
+        
+        var nextDateComponent = DateComponents()
+        nextDateComponent.weekday = searchWeekdayIndex
+        
+        
+        let date = calendar.nextDate(after: self,
+                                     matching: nextDateComponent,
+                                     matchingPolicy: .nextTime,
+                                     direction: direction.calendarSearchDirection)
+        
+        return date!
+    }
+    
+}
+
+// MARK: Helper methods
+extension Date {
+    func getWeekDaysInEnglish() -> [String] {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        return calendar.weekdaySymbols
+    }
+    
+    enum Weekday: String {
+        case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+    }
+    
+    enum SearchDirection {
+        case Next
+        case Previous
+        
+        var calendarSearchDirection: Calendar.SearchDirection {
+            switch self {
+            case .Next:
+                return .forward
+            case .Previous:
+                return .backward
+            }
+        }
+    }
+}
+
+extension NSLayoutConstraint {
+    func constraintWithMultiplier(_ multiplier: CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: self.firstItem, attribute: self.firstAttribute,
+                                  relatedBy: self.relation, toItem: self.secondItem,
+                                  attribute: self.secondAttribute,
+                                  multiplier: multiplier, constant: self.constant)
+    }
+    
+    
+    func setMultiplier(multiplier:CGFloat) -> NSLayoutConstraint {
+        
+        NSLayoutConstraint.deactivate([self])
+        
+        let newConstraint = NSLayoutConstraint(
+            item: firstItem,
+            attribute: firstAttribute,
+            relatedBy: relation,
+            toItem: secondItem,
+            attribute: secondAttribute,
+            multiplier: multiplier,
+            constant: constant)
+        
+        newConstraint.priority = priority
+        newConstraint.shouldBeArchived = self.shouldBeArchived
+        newConstraint.identifier = self.identifier
+        
+        NSLayoutConstraint.activate([newConstraint])
+        return newConstraint
     }
 }

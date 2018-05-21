@@ -19,15 +19,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Initialize Google sign-in.
-        GIDSignIn.sharedInstance().clientID = "993043262209-vmlhvgst7ai43t14j4h9ft3a7h59n8kv.apps.googleusercontent.com"
         
-        Parse.initialize(with: ParseClientConfiguration(block: { (configuration) in
-            configuration.applicationId = "GroupPlanner"
-            configuration.clientKey = "qrewouyfsdlajhlfdzmbkmdfzpotykj4ep9ut602ujtopasjgir"
-            configuration.server = "http://group-planner.herokuapp.com/parse"
-        }))
+        
+        // Read the Info.plist file to set the client id for the APIClient
+        var infoDict: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            infoDict = NSDictionary(contentsOfFile: path)
+            if let dict = infoDict {
+                let clientID = dict.object(forKey: "PARSE_MASTER_KEY") as! String
+                let appId = dict.object(forKey: "PARSE_APP_ID") as! String
+                let server = dict.object(forKey: "PARSE_SERVER") as! String
+                Parse.initialize(with: ParseClientConfiguration(block: { (configuration) in
+                    configuration.applicationId = appId
+                    configuration.clientKey = clientID
+                    configuration.server = server
+                }))
+                
+                let googleClientID = dict.object(forKey: "GOOGLE_CLIENT_ID") as! String
+                GIDSignIn.sharedInstance().clientID = googleClientID
+            }
+        }
         
         User.register(AuthDelegate(), forAuthType: "google")
+        
+//        if let _ = User.current() {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "HomeController")
+//            window?.rootViewController = vc
+//        }
 
         return true
     }
