@@ -8,6 +8,7 @@
 
 import UIKit
 import ParseUI
+import Pastel
 
 class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -38,8 +39,14 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
         layout.itemSize = CGSize(width: 60, height: 60)
         profileCarousel.dataSource = self
         profileCarousel.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+
         
-        cellContainer.cornerRadiusWithShadow(radius: 30)
+        
+        
+        cellContainer.cornerRadiusWithShadow(radius: 30, color:UIColor(r: 190, g: 229, b:252, a: 0.8))
+        cellContainer.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        profileCarousel.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+ 
         profileCarousel.layer.cornerRadius = 30
     }
 

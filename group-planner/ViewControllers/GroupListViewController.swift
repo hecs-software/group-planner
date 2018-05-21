@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Pastel
 
 class GroupListViewController: UIViewController, UITableViewDataSource,
                                 UITableViewDelegate{
@@ -23,6 +24,22 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
         
         groupsTableView.dataSource = self
         groupsTableView.delegate = self
+        
+        //Chris' gradient implementation
+        let pastelView = PastelView(frame: view.bounds)
+        
+        // Custom Duration
+        pastelView.animationDuration = 100.0
+        
+        // Custom Color
+        pastelView.setColors([UIColor(r: 100, g: 169, b:207, a: 0.8),
+                              UIColor(r: 4, g: 16, b: 60, a: 0.8)])
+        
+        pastelView.startAnimation()
+        view.insertSubview(pastelView, at: 0)
+        
+
+        
         
         fetchGroups()
         
@@ -87,7 +104,10 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupCell
         let group = groups[indexPath.row]
-        cell.group = groupg
+        cell.group = group
+        //cell.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        
+     
         return cell
     }
     
