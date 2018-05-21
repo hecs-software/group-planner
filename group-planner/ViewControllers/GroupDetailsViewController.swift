@@ -71,7 +71,7 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePicCell", for: indexPath) as! ProfilePictureCell
         if indexPath.row == 0 {
-            cell.profileImageView.image = #imageLiteral(resourceName: "plus_sign")
+            cell.profileImageView.image = #imageLiteral(resourceName: "icons8-plus-math-50")
             cell.isPlusButton = true
         }
         else {
