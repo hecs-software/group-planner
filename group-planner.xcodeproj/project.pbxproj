@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		470B027F20A9870D001008E6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B027E20A9870D001008E6 /* NotificationViewController.swift */; };
 		470B028120A989E9001008E6 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B028020A989E9001008E6 /* NotificationCell.swift */; };
+		4770EE5320B3A0FC00E121E3 /* RoundedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770EE5220B3A0FC00E121E3 /* RoundedContainer.swift */; };
 		4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933A20A8E389007AD28B /* ProfilePictureCell.swift */; };
 		4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */; };
 		4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781933E20A8F78E007AD28B /* ProfileCarousel.swift */; };
@@ -68,6 +69,7 @@
 		27F73050817DCC3277A39C68 /* Pods-group-plannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-group-plannerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-group-plannerTests/Pods-group-plannerTests.release.xcconfig"; sourceTree = "<group>"; };
 		470B027E20A9870D001008E6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		470B028020A989E9001008E6 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		4770EE5220B3A0FC00E121E3 /* RoundedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedContainer.swift; sourceTree = "<group>"; };
 		4781933A20A8E389007AD28B /* ProfilePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCell.swift; sourceTree = "<group>"; };
 		4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailsViewController.swift; sourceTree = "<group>"; };
 		4781933E20A8F78E007AD28B /* ProfileCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCarousel.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				4781933A20A8E389007AD28B /* ProfilePictureCell.swift */,
 				4781933E20A8F78E007AD28B /* ProfileCarousel.swift */,
 				470B028020A989E9001008E6 /* NotificationCell.swift */,
+				4770EE5220B3A0FC00E121E3 /* RoundedContainer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				470B028120A989E9001008E6 /* NotificationCell.swift in Sources */,
 				9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
+				4770EE5320B3A0FC00E121E3 /* RoundedContainer.swift in Sources */,
 				47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */,
 				9D2C89C1209682A5009576C4 /* GroupCell.swift in Sources */,
 				479CCE8720AA711600453BAC /* UserNotification.swift in Sources */,
