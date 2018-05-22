@@ -11,7 +11,7 @@ import ParseUI
 
 class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    @IBOutlet weak var cellContainer: UIView!
+    @IBOutlet weak var cellContainer: RoundedContainer!
     
     @IBOutlet weak var groupNameLabel: UILabel!
 
@@ -27,7 +27,7 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
-    
+    var laidoutSubviews: Bool = false
     var users: [User] = [User]()
 
     override func awakeFromNib() {
@@ -39,7 +39,6 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
         profileCarousel.dataSource = self
         profileCarousel.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
-        cellContainer.cornerRadiusWithShadow(radius: 30)
         profileCarousel.layer.cornerRadius = 30
     }
 
@@ -63,6 +62,5 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return users.count
     }
-    
     
 }
