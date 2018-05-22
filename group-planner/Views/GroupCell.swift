@@ -40,6 +40,9 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
         profileCarousel.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         profileCarousel.layer.cornerRadius = 30
+        self.backgroundColor = UIColor.clear
+        cellContainer.backgroundColor = UIColor.clear
+        profileCarousel.backgroundColor = UIColor.clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
