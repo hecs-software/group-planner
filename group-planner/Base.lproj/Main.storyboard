@@ -773,8 +773,15 @@
                                                         <action selector="onClickDecline:" destination="qTG-iX-yaP" eventType="touchUpInside" id="Nzr-3z-Lvk"/>
                                                     </connections>
                                                 </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dod-Hi-0is" userLabel="Accept Indicator">
+                                                    <rect key="frame" x="100" y="75" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pxy-3W-7wf">
+                                                    <rect key="frame" x="240" y="75" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="dod-Hi-0is" firstAttribute="centerX" secondItem="oHH-cr-Z6q" secondAttribute="centerX" id="9cu-4I-4uJ"/>
                                                 <constraint firstItem="Fwn-PY-VyB" firstAttribute="bottom" secondItem="13P-26-mZQ" secondAttribute="bottomMargin" constant="4" id="Ck1-7m-0Xq"/>
                                                 <constraint firstItem="oHH-cr-Z6q" firstAttribute="leading" secondItem="13P-26-mZQ" secondAttribute="leading" constant="75" id="FVq-ne-SQg"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aJg-T7-cMX" secondAttribute="trailing" constant="8" id="Gg1-XV-lKQ"/>
@@ -783,14 +790,19 @@
                                                 <constraint firstItem="oHH-cr-Z6q" firstAttribute="top" secondItem="aJg-T7-cMX" secondAttribute="bottom" constant="6" id="YMg-w9-lfk"/>
                                                 <constraint firstItem="aJg-T7-cMX" firstAttribute="leading" secondItem="gjx-tw-LBg" secondAttribute="trailing" constant="8" id="bQq-d1-Hgf"/>
                                                 <constraint firstItem="aJg-T7-cMX" firstAttribute="top" secondItem="13P-26-mZQ" secondAttribute="topMargin" constant="4" id="ehg-v6-wdw"/>
+                                                <constraint firstItem="pxy-3W-7wf" firstAttribute="centerY" secondItem="Fwn-PY-VyB" secondAttribute="centerY" id="gcV-gk-9mI"/>
+                                                <constraint firstItem="pxy-3W-7wf" firstAttribute="centerX" secondItem="Fwn-PY-VyB" secondAttribute="centerX" id="hr1-kK-8Is"/>
                                                 <constraint firstItem="gjx-tw-LBg" firstAttribute="leading" secondItem="13P-26-mZQ" secondAttribute="leadingMargin" constant="4" id="m3g-2t-l03"/>
+                                                <constraint firstItem="dod-Hi-0is" firstAttribute="centerY" secondItem="oHH-cr-Z6q" secondAttribute="centerY" id="pJu-ES-hj0"/>
                                                 <constraint firstItem="oHH-cr-Z6q" firstAttribute="bottom" secondItem="13P-26-mZQ" secondAttribute="bottomMargin" constant="4" id="sBA-Zb-4ZQ"/>
                                                 <constraint firstItem="gjx-tw-LBg" firstAttribute="top" secondItem="13P-26-mZQ" secondAttribute="topMargin" constant="4" id="yRX-Ne-W5K"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="acceptButton" destination="oHH-cr-Z6q" id="c0D-Lu-sYA"/>
+                                            <outlet property="acceptIndicator" destination="dod-Hi-0is" id="ew0-HH-jyW"/>
                                             <outlet property="declineButton" destination="Fwn-PY-VyB" id="Uti-Ad-oU0"/>
+                                            <outlet property="declineIndicator" destination="pxy-3W-7wf" id="KCz-RC-d5e"/>
                                             <outlet property="notificationTextLabel" destination="aJg-T7-cMX" id="TcH-xO-h3L"/>
                                             <outlet property="profileImageView" destination="gjx-tw-LBg" id="qOc-xL-aNa"/>
                                         </connections>
