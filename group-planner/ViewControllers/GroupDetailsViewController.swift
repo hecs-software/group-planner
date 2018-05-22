@@ -132,6 +132,15 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         if let user = User.current(),
             user.objectId! != userId {
             calendarView.hideUsersEvents(userId: userId, hide: !selected)
+            if selected {
+                // Remove the index if it appears in hidden users
+                if let ind = calendarView.hiddenUsers.index(of: userId) {
+                    calendarView.hiddenUsers.remove(at: ind)
+                }
+            }
+            else {
+                calendarView.hiddenUsers.append(userId)
+            }
         }
     }
     

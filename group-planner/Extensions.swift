@@ -134,14 +134,14 @@ extension UIView {
     }
     
     
-    func cornerRadiusWithShadow(radius: CGFloat, shadowOpacity: Float = 0.8,
-                                shadowRadius: CGFloat = 2) {
+    func cornerRadiusWithShadow(radius: CGFloat, color: UIColor = UIColor.white, shadowOpacity: Float = 0.8,
+                                shadowRadius: CGFloat = 2, shadowColor: UIColor = UIColor.lightGray) {
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = UIBezierPath(roundedRect: self.bounds,
                                         byRoundingCorners: [.bottomLeft , .bottomRight, .topLeft, .topRight],
                                         cornerRadii: CGSize(width: radius, height: radius)).cgPath
-        shadowLayer.fillColor = UIColor.white.cgColor
-        shadowLayer.shadowColor = UIColor.lightGray.cgColor
+        shadowLayer.fillColor = color.cgColor
+        shadowLayer.shadowColor = shadowColor.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         shadowLayer.shadowOpacity = shadowOpacity

@@ -44,7 +44,11 @@ class CalendarView: UIScrollView {
         5: [EventView](), 6: [EventView](), 7: [EventView]()
     ]
     
-    var usersEVMap: [String:[EventView]] = [String:[EventView]]()
+    // Maps user to day in week, day in week maps to list of eventviews
+    var usersEVMap: [String:[Int:[EventView]]] = [String:[Int:[EventView]]]()
+    
+    // Stores the userIds of users' events that are supposed to be hidden
+    var hiddenUsers: [String] = [String]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -136,12 +140,19 @@ class CalendarView: UIScrollView {
                     eventView.setShadeColor(color)
                     
                     eventViewsMap[weekday]!.append(eventView)
-                    if let _ = usersEVMap[userId] {
-                        usersEVMap[userId]!.append(eventView)
+                    if let map = usersEVMap[userId] {
+                        if let _ = map[weekday] {
+                            usersEVMap[userId]![weekday]!.append(eventView)
+                        }
+                        else {
+                            usersEVMap[userId]![weekday] = [EventView]()
+                            usersEVMap[userId]![weekday]!.append(eventView)
+                        }
                     }
                     else {
-                        usersEVMap[userId] = [EventView]()
-                        usersEVMap[userId]!.append(eventView)
+                        usersEVMap[userId] = [Int:[EventView]]()
+                        usersEVMap[userId]![weekday] = [EventView]()
+                        usersEVMap[userId]![weekday]!.append(eventView)
                     }
                 }
             }
@@ -215,11 +226,19 @@ class CalendarView: UIScrollView {
                                             hidden: true)
         }
         
-        let newEventViews = eventViewsMap[weekday]!
-        for eventView in newEventViews {
-            UIUtility.hideViewWithAnimation(view: eventView,
-                                            duration: CalendarView.HIDE_ANIMATION_DURATION,
-                                            hidden: false)
+        // Shows all events of the users on that day, except of the users
+        // that are supposed to be hidden
+        for (userId, evMap) in usersEVMap {
+            if !hiddenUsers.contains(userId) {
+                let eventViews = evMap[weekday]
+                if let eventViews = eventViews {
+                    for eventView in eventViews {
+                        UIUtility.hideViewWithAnimation(view: eventView,
+                                                        duration: CalendarView.HIDE_ANIMATION_DURATION,
+                                                        hidden: false)
+                    }
+                }
+            }
         }
         currentRenderedDay = weekday
     }
@@ -253,10 +272,13 @@ class CalendarView: UIScrollView {
     
     
     func hideUsersEvents(userId: String, hide: Bool) {
-        let eventViews = usersEVMap[userId]!
-        for eventView in eventViews {
-            UIUtility.hideViewWithAnimation(view: eventView, duration: CalendarView.HIDE_ANIMATION_DURATION,
-                                            hidden: hide)
+        guard usersEVMap[userId] != nil else {return}
+        let eventViews = usersEVMap[userId]![currentRenderedDay]
+        if let eventViews = eventViews {
+            for eventView in eventViews {
+                UIUtility.hideViewWithAnimation(view: eventView, duration: CalendarView.HIDE_ANIMATION_DURATION,
+                                                hidden: hide)
+            }
         }
     }
     
