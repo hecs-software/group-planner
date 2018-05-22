@@ -116,6 +116,9 @@ class GGLAPIClient {
         
         let currentUser = User.current()!
         let query = GTLRCalendarQuery_AclInsert.query(withObject: aclRule, calendarId: "primary")
+        query.additionalURLQueryParameters = [
+            "sendNotifications": "false"
+        ]
         service.executeQuery(query) { (ticket, response, error) in
             if let error = error {
                 completion?(ticket, error)
