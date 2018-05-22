@@ -15,6 +15,8 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var notificationTextLabel: UILabel!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var declineButton: UIButton!
+    @IBOutlet weak var acceptIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var declineIndicator: UIActivityIndicatorView!
     
     
     var laidoutSubviews: Bool = false
@@ -50,12 +52,12 @@ class NotificationCell: UITableViewCell {
     
     
     @IBAction func onClickAccept(_ sender: UIButton) {
-        delegate?.acceptedInvitation(groupInvitation: self.groupInv!)
+        delegate?.acceptedInvitation(sender: self, groupInvitation: self.groupInv!)
     }
     
     
     @IBAction func onClickDecline(_ sender: UIButton) {
-        delegate?.declinedInvitation(groupInvitation: self.groupInv!)
+        delegate?.declinedInvitation(sender: self, groupInvitation: self.groupInv!)
     }
     
     
@@ -71,6 +73,6 @@ class NotificationCell: UITableViewCell {
 
 
 protocol NotificationCellDelegate: class {
-    func acceptedInvitation(groupInvitation inv: GroupInvitation)
-    func declinedInvitation(groupInvitation inv: GroupInvitation)
+    func acceptedInvitation(sender: NotificationCell, groupInvitation inv: GroupInvitation)
+    func declinedInvitation(sender: NotificationCell, groupInvitation inv: GroupInvitation)
 }

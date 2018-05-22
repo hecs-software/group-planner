@@ -15,6 +15,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     var groupInvitations: [GroupInvitation] = [GroupInvitation]()
     
+    var noNotiLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
         view.layoutIfNeeded()
         
         setupTableView()
+        setupNoNotiLabel()
         setupRefreshControl()
         fetchNotifications()
     }
@@ -31,6 +33,17 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
         let rc = UIRefreshControl()
         notificationsTableView.insertSubview(rc, at: 0)
         rc.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+    }
+    
+    
+    func setupNoNotiLabel() {
+        let width: CGFloat = 200
+        let height: CGFloat = 50
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+        noNotiLabel = UILabel(frame: frame)
+        view.addSubview(noNotiLabel)
+        noNotiLabel.text = "You have no notifications"
+        noNotiLabel.font = UIFont.systemFont(ofSize: 24)
     }
     
     
@@ -48,16 +61,42 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
             }
             else if let groupInvs = groupInvs {
                 self.groupInvitations = groupInvs
-                self.notificationsTableView.reloadData()
+                self.reloadData()
             }
             completion?()
         }
     }
     
     
+    func showNoNotificationMessage() {
+        noNotiLabel.sizeToFit()
+        noNotiLabel.center = view.center
+        
+        notificationsTableView.isHidden = true
+        noNotiLabel.isHidden = false
+    }
+    
+    
+    func showNotiTableView() {
+        self.notificationsTableView.isHidden = false
+        self.noNotiLabel.isHidden = true
+    }
+    
+    
     func setupTableView() {
         notificationsTableView.delegate = self
         notificationsTableView.dataSource = self
+    }
+    
+    
+    func reloadData() {
+        if self.groupInvitations.count > 0 {
+            showNotiTableView()
+        }
+        else {
+            showNoNotificationMessage()
+        }
+        self.notificationsTableView.reloadData()
     }
     
     
@@ -82,19 +121,22 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     }
     
     
-    func acceptedInvitation(groupInvitation inv: GroupInvitation) {
+    func acceptedInvitation(sender: NotificationCell, groupInvitation inv: GroupInvitation) {
+        sender.acceptIndicator.startAnimating()
         inv.acceptInvitation(completion: { (success, error) in
             NotificationCenter.default.post(name: NSNotification.Name("acceptedGroupInvitation"),
                                             object: nil)
             self.groupInvitations = self.groupInvitations.filter({ (groupInv) -> Bool in
                 return groupInv.objectId! != inv.objectId!
             })
-            self.notificationsTableView.reloadData()
+            self.reloadData()
+            sender.acceptIndicator.stopAnimating()
         })
     }
     
     
-    func declinedInvitation(groupInvitation inv: GroupInvitation) {
+    func declinedInvitation(sender: NotificationCell, groupInvitation inv: GroupInvitation) {
+        sender.declineIndicator.startAnimating()
         inv.declineInvitation { (success, error) in
             if let _ = error {
                 self.displayAlert(title: "Error", message: "Error declining invitation")
@@ -103,8 +145,9 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
                 self.groupInvitations = self.groupInvitations.filter({ (groupInv) -> Bool in
                     return groupInv.objectId! != inv.objectId!
                 })
-                self.notificationsTableView.reloadData()
+                self.reloadData()
             }
+            sender.declineIndicator.stopAnimating()
         }
     }
     

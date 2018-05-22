@@ -151,6 +151,10 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         if segue.identifier == "userSearchSegue" {
             let userSC = segue.destination as! UserSearchController
             userSC.delegate = self
+            
+            for user in users {
+                userSC.excludeUsers.append(user.objectId!)
+            }
         }
     }
 }

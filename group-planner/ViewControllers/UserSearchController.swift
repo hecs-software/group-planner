@@ -19,6 +19,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
     weak var delegate: UserSearchControllerDelegate? = nil
     
     var pickedUsers: [String:User] = [String:User]()
+    var excludeUsers: [String] = [String]()
     
     var timer: Timer? = nil
     var searchText: String? = nil
@@ -26,6 +27,10 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let user = User.current() {
+            excludeUsers.append(user.objectId!)
+        }
         
         setupSearchBar()
         setupTableView()
@@ -121,6 +126,10 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
                     print(error)
                 }
                 else if let users = users {
+                    let users = users.filter({ (user) -> Bool in
+                        return !self.excludeUsers.contains(user.objectId!)
+                    })
+                    
                     self.invitees = users
                 }
                 
