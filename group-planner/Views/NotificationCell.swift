@@ -18,6 +18,7 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var acceptIndicator: UIActivityIndicatorView!
     @IBOutlet weak var declineIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var cellContainer: RoundedContainer!
     
     var laidoutSubviews: Bool = false
     
@@ -45,6 +46,9 @@ class NotificationCell: UITableViewCell {
         declineButton.layer.borderWidth = 1.0
         declineButton.layer.borderColor = UIColor.black.cgColor
         declineButton.layer.cornerRadius = 10.0
+        
+        cellContainer.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.clear
         
         self.setNeedsLayout()
         self.layoutSubviews()

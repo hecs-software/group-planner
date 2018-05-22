@@ -13,6 +13,8 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     @IBOutlet weak var notificationsTableView: UITableView!
     
+
+    
     var groupInvitations: [GroupInvitation] = [GroupInvitation]()
     
     var noNotiLabel: UILabel!
@@ -117,7 +119,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 107
+        return 120
     }
     
     
