@@ -27,6 +27,8 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
+        calendarView.profilePage = true
+        
         NotificationCenter.default.addObserver(forName: Notification.Name("profileUpdated"),
                                                object: nil, queue: .main)
         { _ in

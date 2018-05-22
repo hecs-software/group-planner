@@ -25,6 +25,8 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
+        calendarView.profilePage = false
+        
         if let group = group {
             self.navigationItem.title = group.name
         }

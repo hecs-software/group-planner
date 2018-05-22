@@ -49,6 +49,7 @@ class CalendarView: UIScrollView {
     
     // Stores the userIds of users' events that are supposed to be hidden
     var hiddenUsers: [String] = [String]()
+    var profilePage: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -228,14 +229,25 @@ class CalendarView: UIScrollView {
         
         // Shows all events of the users on that day, except of the users
         // that are supposed to be hidden
-        for (userId, evMap) in usersEVMap {
-            if !hiddenUsers.contains(userId) {
-                let eventViews = evMap[weekday]
-                if let eventViews = eventViews {
-                    for eventView in eventViews {
-                        UIUtility.hideViewWithAnimation(view: eventView,
-                                                        duration: CalendarView.HIDE_ANIMATION_DURATION,
-                                                        hidden: false)
+        
+        if profilePage {
+            let newEventViews = eventViewsMap[weekday]!
+            for eventView in newEventViews {
+                UIUtility.hideViewWithAnimation(view: eventView,
+                                                duration: CalendarView.HIDE_ANIMATION_DURATION,
+                                                hidden: false)
+            }
+        }
+        else {
+            for (userId, evMap) in usersEVMap {
+                if !hiddenUsers.contains(userId) {
+                    let eventViews = evMap[weekday]
+                    if let eventViews = eventViews {
+                        for eventView in eventViews {
+                            UIUtility.hideViewWithAnimation(view: eventView,
+                                                            duration: CalendarView.HIDE_ANIMATION_DURATION,
+                                                            hidden: false)
+                        }
                     }
                 }
             }
