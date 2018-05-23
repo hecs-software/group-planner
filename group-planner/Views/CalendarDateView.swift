@@ -354,6 +354,10 @@ class DateViewContainer: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    deinit {
+        print("Deinitializing calendar date view")
+    }
 }
 
 

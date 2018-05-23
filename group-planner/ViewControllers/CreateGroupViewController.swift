@@ -93,5 +93,9 @@ class CreateGroupViewController: UIViewController, UserSearchControllerDelegate 
             }
         }
     }
+    
+    deinit {
+        print("Deinitializing create group view controller")
+    }
 
 }

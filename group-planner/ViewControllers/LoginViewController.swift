@@ -56,6 +56,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             print(error.localizedDescription)
         } else {
             parseLogin(user: user)
+            print(user.profile.email)
         }
     }
     

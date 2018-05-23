@@ -157,4 +157,9 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
             }
         }
     }
+    
+    
+    deinit {
+        print("Deinitializing group details view controller")
+    }
 }

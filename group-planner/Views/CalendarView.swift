@@ -328,6 +328,11 @@ class CalendarView: UIScrollView {
         }
     }
     
+    
+    deinit {
+        print("Deinitializing calendar view")
+    }
+    
 }
 
 class TimeMarkView: UIView {

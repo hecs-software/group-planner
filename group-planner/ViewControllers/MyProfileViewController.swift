@@ -89,7 +89,10 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
                 self.displayAlert(title: "Error", message: "Could not logout")
             }
             else {
-                self.dismiss(animated: true, completion: nil)
+                let window = UIApplication.shared.keyWindow
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                window?.rootViewController = vc
             }
         }
     }
@@ -130,5 +133,10 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
         calendarView.currentRenderedDay = dayPicked
         calendarView.currentShownWeek = week
         calendarView.loadEvents(inWeek: week)
+    }
+    
+    
+    deinit {
+        print("oh")
     }
 }

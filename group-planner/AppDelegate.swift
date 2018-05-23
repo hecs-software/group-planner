@@ -41,25 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         User.register(AuthDelegate(), forAuthType: "google")
-        
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            if let _ = User.current() {
-                print("parse user")
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "HomeController")
-                window?.rootViewController = vc
-            }
-            else {
-                print("no parse user")
-                User.oauthLogin(gidUser: GIDSignIn.sharedInstance().currentUser, completion: {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "HomeController")
-                    self.window?.rootViewController = vc
-                }, uploadCompletion: { (_, _) in
-                    NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
-                })
-            }
-        }
 
         return true
     }
