@@ -127,6 +127,7 @@ class User: PFUser {
     
     static func logout(completion: PFUserLogoutResultBlock? = nil) {
         User.logOutInBackground(block: completion)
+        GIDSignIn.sharedInstance().signOut()
     }
     
     

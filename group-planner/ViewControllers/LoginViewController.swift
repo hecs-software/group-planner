@@ -24,7 +24,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GIDSignIn.sharedInstance().signOut()
         signInText.isHidden = true 
 
         // Configure Google Sign-in.
