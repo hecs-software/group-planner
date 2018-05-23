@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class NotificationViewController: UIViewController, UITableViewDelegate,
                                 UITableViewDataSource, NotificationCellDelegate {
@@ -126,7 +127,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     func acceptedInvitation(sender: NotificationCell, groupInvitation inv: GroupInvitation) {
         sender.acceptIndicator.startAnimating()
         inv.acceptInvitation(completion: { (success, error) in
-            NotificationCenter.default.post(name: NSNotification.Name("acceptedGroupInvitation"),
+            NotificationCenter.default.post(name: NSNotification.Name("needsRefresh"),
                                             object: nil)
             self.groupInvitations = self.groupInvitations.filter({ (groupInv) -> Bool in
                 return groupInv.objectId! != inv.objectId!

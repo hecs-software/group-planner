@@ -17,8 +17,6 @@ class CalendarDateView: UIScrollView {
     
     weak var cdvDelegate: CalendarDateViewDelegate?
     
-    var cvTrailing: NSLayoutConstraint!
-    
     var currentShownWeek: Int = 0
     var latestWeek: Int = 0
     var oldestWeek: Int = 0
@@ -353,10 +351,6 @@ class DateViewContainer: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    deinit {
-        print("Deinitializing calendar date view")
     }
 }
 

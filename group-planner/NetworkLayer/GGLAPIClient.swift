@@ -15,10 +15,7 @@ class GGLAPIClient {
     
     private let service = GTLRCalendarService()
     
-    private init() {
-        let user = GIDSignIn.sharedInstance().currentUser
-        service.authorizer = user?.authentication.fetcherAuthorizer()
-    }
+    private init() {}
     
     func fetchEvents(minDate: Date, maxDate: Date, completion: GTLRCalendarEventsResult? = nil) {
         let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
@@ -200,6 +197,17 @@ class GGLAPIClient {
                 completion?(ticket, nil, nil)
             }
         }
+    }
+    
+    
+    func gidSignOut() {
+        GIDSignIn.sharedInstance().signOut()
+        service.authorizer = nil
+    }
+    
+    
+    func setAuthorizer(user: GIDGoogleUser) {
+        service.authorizer = user.authentication.fetcherAuthorizer()
     }
     
     

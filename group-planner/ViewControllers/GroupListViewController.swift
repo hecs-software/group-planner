@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import GoogleSignIn
 
 class GroupListViewController: UIViewController, UITableViewDataSource,
                                 UITableViewDelegate{
@@ -28,23 +29,18 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
         
         fetchGroups()
         
-        setupObservers()
         setupRefreshControl()
     }
     
     
     func setupObservers() {
-        NotificationCenter.default.addObserver(forName: Notification.Name("groupCreated"),
-                                               object: nil, queue: .main)
-        { _ in
-            self.fetchGroups()
-        }
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name("acceptedGroupInvitation"),
-                                               object: nil, queue: .main)
-        { _ in
-            self.needsRefresh = true
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsRefresh),
+                                               name: Notification.Name("needsRefresh"), object: nil)
+    }
+    
+    
+    @objc func setNeedsRefresh() {
+        self.needsRefresh = true
     }
     
     
@@ -63,7 +59,7 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
     }
     
     
-    func fetchGroups(completion: (() -> Void)? = nil) {
+    @objc func fetchGroups(completion: (() -> Void)? = nil) {
         User.fetchGroups { (groups, error) in
             if let error = error {
                 self.displayAlert(title: "Error", message: error.localizedDescription)
@@ -108,11 +104,18 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setupObservers()
+        
         if needsRefresh {
             fetchGroups()
         }
         
         User.current()!.givePendingPermissions()
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     
@@ -123,6 +126,12 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
             vc.group = cell.group
             vc.users = cell.users
         }
+    }
+    
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        print("Deinitializing Group List VC")
     }
     
 }

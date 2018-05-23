@@ -56,15 +56,22 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             print(error.localizedDescription)
         } else {
             parseLogin(user: user)
-            print(user.profile.email)
         }
     }
     
     func parseLogin(user: GIDGoogleUser) {
         shadeView(shaded: true)
+        let window = UIApplication.shared.keyWindow
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "HomeController")
+        
         User.oauthLogin(gidUser: user, completion: {
             self.shadeView(shaded: false)
-            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            GGLAPIClient.shared.setAuthorizer(user: user)
+            
+            DispatchQueue.main.async {
+                window?.rootViewController = vc
+            }
         }, uploadCompletion: { (_, _) in
             NotificationCenter.default.post(name: NSNotification.Name("profileUpdated"), object: nil)
         })

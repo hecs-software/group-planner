@@ -27,13 +27,8 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
+        print("Profile Loaded")
         calendarView.profilePage = true
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name("profileUpdated"),
-                                               object: nil, queue: .main)
-        { _ in
-            self.setUserInfo()
-        }
         
         setupCalendarDateView()
         setupProfileImageView()
@@ -67,7 +62,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     }
     
     
-    func setUserInfo() {
+    @objc func setUserInfo() {
         let user = User.current()
         if let user = user {
             var name = "\(user.firstName) "
@@ -83,7 +78,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     }
     
     @IBAction func didLogout(_ sender: UIBarButtonItem) {
-        GIDSignIn.sharedInstance().signOut()
+        GGLAPIClient.shared.gidSignOut()
         User.logout { (error) in
             if let _ = error {
                 self.displayAlert(title: "Error", message: "Could not logout")
@@ -124,6 +119,14 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(setUserInfo),
+                                               name: Notification.Name("profileUpdated"),
+                                               object: nil)
+    }
+    
+    
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         scrollView.setContentOffset(scrollView.contentOffset, animated: true)
     }
@@ -136,7 +139,12 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     }
     
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     deinit {
-        print("oh")
+        NotificationCenter.default.removeObserver(self)
+        print("Deinitialzing profile view controller")
     }
 }

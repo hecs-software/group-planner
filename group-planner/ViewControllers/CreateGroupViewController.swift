@@ -47,7 +47,7 @@ class CreateGroupViewController: UIViewController, UserSearchControllerDelegate 
                         }
                 })
                 self.dismiss(animated: true, completion: {
-                    NotificationCenter.default.post(name: NSNotification.Name("groupCreated"),
+                    NotificationCenter.default.post(name: NSNotification.Name("needsRefresh"),
                                                     object: nil)
                 })
             }
