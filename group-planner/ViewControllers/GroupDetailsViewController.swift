@@ -155,6 +155,11 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
             for user in users {
                 userSC.excludeUsers.append(user.objectId!)
             }
+            
+            if let group = group,
+                let invited = group.invited {
+                userSC.excludeUsers.append(contentsOf: invited)
+            }
         }
         else if segue.identifier == "suggestionsSegue" {
             let suggestionsVC = segue.destination as! SuggestionsViewController
