@@ -60,6 +60,7 @@ class User: PFUser {
         let user = User.logInWithAuthType(inBackground: User.oauthType, authData: authData)
         user.continueOnSuccessWith { (task) -> Any? in
             if let user = task.result as? User {
+                GGLAPIClient.shared.setAuthorizer(user: gidUser)
                 GGLAPIClient.shared.getPrimaryCalendar(completion: { (ticket, calendar, error) in
                     if let error = error {
                         uploadCompletion?(false, error)

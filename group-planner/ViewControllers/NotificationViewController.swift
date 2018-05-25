@@ -11,9 +11,12 @@ import GoogleSignIn
 
 class NotificationViewController: UIViewController, UITableViewDelegate,
                                 UITableViewDataSource, NotificationCellDelegate {
+    static let CONFIRMATION_MESSAGE: String =
+    "This will share your calendar with all of the members in %@"
+    
+    
     
     @IBOutlet weak var notificationsTableView: UITableView!
-    
 
     
     var groupInvitations: [GroupInvitation] = [GroupInvitation]()
@@ -125,15 +128,27 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     
     func acceptedInvitation(sender: NotificationCell, groupInvitation inv: GroupInvitation) {
-        sender.acceptIndicator.startAnimating()
-        inv.acceptInvitation(completion: { (success, error) in
-            NotificationCenter.default.post(name: NSNotification.Name("needsRefresh"),
-                                            object: nil)
-            self.groupInvitations = self.groupInvitations.filter({ (groupInv) -> Bool in
-                return groupInv.objectId! != inv.objectId!
-            })
-            self.reloadData()
-            sender.acceptIndicator.stopAnimating()
+        let message = String.init(format: NotificationViewController.CONFIRMATION_MESSAGE,
+                                  inv.group.name)
+        displayYesNoAlert(title: "Confirmation", message: message,
+                          yesAction:
+            { _ in
+                sender.acceptIndicator.startAnimating()
+                inv.acceptInvitation(completion: { (success, error) in
+                    if success {
+                        self.groupInvitations = self.groupInvitations.filter({ (groupInv) -> Bool in
+                            return groupInv.objectId! != inv.objectId!
+                        })
+                        self.reloadData()
+                    }
+                    sender.acceptIndicator.stopAnimating()
+                }, gglCompletion: { (success, error) in
+                    if !success {
+                        self.displayAlert(title: "Error", message: "There was an error in sharing your google calendar")
+                    }
+                    sender.acceptIndicator.stopAnimating()
+                })
+                
         })
     }
     

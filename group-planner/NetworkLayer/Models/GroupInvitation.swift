@@ -92,6 +92,7 @@ class GroupInvitation: PFObject, PFSubclassing {
                 // Give permission to all the members in the group
                 GGLAPIClient.shared.givePermission(toUsers: users) { (usersIds, errors) in
                     if let errors = errors {
+                        print(errors)
                         gglCompletion?(false, errors)
                     }
                     else {
@@ -103,6 +104,7 @@ class GroupInvitation: PFObject, PFSubclassing {
                         currentUser.saveInBackground()
                         
                         self.deleteInBackground()
+                        gglCompletion?(true, nil)
                     }
                 }
             }

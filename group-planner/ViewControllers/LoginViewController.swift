@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         super.viewDidLoad()
         
         signInText.isHidden = true 
-
+    
         // Configure Google Sign-in.
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -67,7 +67,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         
         User.oauthLogin(gidUser: user, completion: {
             self.shadeView(shaded: false)
-            GGLAPIClient.shared.setAuthorizer(user: user)
             
             DispatchQueue.main.async {
                 window?.rootViewController = vc

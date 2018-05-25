@@ -27,7 +27,6 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
-        print("Profile Loaded")
         calendarView.profilePage = true
         
         setupCalendarDateView()
@@ -64,6 +63,7 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     
     @objc func setUserInfo() {
         let user = User.current()
+        print(user)
         if let user = user {
             var name = "\(user.firstName) "
             if let lastName = user.lastName {
