@@ -110,11 +110,6 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
     
     func clickedOnPlus() {
         self.performSegue(withIdentifier: "userSearchSegue", sender: nil)
-        
-        // TEST
-        let intervalsMap = calendarView.extractUsersEvents()
-        let results = Algorithms.findGoodTimes(intervals: intervalsMap, excludeUsers: [])
-        print(results[6])
     }
     
     
@@ -165,6 +160,7 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
             let suggestionsVC = segue.destination as! SuggestionsViewController
             suggestionsVC.usersIntervalsMap = calendarView.extractUsersEvents()
             suggestionsVC.users = self.users
+            suggestionsVC.currentWeek = calendarView.currentShownWeek
         }
     }
     

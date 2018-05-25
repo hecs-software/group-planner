@@ -20,7 +20,7 @@ class IntervalsCalendarDateView: UIView {
     }
     
     
-    func setupCurrentWeek(delegate: DaySCDelegate) {
+    func setupCurrentWeek(delegate: DaySCDelegate, currentWeek: Week) {
         let width = self.frame.width
         let height = self.frame.height
         let x: CGFloat = 0.0
@@ -30,12 +30,12 @@ class IntervalsCalendarDateView: UIView {
         let container = createDateViewContainer(frame: frame)
         
         container.daySC.delegate = delegate
-        setupDateLabelText(dateView: container, date: Date())
+        setupDateLabelText(dateView: container, date: currentWeek.sunday)
         
         self.addSubview(container)
         
-        oldestDate = Date.today().previous(.sunday)
-        latestDate = Date.today().next(.saturday)
+        oldestDate = currentWeek.sunday
+        latestDate = currentWeek.saturday
         
         dateVC = container
     }

@@ -22,6 +22,7 @@ class SuggestionsViewController: UIViewController, UICollectionViewDataSource,
     var usersIntervalsMap: [String:[Int:[DateInterval]]]?
     var intervalsMap: [Int:[DateInterval]]?
     var hiddenUsers: [String] = [String]()
+    var currentWeek: Week?
     
     
     override func viewDidLoad() {
@@ -29,9 +30,16 @@ class SuggestionsViewController: UIViewController, UICollectionViewDataSource,
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
+        setupCloseModalButton()
         setupCarousel()
         loadCalendarView()
         setupCalendarDateView()
+    }
+    
+    
+    func setupCloseModalButton() {
+//        closeModalButton.backgroundColor = .white
+        closeModalButton.cornerRadiusWithShadow(radius: 12)
     }
     
     
@@ -54,7 +62,9 @@ class SuggestionsViewController: UIViewController, UICollectionViewDataSource,
     
     
     func setupCalendarDateView() {
-        calendarDateView.setupCurrentWeek(delegate: self)
+        if let currentWeek = currentWeek {
+            calendarDateView.setupCurrentWeek(delegate: self, currentWeek: currentWeek)
+        }
     }
     
     
