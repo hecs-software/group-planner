@@ -102,10 +102,8 @@ class IntervalsCalendarView: UIScrollView {
         // Add the intervals where that day does not have any events
         let dayMap = IntervalsCalendarView.DAY_MAP
         for day in dayMap {
-            print(day)
             if let _ = intervalsMap[day] {}
             else {
-                print("wtf")
                 let startTimemark = timemarkViews[0]
                 let startY = startTimemark.center.y
                 
