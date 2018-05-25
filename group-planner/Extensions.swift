@@ -57,11 +57,11 @@ extension UIViewController {
     }
     
     
-    func shadeView(shaded: Bool) {
+    func shadeView(shaded: Bool, alpha: CGFloat = 0.5) {
         DispatchQueue.main.async {
             if shaded {
                 let mask = UIView(frame: self.view.frame)
-                mask.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                mask.backgroundColor = UIColor.black.withAlphaComponent(alpha)
                 self.view.mask = mask
                 self.view.isUserInteractionEnabled = false
             }
@@ -181,6 +181,13 @@ extension Date {
     func nextWeek() -> Date {
         var components = DateComponents()
         components.day = 7
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+    
+    
+    func nDayFromNow(n: Int) -> Date {
+        var components = DateComponents()
+        components.day = 1
         return Calendar.current.date(byAdding: components, to: self)!
     }
     

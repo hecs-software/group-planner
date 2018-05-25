@@ -256,3 +256,86 @@ class UIUtility {
     }
 }
 
+
+class Algorithms {
+    static func findGoodTimes(intervals: [String:[Int:[DateInterval]]], excludeUsers: [String]) -> [Int:[DateInterval]] {
+        let excludeUsersSet = Set<String>(excludeUsers)
+        
+        // Stores all the DateIntervals merged together from all users
+        var mergedIntervals = [Int:[DateInterval]]()
+        
+        for (userId, dayMap) in intervals {
+            if !excludeUsersSet.contains(userId) {
+                for (day, dateIntervals) in dayMap {
+                    if let _ = mergedIntervals[day] {
+                        mergedIntervals[day]?.append(contentsOf: dateIntervals)
+                    }
+                    else {
+                        mergedIntervals[day] = [DateInterval]()
+                        mergedIntervals[day]?.append(contentsOf: dateIntervals)
+                    }
+                }
+            }
+        }
+        
+        var results: [Int:[DateInterval]] = [Int:[DateInterval]]()
+        for (day, dateIntervals) in mergedIntervals {
+            if dateIntervals.count > 0 {
+                let start = dateIntervals[0].start.startOfDay()
+                let end = dateIntervals[0].start.endOfDay()
+                results[day] = Algorithms.findNonOverlaps(intervals: dateIntervals, range: (start, end))
+            }
+        }
+        
+        return results
+    }
+    
+    
+    static func findNonOverlaps(intervals: [DateInterval], range: (Date, Date)) -> [DateInterval] {
+        if intervals.count == 0 {return [DateInterval]()}
+        
+        let sortedIntervals = intervals.sorted()
+        var nonOverlaps = [DateInterval]()
+        
+        var i = 0
+        var maxEnd: Date!
+        while i < sortedIntervals.count {
+            // There is a non overlap region
+            if maxEnd != nil && maxEnd < sortedIntervals[i].start {
+                let start = maxEnd!
+                let end = sortedIntervals[i].start
+                let newInterval = DateInterval(start: start, end: end)
+                nonOverlaps.append(newInterval)
+            }
+            
+            let interval = sortedIntervals[i]
+            maxEnd = maxEnd != nil ? max(maxEnd, interval.end) : interval.end
+            
+            i += 1
+        }
+        
+        // maxEnd is now the largest Date in intervals
+        let minStart = sortedIntervals[0].start
+        
+        let startRange = range.0
+        let endRange = range.1
+        if minStart > startRange {
+            let newInterval = DateInterval(start: startRange, end: minStart)
+            nonOverlaps.insert(newInterval, at: 0)
+        }
+        if endRange > maxEnd {
+            let newInterval = DateInterval(start: maxEnd, end: endRange)
+            nonOverlaps.append(newInterval)
+        }
+        
+        return nonOverlaps
+    }
+}
+
+
+
+
+
+
+
+

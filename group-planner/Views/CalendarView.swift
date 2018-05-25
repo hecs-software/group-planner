@@ -320,6 +320,26 @@ class CalendarView: UIScrollView {
     }
     
     
+    // Return users' events' sorted date intervals
+    func extractUsersEvents() -> [String:[Int:[DateInterval]]] {
+        var results: [String:[Int:[DateInterval]]] = [String:[Int:[DateInterval]]]()
+        for (userId, dayMap) in usersEVMap {
+            results[userId] = [Int:[DateInterval]]()
+            for (day, eventViews) in dayMap {
+                var intervals = [DateInterval]()
+                for eventView in eventViews {
+                    if let interval = eventView.dateInterval {
+                        intervals.append(interval)
+                    }
+                }
+                intervals.sort()
+                results[userId]![day] = intervals
+            }
+        }
+        return results
+    }
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if !laidOutSubviews {
@@ -408,6 +428,30 @@ class EventView: UIView {
     var descriptionLabel: UILabel?
     var googleEvent: GTLRCalendar_Event!
     
+    var startDate: Date? {
+        get {
+            return googleEvent.start?.dateTime?.date
+        }
+    }
+    
+    var endDate: Date? {
+        get {
+            return googleEvent.end?.dateTime?.date
+        }
+    }
+    
+    var dateInterval: DateInterval? {
+        get {
+            let start = self.startDate
+            let end = self.endDate
+            if let start = start,
+                let end = end {
+                return DateInterval(start: start, end: end)
+            }
+            return nil
+        }
+    }
+    
     init(frame: CGRect, event: GTLRCalendar_Event, disableText: Bool = false) {
         super.init(frame: frame)
         
@@ -427,6 +471,14 @@ class EventView: UIView {
             setupDescriptionLabel(text)
         }
     }
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupContainer()
+    }
+    
     
     func setupContainer() {
         container = UIView()

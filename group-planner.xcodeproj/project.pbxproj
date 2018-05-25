@@ -23,6 +23,10 @@
 		47827D62208F1F18005DDE85 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D61208F1F18005DDE85 /* Utility.swift */; };
 		47827D64208F232F005DDE85 /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47827D63208F232F005DDE85 /* AuthDelegate.swift */; };
 		479CCE8720AA711600453BAC /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479CCE8620AA711600453BAC /* UserNotification.swift */; };
+		479E51D920B7D68D00B52C9E /* DateInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E51D820B7D68D00B52C9E /* DateInterval.swift */; };
+		479E51DB20B7F81900B52C9E /* IntervalsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E51DA20B7F81900B52C9E /* IntervalsCalendarView.swift */; };
+		479E51DD20B7FA8300B52C9E /* IntervalsCalendarDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E51DC20B7FA8300B52C9E /* IntervalsCalendarDateView.swift */; };
+		479E51DF20B7FE4300B52C9E /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E51DE20B7FE4300B52C9E /* SuggestionsViewController.swift */; };
 		47B717AA20900BF0004A7948 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717A920900BF0004A7948 /* MyProfileViewController.swift */; };
 		47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AB20900F46004A7948 /* DaySegmentedControl.swift */; };
 		47B717AE20901831004A7948 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B717AD20901831004A7948 /* CalendarView.swift */; };
@@ -83,6 +87,10 @@
 		47827D61208F1F18005DDE85 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		47827D63208F232F005DDE85 /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		479CCE8620AA711600453BAC /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
+		479E51D820B7D68D00B52C9E /* DateInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInterval.swift; sourceTree = "<group>"; };
+		479E51DA20B7F81900B52C9E /* IntervalsCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalsCalendarView.swift; sourceTree = "<group>"; };
+		479E51DC20B7FA8300B52C9E /* IntervalsCalendarDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalsCalendarDateView.swift; sourceTree = "<group>"; };
+		479E51DE20B7FE4300B52C9E /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
 		47B717A920900BF0004A7948 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		47B717AB20900F46004A7948 /* DaySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySegmentedControl.swift; sourceTree = "<group>"; };
 		47B717AD20901831004A7948 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -154,6 +162,7 @@
 				47827D5F208F19CA005DDE85 /* CompletionBlocks.swift */,
 				47B717B3209447F0004A7948 /* Week.swift */,
 				479CCE8620AA711600453BAC /* UserNotification.swift */,
+				479E51D820B7D68D00B52C9E /* DateInterval.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -168,6 +177,7 @@
 				4781933C20A8EABE007AD28B /* GroupDetailsViewController.swift */,
 				4781934020A93131007AD28B /* UserSearchController.swift */,
 				470B027E20A9870D001008E6 /* NotificationViewController.swift */,
+				479E51DE20B7FE4300B52C9E /* SuggestionsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -194,6 +204,8 @@
 				4781933E20A8F78E007AD28B /* ProfileCarousel.swift */,
 				470B028020A989E9001008E6 /* NotificationCell.swift */,
 				4770EE5220B3A0FC00E121E3 /* RoundedContainer.swift */,
+				479E51DA20B7F81900B52C9E /* IntervalsCalendarView.swift */,
+				479E51DC20B7FA8300B52C9E /* IntervalsCalendarDateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -599,11 +611,13 @@
 				47827D5C208F1218005DDE85 /* GroupInvitation.swift in Sources */,
 				47827D62208F1F18005DDE85 /* Utility.swift in Sources */,
 				4781933B20A8E389007AD28B /* ProfilePictureCell.swift in Sources */,
+				479E51DD20B7FA8300B52C9E /* IntervalsCalendarDateView.swift in Sources */,
 				4781934120A93131007AD28B /* UserSearchController.swift in Sources */,
 				47B717B2209325DE004A7948 /* CalendarDateView.swift in Sources */,
 				9DB871A3209D5129002EAA13 /* ResultCell.swift in Sources */,
 				4781933D20A8EABE007AD28B /* GroupDetailsViewController.swift in Sources */,
 				47827D5E208F1220005DDE85 /* EventInvitation.swift in Sources */,
+				479E51D920B7D68D00B52C9E /* DateInterval.swift in Sources */,
 				470B028120A989E9001008E6 /* NotificationCell.swift in Sources */,
 				9D2C89BF2096820E009576C4 /* GroupListViewController.swift in Sources */,
 				47E5A1D72063CB8D0054546D /* Extensions.swift in Sources */,
@@ -620,9 +634,11 @@
 				47B717B4209447F0004A7948 /* Week.swift in Sources */,
 				47827D5A208F120E005DDE85 /* Event.swift in Sources */,
 				470B027F20A9870D001008E6 /* NotificationViewController.swift in Sources */,
+				479E51DB20B7F81900B52C9E /* IntervalsCalendarView.swift in Sources */,
 				47B717AC20900F46004A7948 /* DaySegmentedControl.swift in Sources */,
 				9D1965F52049187B00A8BEB6 /* AppDelegate.swift in Sources */,
 				4781933F20A8F78E007AD28B /* ProfileCarousel.swift in Sources */,
+				479E51DF20B7FE4300B52C9E /* SuggestionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
