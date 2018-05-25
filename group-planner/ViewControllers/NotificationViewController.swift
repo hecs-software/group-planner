@@ -112,6 +112,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
         let groupInv = groupInvitations[indexPath.row]
         cell.groupInv = groupInv
         cell.delegate = self
+        cell.selectionStyle = .none
         
         return cell
     }
