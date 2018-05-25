@@ -13,6 +13,7 @@ class Group: PFObject, PFSubclassing {
     @NSManaged var name: String
     @NSManaged var groupMembers: [User]
     @NSManaged var thumbnail: PFFile?
+    @NSManaged var invited: [String]?
     
     class func parseClassName() -> String {
         return "Group"
@@ -31,6 +32,8 @@ class Group: PFObject, PFSubclassing {
         else {
             newGroup.name = "\(currentUser!.firstName)'s Group"
         }
+        
+        newGroup.invited = [String]()
         newGroup.creator = currentUser!
         newGroup.groupMembers.append(currentUser!)
         

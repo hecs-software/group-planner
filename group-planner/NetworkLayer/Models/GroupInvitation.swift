@@ -37,7 +37,9 @@ class GroupInvitation: PFObject, PFSubclassing {
         var errors = [Error]()
         
         for requestee in requestees {
+            group.invited?.append(requestee.objectId!)
             dispatchGroup.enter()
+            
             GroupInvitation.createGroupInvitation(requester: currentUser,
                                                   requestee: requestee,
                                                   group: group,
@@ -105,6 +107,12 @@ class GroupInvitation: PFObject, PFSubclassing {
                 
                 dgroup.notify(queue: .main) {
                     self.group.groupMembers.append(currentUser)
+                    
+                    let index = self.group.invited?.index(of: currentUser.objectId!)
+                    if let index = index {
+                        self.group.invited?.remove(at: index)
+                    }
+                    
                     self.group.saveInBackground(block: completion)
                     currentUser.groupsIds!.append(self.group.objectId!)
                     currentUser.saveInBackground()
