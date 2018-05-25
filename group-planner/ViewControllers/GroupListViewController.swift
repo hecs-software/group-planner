@@ -11,7 +11,7 @@ import Parse
 import GoogleSignIn
 
 class GroupListViewController: UIViewController, UITableViewDataSource,
-                                UITableViewDelegate{
+                                UITableViewDelegate, GroupCellDelegate {
 
     @IBOutlet weak var groupsTableView: UITableView!
     var groups: [Group] = []
@@ -87,6 +87,7 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
         let group = groups[indexPath.row]
         cell.group = group
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
     
@@ -110,7 +111,7 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
             fetchGroups()
         }
         
-        User.current()!.givePendingPermissions()
+        User.current()!.executeStartupActions()
     }
     
     
@@ -126,6 +127,31 @@ class GroupListViewController: UIViewController, UITableViewDataSource,
             vc.group = cell.group
             vc.users = cell.users
         }
+    }
+    
+    
+    func settingsPressed(sender: GroupCell, group: Group) {
+        let currentUser = User.current()
+        guard currentUser != nil else {return}
+        let alertController = UIAlertController(title: "Settings", message: "Do you want to leave \(group.name)?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Leave Group", style: .default,
+                                                handler:
+            { (_) in
+                currentUser!.leaveGroup(group: group, completion: { (success, error) in
+                    if let error = error {
+                        self.displayAlert(title: "Error", message: "Error leaving group")
+                    }
+                    else {
+                        self.fetchGroups()
+                    }
+                })
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default,
+                                                handler:
+            { (_) in
+                self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     

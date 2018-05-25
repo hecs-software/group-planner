@@ -13,7 +13,7 @@ class UserNotification: PFObject, PFSubclassing {
     
     // Google calendars that need permissions from this user
     @NSManaged var usersNeedPerms: [String:User]?
-    
+    @NSManaged var usersNeedRevoked: [String]?
     
     class func parseClassName() -> String {
         return "UserNotification"

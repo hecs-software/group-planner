@@ -67,4 +67,19 @@ class Group: PFObject, PFSubclassing {
             }
         })
     }
+    
+    
+    func addUserToRevoke(user: User, completion: PFBooleanResultBlock? = nil) {
+        self.fetchUsersInGroup { (users, error) in
+            if let error = error {
+                completion?(false, error)
+            }
+            else if let groupMembers = users {
+                for groupMember in groupMembers {
+                    groupMember.appendUsersNeedRevoke(user: user)
+                }
+            }
+        }
+    }
+    
 }

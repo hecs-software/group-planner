@@ -20,6 +20,8 @@ class User: PFUser {
     @NSManaged var groupsIds: [String]?
     @NSManaged var userNotification: UserNotification?
     
+    @NSManaged var usersACL: [String:String]?
+    
     var name: String {
         get {
             if let lastName = lastName {
@@ -92,11 +94,39 @@ class User: PFUser {
         if parseUser.userNotification == nil {
             parseUser.userNotification = UserNotification()
             parseUser.userNotification?.usersNeedPerms = [String:User]()
+            parseUser.userNotification?.usersNeedRevoked = [String]()
             parseUser.userNotification?.saveInBackground()
+        }
+        else {
+            var needsSave = false
+            parseUser.userNotification?.fetchIfNeededInBackground(block: { (object, error) in
+                if let error = error {
+                    print(error)
+                }
+                else if let userNoti = object as? UserNotification {
+                    if userNoti.usersNeedRevoked == nil {
+                        userNoti.usersNeedRevoked = [String]()
+                        needsSave = true
+                    }
+                    if userNoti.usersNeedPerms == nil {
+                        userNoti.usersNeedPerms = [String:User]()
+                        needsSave = true
+                    }
+                    if needsSave {
+                        userNoti.saveInBackground()
+                    }
+                }
+            })
+            
+            
         }
         
         if parseUser.groupsIds == nil {
             parseUser.groupsIds = [String]()
+        }
+        
+        if parseUser.usersACL == nil {
+            parseUser.usersACL = [String:String]()
         }
         
         let profileUrl = gidUser.profile.imageURL(withDimension: 300)
@@ -132,37 +162,92 @@ class User: PFUser {
     }
     
     
-    func givePendingPermissions(completion: GTLRCalendarBooleanResult? = nil) {
-        self.userNotification?.fetchIfNeededInBackground(block: { (noti, error) in
+    func givePendingPermissions(noti: UserNotification, completion: ((Bool) -> Void)? = nil) {
+        let users = noti.usersNeedPerms!
+        let usersValues = Array(users.values)
+        let ids = usersValues.map({ (user) -> String in
+            return user.objectId!
+        })
+        
+        User.fetchUsers(with: ids, completion: { (users, error) in
             if let error = error {
-                completion?(false, [error])
+                completion?(false)
             }
-            else if let noti = noti as? UserNotification {
-                let users = noti.usersNeedPerms!
-                let usersValues = Array(users.values)
-                let ids = usersValues.map({ (user) -> String in
-                    return user.objectId!
-                })
+            else if let users = users {
+                let dgroup = DispatchGroup()
+                for user in users {
+                    dgroup.enter()
+                    GGLAPIClient.shared.givePermission(toUser: user, completion: { (ticket, aclRule, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else if let aclRule = aclRule {
+                            noti.usersNeedPerms?.removeValue(forKey: user.objectId!)
+                            self.usersACL![user.objectId!] = aclRule.identifier
+                        }
+                        dgroup.leave()
+                    })
+                }
                 
-                User.fetchUsers(with: ids, completion: { (users, error) in
-                    if let error = error {
-                        completion?(false, [error])
-                    }
-                    else if let users = users {
-                        GGLAPIClient.shared.givePermission(toUsers: users, completion: { (usersIds, errors) in
-                            if let errors = errors {
-                                completion?(false, errors)
+                dgroup.notify(queue: .main) {
+                    noti.saveInBackground()
+                    self.saveInBackground()
+                    completion?(true)
+                }
+            }
+        })
+    }
+    
+    
+    func revokePendingPermissions(noti: UserNotification, completion: ((Bool) -> Void)? = nil) {
+        let users = noti.usersNeedRevoked!
+        
+        User.fetchUsers(with: users, completion: { (users, error) in
+            if let error = error {
+                completion?(false)
+            }
+            else if let users = users {
+                let dgroup = DispatchGroup()
+                for user in users {
+                    let aclId = self.usersACL![user.objectId!]
+                    if let aclId = aclId {
+                        dgroup.enter()
+                        GGLAPIClient.shared.revokePermission(aclIdentifier: aclId, completion: { (success, error) in
+                            if let error = error {
+                                print(error)
                             }
                             else {
-                                for key in usersIds {
-                                    noti.usersNeedPerms!.removeValue(forKey: key)
+                                let index = noti.usersNeedRevoked?.index(of: user.objectId!)
+                                if let index = index {
+                                    noti.usersNeedRevoked?.remove(at: index)
                                 }
-                                noti.saveInBackground()
-                                completion?(true, nil)
+                                
+                                self.usersACL!.removeValue(forKey: user.objectId!)
                             }
+                            dgroup.leave()
                         })
                     }
-                })
+                }
+                
+                dgroup.notify(queue: .main) {
+                    noti.saveInBackground()
+                    self.saveInBackground()
+                    completion?(true)
+                }
+            }
+        })
+    }
+    
+    
+    func executeStartupActions(completion: ((Bool) -> Void)? = nil) {
+        self.userNotification?.fetchIfNeededInBackground(block: { (noti, error) in
+            if let error = error {
+                print(error)
+                completion?(false)
+            }
+            else if let noti = noti as? UserNotification {
+                self.givePendingPermissions(noti: noti)
+                self.revokePendingPermissions(noti: noti)
             }
         })
     }
@@ -233,7 +318,19 @@ class User: PFUser {
                 noti.saveInBackground(block: completion)
             }
         })
-        
+    }
+    
+    
+    func appendUsersNeedRevoke(user: User, completion: PFBooleanResultBlock? = nil) {
+        self.userNotification?.fetchIfNeededInBackground(block: { (noti, error) in
+            if let error = error {
+                completion?(false, error)
+            }
+            else if let noti = noti as? UserNotification {
+                noti.usersNeedRevoked?.append(user.objectId!)
+                noti.saveInBackground(block: completion)
+            }
+        })
     }
     
     
@@ -248,6 +345,43 @@ class User: PFUser {
                 completion?(users, nil)
             }
         })
+    }
+    
+    
+    func leaveGroup(group: Group, completion: PFBooleanResultBlock? = nil) {
+        group.fetchIfNeededInBackground { (object, error) in
+            if let error = error {
+                completion?(false, error)
+            }
+            else if let group = object as? Group {
+                // Removing the group from this user's group list
+                let i = self.groupsIds?.index(of: group.objectId!)
+                guard i != nil else {return}
+                self.groupsIds?.remove(at: i!)
+                
+                // Removing this user from the group
+                let index = group.groupMembers.index(where: { (user) -> Bool in
+                    return user.objectId! == self.objectId!
+                })
+                guard index != nil else {return}
+                group.groupMembers.remove(at: index!)
+                if group.groupMembers.count == 0 {
+                    group.deleteInBackground()
+                }
+                else {
+                    group.saveInBackground()
+                    
+                    // Add this user to the revoked pending list for all users
+                    // in this group
+                    
+                    
+                }
+                self.saveInBackground(block: completion)
+                
+                
+            }
+        }
+        
     }
     
 }

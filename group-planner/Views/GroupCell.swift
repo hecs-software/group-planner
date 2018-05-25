@@ -29,6 +29,8 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
     
     var laidoutSubviews: Bool = false
     var users: [User] = [User]()
+    
+    weak var delegate: GroupCellDelegate? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -66,4 +68,13 @@ class GroupCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
         return users.count
     }
     
+    @IBAction func onSettingsPressed(_ sender: UIButton) {
+        delegate?.settingsPressed(sender: self, group: self.group)
+    }
 }
+
+
+protocol GroupCellDelegate: class {
+    func settingsPressed(sender: GroupCell, group: Group)
+}
+

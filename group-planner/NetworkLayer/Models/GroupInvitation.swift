@@ -89,23 +89,28 @@ class GroupInvitation: PFObject, PFSubclassing {
         // Get all the members that are not the current user
         group.fetchUsersInGroup(completion: { (users, error) in
             if let users = users {
-                // Give permission to all the members in the group
-                GGLAPIClient.shared.givePermission(toUsers: users) { (usersIds, errors) in
-                    if let errors = errors {
-                        print(errors)
-                        gglCompletion?(false, errors)
-                    }
-                    else {
-                        // Add current user to the group
-                        self.group.groupMembers.append(currentUser)
-                        
-                        self.group.saveInBackground(block: completion)
-                        currentUser.groupsIds!.append(self.group.objectId!)
-                        currentUser.saveInBackground()
-                        
-                        self.deleteInBackground()
-                        gglCompletion?(true, nil)
-                    }
+                let dgroup = DispatchGroup()
+                for user in users {
+                    dgroup.enter()
+                    GGLAPIClient.shared.givePermission(toUser: user, completion: { (ticket, aclRule, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else if let aclRule = aclRule {
+                            currentUser.usersACL![user.objectId!] = aclRule.identifier
+                        }
+                        dgroup.leave()
+                    })
+                }
+                
+                dgroup.notify(queue: .main) {
+                    self.group.groupMembers.append(currentUser)
+                    self.group.saveInBackground(block: completion)
+                    currentUser.groupsIds!.append(self.group.objectId!)
+                    currentUser.saveInBackground()
+                    
+                    self.deleteInBackground()
+                    gglCompletion?(true, nil)
                 }
             }
         })

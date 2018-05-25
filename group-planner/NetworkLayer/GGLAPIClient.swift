@@ -103,7 +103,7 @@ class GGLAPIClient {
     }
     
     
-    func givePermission(toUser user: User, completion: GTLRCalendarErrorResult? = nil) {
+    func givePermission(toUser user: User, completion: GTLRCalendarAclResult? = nil) {
         let aclRule = GTLRCalendar_AclRule.init()
         aclRule.role = "reader"
         let scope = GTLRCalendar_AclRule_Scope.init()
@@ -118,17 +118,17 @@ class GGLAPIClient {
         ]
         service.executeQuery(query) { (ticket, response, error) in
             if let error = error {
-                completion?(ticket, error)
+                completion?(ticket, nil, error)
             }
-            else if let _ = response {
-                completion?(ticket, nil)
+            else if let aclRule = response as? GTLRCalendar_AclRule {
+                completion?(ticket, aclRule, nil)
                 
                 // Add the current user to the list of users that need
                 // calendar permissions
                 user.appendUsersNeedPermission(user: currentUser)
             }
             else {
-                completion?(ticket, nil)
+                completion?(ticket, nil, nil)
             }
         }
     }
@@ -142,7 +142,7 @@ class GGLAPIClient {
         
         for user in users {
             group.enter()
-            givePermission(toUser: user) { (ticket, error) in
+            givePermission(toUser: user) { (ticket, aclRule, error) in
                 if let error = error {
                     errors.append(error)
                 }
@@ -160,6 +160,19 @@ class GGLAPIClient {
             }
             else {
                 completion?(usersIds, nil)
+            }
+        }
+    }
+    
+    
+    func revokePermission(aclIdentifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
+        let query = GTLRCalendarQuery_AclDelete.query(withCalendarId: "primary", ruleId: aclIdentifier)
+        service.executeQuery(query) { (ticket, response, error) in
+            if let error = error {
+                completion?(false, error)
+            }
+            else {
+                completion?(true, nil)
             }
         }
     }
