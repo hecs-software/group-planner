@@ -9,6 +9,7 @@
 import Foundation
 
 struct DateInterval: Comparable, CustomStringConvertible {
+    
     var start: Date
     var end: Date
     
@@ -20,6 +21,10 @@ struct DateInterval: Comparable, CustomStringConvertible {
     
     static func < (lhs: DateInterval, rhs: DateInterval) -> Bool {
         return lhs.start != rhs.start ? lhs.start < rhs.start : lhs.end < rhs.end
+    }
+    
+    static func ==(lhs: DateInterval, rhs: DateInterval) -> Bool {
+        return lhs.start == rhs.start
     }
     
     var description: String {
