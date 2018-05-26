@@ -62,6 +62,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
         scrollView.addSubview(noNotiLabel)
         noNotiLabel.text = "You have no notifications"
         noNotiLabel.font = UIFont.systemFont(ofSize: 24)
+        noNotiLabel.isHidden = true
     }
     
     
@@ -94,12 +95,14 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
         
         notificationsTableView.isHidden = true
         scrollView.isHidden = false
+        noNotiLabel.isHidden = false
     }
     
     
     func showNotiTableView() {
-        self.notificationsTableView.isHidden = false
-        self.noNotiLabel.isHidden = true
+        notificationsTableView.isHidden = false
+        noNotiLabel.isHidden = true
+        scrollView.isHidden = true
     }
     
     

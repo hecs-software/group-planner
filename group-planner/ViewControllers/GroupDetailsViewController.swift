@@ -58,7 +58,18 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
     
     
     func setupCalendarView() {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        calendarView.insertSubview(rc, at: 0)
+        
         fetchEvents()
+    }
+    
+    
+    @objc func onRefresh(_ sender: UIRefreshControl) {
+        fetchEvents {
+            sender.endRefreshing()
+        }
     }
     
     
@@ -66,7 +77,9 @@ class GroupDetailsViewController: UIViewController, UICollectionViewDelegate,
         if users.count == 0 {return}
         
         let currentWeek = Week(date: Date.today())
-        calendarView.loadEvents(ofUsers: users, week: currentWeek)
+        calendarView.loadEvents(ofUsers: users, week: currentWeek) { (map, error) in
+            completion?()
+        }
     }
     
     

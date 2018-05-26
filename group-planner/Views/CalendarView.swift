@@ -68,11 +68,13 @@ class CalendarView: UIScrollView {
     }
     
     
-    func loadEvents(ofUsers users: [User], week: Week, completion: GTLRCalendarEventsResult? = nil) {
+    func loadEvents(ofUsers users: [User], week: Week, completion: GTLRCalendarUsersEventsResult? = nil) {
         GGLAPIClient.shared.fetchEvents(ofUsers: users, minDate: week.sunday, maxDate: week.saturday) { (map, error) in
             if let map = map {
                 self.renderEvents(usersMap: map)
             }
+            
+            completion?(map, error)
         }
     }
     
