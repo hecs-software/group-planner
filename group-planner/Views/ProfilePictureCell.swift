@@ -56,7 +56,7 @@ class ProfilePictureCell: UICollectionViewCell {
             
             if inGroupsDetailPage && !isPlusButton! {
                 self.profileImageView.layer.borderWidth = 2.0
-                self.profileImageView.layer.borderColor = UIColor.green.cgColor
+                self.profileImageView.layer.borderColor = UIColor(r: 18, g: 139, b: 18, a: 0.9).cgColor
             }
         }
     }
@@ -77,7 +77,7 @@ class ProfilePictureCell: UICollectionViewCell {
         }
         else if !isPlusButton! {
             self.profileImageView.layer.borderWidth = 2.0
-            self.profileImageView.layer.borderColor = UIColor.green.cgColor
+            self.profileImageView.layer.borderColor = UIColor(r: 18, g: 139, b: 18, a: 0.9).cgColor
             delegate?.clickedOnProfile(userId: user!.objectId!, selected: profileSelected)
         }
     }
