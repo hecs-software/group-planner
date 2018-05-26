@@ -28,6 +28,9 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
     var timer: Timer? = nil
     var searchText: String? = nil
     
+    var scrollView: UIScrollView!
+    var noUsersMatchedLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
             excludeUsers.append(user.objectId!)
         }
         
+        setupNoUsersMatchedLabel()
         setupSearchBar()
         setupTableView()
         
@@ -44,10 +48,57 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     
+    func setupNoUsersMatchedLabel() {
+        scrollView = UIScrollView(frame: usersTableView.frame)
+        scrollView.alwaysBounceVertical = true
+        scrollView.keyboardDismissMode = .interactive
+        view.addSubview(scrollView)
+        
+        
+        let width: CGFloat = 200
+        let height: CGFloat = 100
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+        noUsersMatchedLabel = UILabel(frame: frame)
+        scrollView.addSubview(noUsersMatchedLabel)
+        noUsersMatchedLabel.text = "There are no users with that name 😕"
+        noUsersMatchedLabel.font = UIFont.systemFont(ofSize: 24)
+        noUsersMatchedLabel.isHidden = true
+        noUsersMatchedLabel.numberOfLines = 2
+    }
+    
+    
     func setupTableView() {
         usersTableView.delegate = self
         usersTableView.dataSource = self
         usersTableView.allowsMultipleSelection = true
+    }
+    
+    
+    func reloadData() {
+        if invitees.count == 0 {
+            showNoUsersMatchedLabel()
+        }
+        else {
+            showSearchResults()
+        }
+        usersTableView.reloadData()
+    }
+    
+    
+    func showSearchResults() {
+        usersTableView.isHidden = false
+        noUsersMatchedLabel.isHidden = true
+        scrollView.isHidden = true
+    }
+    
+    
+    func showNoUsersMatchedLabel() {
+        noUsersMatchedLabel.sizeToFit()
+        noUsersMatchedLabel.center = scrollView.center
+        
+        usersTableView.isHidden = true
+        noUsersMatchedLabel.isHidden = false
+        scrollView.isHidden = false
     }
     
     
@@ -157,7 +208,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
                     self.invitees = users
                 }
                 
-                self.usersTableView.reloadData()
+                self.reloadData()
             }
         }
     }
