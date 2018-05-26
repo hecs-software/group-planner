@@ -145,7 +145,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     @objc func searchUsers() {
         if let text = searchText {
-            User.searchUsers(withEmail: text) { (users, error) in
+            User.searchUsers(withQuery: text) { (users, error) in
                 if let error = error {
                     print(error)
                 }

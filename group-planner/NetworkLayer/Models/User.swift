@@ -291,6 +291,36 @@ class User: PFUser {
     }
     
     
+    static func searchUsers(withQuery searchText: String, completion: @escaping UsersBooleanResultBlock) {
+        let searchText = searchText.lowercased()
+        
+        let emailQuery = User.query()
+        emailQuery?.whereKey("email", matchesRegex: "\(searchText)+", modifiers: "i")
+        let firstNameQuery = User.query()
+        firstNameQuery?.whereKey("firstName", matchesRegex: "\(searchText)+", modifiers: "i")
+        let lastNameQuery = User.query()
+        lastNameQuery?.whereKey("lastName", matchesRegex: "\(searchText)+", modifiers: "i")
+        
+        let query = PFQuery.orQuery(withSubqueries: [emailQuery!, firstNameQuery!, lastNameQuery!])
+        query.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                completion(nil, error)
+            }
+            else if let users = objects as? [User] {
+                // Remove the current logged in user from search result
+                let users = users.filter({ (user) -> Bool in
+                    if let email = user.email {
+                        return email != User.current()!.email
+                    }
+                    
+                    return true
+                })
+                completion(users, nil)
+            }
+        })
+    }
+    
+    
     static func fetchGroups(completion: @escaping GroupsResultBlock) {
         let currentUser = User.current()!
         let query = Group.query()
