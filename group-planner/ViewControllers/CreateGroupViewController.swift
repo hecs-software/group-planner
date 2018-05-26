@@ -21,6 +21,7 @@ class CreateGroupViewController: UIViewController, UserSearchControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
         searchTextField.addTarget(self, action: #selector(displaySearchController), for: .editingDidBegin)
     }
 
