@@ -756,8 +756,13 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7e-8k-Qqt">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
+                                    <barButtonItem title="Cancel" id="EbZ-lG-OTm">
+                                        <connections>
+                                            <action selector="onClickedCancel:" destination="WMg-t5-v4K" id="ZQL-pl-4ue"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="1G1-nK-asp"/>
-                                    <barButtonItem title="Add" id="wTv-ah-wuq">
+                                    <barButtonItem enabled="NO" title="Add" id="wTv-ah-wuq">
                                         <connections>
                                             <action selector="onClickedAdd:" destination="WMg-t5-v4K" id="HKG-Pq-Xx8"/>
                                         </connections>
@@ -781,6 +786,7 @@
                         <viewLayoutGuide key="safeArea" id="eJb-4Y-Z9j"/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="wTv-ah-wuq" id="ayb-QU-IFh"/>
                         <outlet property="searchBar" destination="Ijj-a6-KV6" id="K8c-oY-Luf"/>
                         <outlet property="usersTableView" destination="Wwp-xa-R9i" id="0TQ-o5-odx"/>
                     </connections>

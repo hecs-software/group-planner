@@ -11,8 +11,12 @@ import UIKit
 class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDelegate,
                             UITableViewDataSource {
     
+    static let CONFIRMATION_MESSAGE: String =
+    "All group members' calendars will be shared with the invitees once they accept the request"
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var usersTableView: UITableView!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     var invitees: [User] = [User]()
     
@@ -82,8 +86,26 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
             users.append(value)
         }
         
-        delegate?.pickedUsers(users: users)
+        let message = UserSearchController.CONFIRMATION_MESSAGE
+        displayYesNoAlert(title: "Confirmation", message: message) { (_) in
+            self.delegate?.pickedUsers(users: users)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    
+    @IBAction func onClickedCancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func checkFields() {
+        if pickedUsers.count == 0 {
+            addButton.isEnabled = false
+        }
+        else {
+            addButton.isEnabled = true
+        }
     }
     
     
@@ -108,6 +130,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         let user = cell.user!
         pickedUsers[user.objectId!] = user
+        checkFields()
     }
     
     
@@ -116,6 +139,7 @@ class UserSearchController: UIViewController, UISearchBarDelegate, UITableViewDe
         cell.isSelected = false
         
         pickedUsers.removeValue(forKey: cell.user!.objectId!)
+        checkFields()
     }
     
     

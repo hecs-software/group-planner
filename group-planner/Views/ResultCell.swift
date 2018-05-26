@@ -24,7 +24,6 @@ class ResultCell: UITableViewCell {
     
     override var isSelected: Bool {
         didSet {
-            print(isSelected)
             self.setCheckmarkSelected(isSelected)
         }
     }

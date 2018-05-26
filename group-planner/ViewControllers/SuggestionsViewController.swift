@@ -38,7 +38,6 @@ class SuggestionsViewController: UIViewController, UICollectionViewDataSource,
     
     
     func setupCloseModalButton() {
-//        closeModalButton.backgroundColor = .white
         closeModalButton.cornerRadiusWithShadow(radius: 12)
     }
     
