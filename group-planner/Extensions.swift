@@ -29,7 +29,7 @@ extension UIViewController {
         self.present(ac, animated: true, completion: nil)
     }
     
-    func displayYesNoAlert(title: String, message: String, yesAction: @escaping (UIAlertAction) -> Void) {
+    func displayYesNoAlert(title: String?, message: String?, yesAction: @escaping (UIAlertAction) -> Void) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
         ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: yesAction))

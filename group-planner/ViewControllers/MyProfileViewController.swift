@@ -63,7 +63,6 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     
     @objc func setUserInfo() {
         let user = User.current()
-        print(user)
         if let user = user {
             var name = "\(user.firstName) "
             if let lastName = user.lastName {
@@ -78,16 +77,21 @@ class MyProfileViewController: UIViewController, DaySCDelegate,
     }
     
     @IBAction func didLogout(_ sender: UIBarButtonItem) {
-        GGLAPIClient.shared.gidSignOut()
-        User.logout { (error) in
-            if let _ = error {
-                self.displayAlert(title: "Error", message: "Could not logout")
-            }
-            else {
-                let window = UIApplication.shared.keyWindow
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-                window?.rootViewController = vc
+        let currentUser = User.current()
+        guard currentUser != nil else {return}
+        let message = "Log out of \(currentUser!.email!)"
+        displayYesNoAlert(title: nil, message: message) { (_) in
+            GGLAPIClient.shared.gidSignOut()
+            User.logout { (error) in
+                if let _ = error {
+                    self.displayAlert(title: "Error", message: "Could not logout")
+                }
+                else {
+                    let window = UIApplication.shared.keyWindow
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                    window?.rootViewController = vc
+                }
             }
         }
     }
