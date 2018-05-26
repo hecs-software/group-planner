@@ -244,14 +244,13 @@
                                                                 </collectionViewCell>
                                                             </cells>
                                                         </collectionView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB3-cu-5HF">
-                                                            <rect key="frame" x="275" y="8" width="46" height="20"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB3-cu-5HF">
+                                                            <rect key="frame" x="289" y="8" width="24" height="24"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="20" id="2lK-lb-waR"/>
-                                                                <constraint firstAttribute="width" constant="46" id="JpD-6w-MmJ"/>
+                                                                <constraint firstAttribute="height" constant="24" id="2lK-lb-waR"/>
+                                                                <constraint firstAttribute="width" constant="24" id="JpD-6w-MmJ"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                            <state key="normal" title="...">
+                                                            <state key="normal" title="..." image="ellipsis_icon">
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
@@ -270,7 +269,7 @@
                                                         <constraint firstItem="rj1-4a-3Af" firstAttribute="leading" secondItem="eMO-Cq-Sej" secondAttribute="leading" id="5ry-Hi-dZb"/>
                                                         <constraint firstItem="LB3-cu-5HF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hnK-gl-akk" secondAttribute="trailing" constant="8" id="89h-Gr-UuJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="rj1-4a-3Af" secondAttribute="bottom" constant="8" id="N8C-yM-Oqd"/>
-                                                        <constraint firstAttribute="trailing" secondItem="LB3-cu-5HF" secondAttribute="trailing" constant="8" id="ZdZ-uQ-uii"/>
+                                                        <constraint firstAttribute="trailing" secondItem="LB3-cu-5HF" secondAttribute="trailing" constant="16" id="ZdZ-uQ-uii"/>
                                                         <constraint firstItem="rj1-4a-3Af" firstAttribute="top" secondItem="hnK-gl-akk" secondAttribute="bottom" constant="4" id="aq4-RZ-kIP"/>
                                                         <constraint firstItem="hnK-gl-akk" firstAttribute="top" secondItem="eMO-Cq-Sej" secondAttribute="top" constant="8" id="bCC-J3-IFp"/>
                                                         <constraint firstAttribute="trailing" secondItem="rj1-4a-3Af" secondAttribute="trailing" id="tBp-01-Isa"/>
@@ -435,7 +434,7 @@
                         <viewLayoutGuide key="safeArea" id="tKf-Oh-Ymf"/>
                     </view>
                     <connections>
-                        <outlet property="groupNameTextField" destination="Efj-7F-8M0" id="4pp-f7-Tkm"/>
+                        <outlet property="groupNameTextField" destination="Efj-7F-8M0" id="0oJ-wb-TTC"/>
                         <outlet property="searchDisplayController" destination="q4S-QH-rEf" id="XNR-hL-Rom"/>
                         <outlet property="searchTextField" destination="HYC-GE-ANC" id="jPt-d6-gat"/>
                         <segue destination="WMg-t5-v4K" kind="presentation" identifier="usersSearchControllerSegue" id="38C-yn-YA8"/>
@@ -1020,6 +1019,7 @@
     <resources>
         <image name="check-circular-button" width="128" height="128"/>
         <image name="down_icon" width="128" height="128"/>
+        <image name="ellipsis_icon" width="128" height="128"/>
         <image name="icons8-bell-50" width="25" height="25"/>
         <image name="icons8-dog-tag-50" width="25" height="25"/>
         <image name="icons8-schedule-50" width="25" height="25"/>
@@ -1030,6 +1030,6 @@
         <image name="suggestions_icon" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bD9-Nk-2wb"/>
+        <segue reference="38C-yn-YA8"/>
     </inferredMetricsTieBreakers>
 </document>

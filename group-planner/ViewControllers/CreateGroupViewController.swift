@@ -11,7 +11,10 @@ import SkyFloatingLabelTextField
 
 class CreateGroupViewController: UIViewController, UserSearchControllerDelegate {
     
-    @IBOutlet weak var groupNameTextField: UITextField!
+    static let GROUP_NAME_CAP: Int = 25
+    
+    
+    @IBOutlet weak var groupNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var searchTextField: UITextField!
     
     
@@ -21,6 +24,7 @@ class CreateGroupViewController: UIViewController, UserSearchControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        groupNameTextField.addTarget(self, action: #selector(cappingTextField), for: .editingChanged)
         self.hideKeyboardWhenTappedAround()
         searchTextField.addTarget(self, action: #selector(displaySearchController), for: .editingDidBegin)
     }
@@ -94,6 +98,17 @@ class CreateGroupViewController: UIViewController, UserSearchControllerDelegate 
             }
         }
     }
+    
+    
+    @objc func cappingTextField(_ textField: UITextField) {
+        if let text = textField.text {
+            if text.count > CreateGroupViewController.GROUP_NAME_CAP {
+                let endIndex = text.index(text.endIndex, offsetBy: -1)
+                textField.text = String(text[..<endIndex])
+            }
+        }
+    }
+    
     
     deinit {
         print("Deinitializing create group view controller")
