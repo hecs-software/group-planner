@@ -21,7 +21,9 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     var groupInvitations: [GroupInvitation] = [GroupInvitation]()
     
+    var scrollView: UIScrollView!
     var noNotiLabel: UILabel!
+    var rcHeight: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +45,21 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     
     func setupNoNotiLabel() {
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.alwaysBounceVertical = true
+        view.addSubview(scrollView)
+        
+        let rc = UIRefreshControl()
+        scrollView.insertSubview(rc, at: 0)
+        rc.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        rcHeight = rc.frame.height
+        
+        
         let width: CGFloat = 200
         let height: CGFloat = 50
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         noNotiLabel = UILabel(frame: frame)
-        view.addSubview(noNotiLabel)
+        scrollView.addSubview(noNotiLabel)
         noNotiLabel.text = "You have no notifications"
         noNotiLabel.font = UIFont.systemFont(ofSize: 24)
     }
@@ -76,10 +88,12 @@ class NotificationViewController: UIViewController, UITableViewDelegate,
     
     func showNoNotificationMessage() {
         noNotiLabel.sizeToFit()
-        noNotiLabel.center = view.center
+        let center = scrollView.center
+        let notiLabelCenter = CGPoint(x: center.x, y: center.y - rcHeight)
+        noNotiLabel.center = notiLabelCenter
         
         notificationsTableView.isHidden = true
-        noNotiLabel.isHidden = false
+        scrollView.isHidden = false
     }
     
     

@@ -126,7 +126,21 @@ class GroupInvitation: PFObject, PFSubclassing {
     
     
     func declineInvitation(completion: PFBooleanResultBlock? = nil) {
+        let currentUser = User.current()!
         self.deleteInBackground(block: completion)
+        
+        self.group.fetchIfNeededInBackground { (object, error) in
+            if let error = error {
+                completion?(false, error)
+            }
+            else if let group = object as? Group {
+                let index = group.invited?.index(of: currentUser.objectId!)
+                if let index = index {
+                    group.invited?.remove(at: index)
+                }
+                group.saveInBackground()
+            }
+        }
     }
 }
 

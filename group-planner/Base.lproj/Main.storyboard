@@ -307,7 +307,7 @@
                         <viewLayoutGuide key="safeArea" id="53Z-1z-AcH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Groups" id="Ugu-KH-B7M">
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="Q5b-de-Sfs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Q5b-de-Sfs">
                             <connections>
                                 <segue destination="cVl-4k-NTX" kind="presentation" id="n8Y-ey-2q4"/>
                             </connections>
@@ -546,7 +546,8 @@
                         <viewLayoutGuide key="safeArea" id="Piz-uC-mK4"/>
                     </view>
                     <navigationItem key="navigationItem" id="srw-uG-TgU">
-                        <barButtonItem key="rightBarButtonItem" title="Suggestions" id="wzp-Lu-shK">
+                        <barButtonItem key="rightBarButtonItem" title="Suggestions" image="suggestions_icon" id="wzp-Lu-shK">
+                            <color key="tintColor" red="0.069146050347222224" green="0.54484049479166663" blue="0.0703125" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="axt-jc-yaW" kind="presentation" identifier="suggestionsSegue" modalPresentationStyle="overCurrentContext" id="nrS-NS-Kqq"/>
                             </connections>
@@ -1019,6 +1020,7 @@
         <image name="icons8-user-50" width="25" height="25"/>
         <image name="icons8-user-groups-50" width="25" height="25"/>
         <image name="login_calendar" width="512" height="512"/>
+        <image name="suggestions_icon" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bD9-Nk-2wb"/>
